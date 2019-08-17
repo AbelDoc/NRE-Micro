@@ -8,7 +8,7 @@
      */
 
      #pragma once
- #ifdef USE_LED
+     #include <Arduino.h>
 
      /**
      * @namespace NRE
@@ -41,6 +41,20 @@
                          * Default constructor
                          */
                         Color() = default;
+                        /**
+                         * Construct the color from all channel
+                         * @param red   the red value
+                         * @param green the green value
+                         * @param blue  the blue value
+                         */
+                        constexpr Color(ColorChannel red, ColorChannel green, ColorChannel blue) : r(red), g(green), b(blue) {
+                        }
+                        /**
+                         * Construct the color from a compressed one
+                         * @param color the compressed color
+                         */
+                        constexpr Color(CompressedColor color) : r(extractR(color)), g(extractG(color)), b(extractB(color)) {
+                        }
 
                     //## Copy Constructor ##//
                         /**
@@ -91,7 +105,7 @@
                          */
                         void setB(ColorChannel blue);
 
-                    //## Assigment Operator ##//
+                    //## Assignment Operator ##//
                         /**
                          * Copy assign c into this
                          * @param c the color to copy
@@ -111,21 +125,36 @@
                      * @param  color the color to process
                      * @return       the color red channel
                      */
-                    static ColorChannel extractR(CompressedColor color);
+                    static constexpr ColorChannel extractR(CompressedColor color) {
+                        return static_cast <ColorChannel> ((color & 0xFFFF0000) >> 16);
+                    }
                     /**
                      * Extract the green channel from a color
                      * @param  color the color to process
                      * @return       the color green channel
                      */
-                    static ColorChannel extractG(CompressedColor color);
+                    static constexpr ColorChannel extractG(CompressedColor color) {
+                        return static_cast <ColorChannel> ((color & 0xFF00FF00) >> 8);
+                    }
                     /**
                      * Extract the blue channel from a color
                      * @param  color the color to process
                      * @return       the color blue channel
                      */
-                    static ColorChannel extractB(CompressedColor color);
+                    static constexpr ColorChannel extractB(CompressedColor color) {
+                        return static_cast <ColorChannel> (color & 0xFF0000FF);
+                    }
             };
+
+            static constexpr Color BLACK    = Color(  0,   0,   0);
+            static constexpr Color RED      = Color(255,   0,   0);
+            static constexpr Color GREEN    = Color(  0, 255,   0);
+            static constexpr Color BLUE     = Color(  0,   0, 255);
+            static constexpr Color MAGENTA  = Color(255,   0, 255);
+            static constexpr Color YELLOW   = Color(255, 255,   0);
+            static constexpr Color CYAN     = Color(  0, 255, 255);
 
         }
     }
-#endif
+
+    #include "NRE_ColorInl.hpp"

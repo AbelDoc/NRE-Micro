@@ -9,4 +9,8 @@
 
     #pragma once
 
-    #include "NRE_Led.hpp"
+    #include "NRE_Core.hpp"
+
+    #ifdef NRE_USE_LED
+        #include "NRE_Led.hpp"
+    #endif
