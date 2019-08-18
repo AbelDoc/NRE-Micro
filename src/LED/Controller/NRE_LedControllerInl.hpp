@@ -78,9 +78,27 @@
                 controller.show();
             }
 
+            inline void LedController::setColor(ObservedData<Color> const& color) {
+                setColor(color.get());
+            }
+
             inline void LedController::setColor(LedId id, Color const& color) {
                 leds[id].setColor(color);
                 turnOn(id);
+            }
+
+            inline void LedController::setColor(LedId id, ObservedData<Color> const& color) {
+                setColor(id, color.get());
+            }
+
+            inline void LedController::setColorHandle(std::function<void(Color&)> handle) {
+                for (Led l : *this) {
+                    l.setColorHandle(handle);
+                }
+            }
+
+            inline void LedController::setColorHandle(LedId id, std::function<void(Color&)> handle) {
+                leds[id].setColorHandle(handle);
             }
 
             inline void LedController::setup(Color const& startUpColor) {

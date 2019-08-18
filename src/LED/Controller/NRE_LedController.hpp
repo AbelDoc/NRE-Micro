@@ -10,8 +10,10 @@
      #pragma once
 
      #include <Adafruit_NeoPixel.h>
-     #include "../NRE_Led.hpp"
+     #include "../Color/NRE_Color.hpp"
      #include "../../Core/NRE_Core.hpp"
+
+     #include "../../ROM/Manager/NRE_RomManager.hpp"
 
      /**
      * @namespace NRE
@@ -24,6 +26,95 @@
          * @brief Micro's API
          */
         namespace Micro {
+
+            class LedController;
+
+            typedef uint16_t LedId;
+
+            /**
+             * @class Led
+             * @brief Represent a single Led
+             */
+            class Led {
+                private :   // Fields
+                    LedId id;                       /**< The led id used for controller actions */
+                    ObservedData<Color> current;    /**< The current led color */
+                    LedController* controller;      /**< The parent controller */
+
+                public :    // Methods
+                    //## Constructor ##//
+                        /**
+                         * No default constructor
+                         */
+                        Led() = delete;
+                        /**
+                         * Construct the led from the controller
+                         * @param i   the led's id
+                         * @param ctr the leds controller
+                         */
+                        Led(LedId i, LedController* ctr);
+
+                    //## Copy Constructor ##//
+                        /**
+                         * Copy led into this
+                         * @param led the led to copy
+                         */
+                        Led(Led const& led) = default;
+
+                    //## Move Constructor ##//
+                        /**
+                         * Move led into this
+                         * @param led the led to move
+                         */
+                        Led(Led && led) = default;
+
+                    //## Getter ##//
+                        /**
+                         * @return the internal compressed color
+                         */
+                        CompressedColor getColor() const;
+
+                    //## Setter ##//
+                        /**
+                         * Set the led color
+                         * @param color the new color
+                         */
+                        void setColor(Color const& color);
+                        /**
+                         * Set the color changes handles
+                         * @param handle the new handler
+                         */
+                        void setColorHandle(std::function<void(Color&)> handle);
+
+                    //## Methods ##//
+                        /**
+                         * Update the led color
+                         * @param color the new color
+                         */
+                        void update(Color const& color);
+                        /**
+                         * Turn off the led
+                         */
+                        void turnOff() const;
+                        /**
+                         * Turn on the led
+                         */
+                        void turnOn() const;
+
+                    //## Assignment Operator ##//
+                        /**
+                         * Copy assign led into this
+                         * @param led the led to copy
+                         * @return the reference of himself
+                         */
+                        Led& operator=(Led const& led) = default;
+                        /**
+                         * Move assign led into this
+                         * @param led the led to move
+                         * @return the reference of himself
+                         */
+                        Led& operator=(Led && led) = default;
+            };
 
             /**
              * @class LedController
@@ -120,16 +211,37 @@
                         void turnOn(LedId id);
                         /**
                          * Set all leds color (and turn them on)
-                         * @param id    the led id
                          * @param color the new color
                          */
                         void setColor(Color const& color);
+                        /**
+                         * Set all leds color (and turn them on)
+                         * @param color the new color
+                         */
+                        void setColor(ObservedData<Color> const& color);
                         /**
                          * Set a led color (and turn it on)
                          * @param id    the led id
                          * @param color the new color
                          */
                         void setColor(LedId id, Color const& color);
+                        /**
+                         * Set a led color (and turn it on)
+                         * @param id    the led id
+                         * @param color the new color
+                         */
+                        void setColor(LedId id, ObservedData<Color> const& color);
+                        /**
+                         * Set a color handle for all leds
+                         * @param handle the new handler
+                         */
+                        void setColorHandle(std::function<void(Color&)> handle);
+                        /**
+                         * Set a color handle for a given led
+                         * @param id     the led id
+                         * @param handle the new handler
+                         */
+                        void setColorHandle(LedId id, std::function<void(Color&)> handle);
                         /**
                          * Setup the controller
                          * @param startUpColor the startup color for all leds
@@ -169,3 +281,5 @@
     }
 
     #include "NRE_LedControllerInl.hpp"
+
+    #include "NRE_LedInl.hpp"

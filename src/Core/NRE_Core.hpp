@@ -58,7 +58,7 @@
                         /**
                          * MicroManager Deconstructor
                          */
-                        ~MicroManager();
+                        ~MicroManager() = default;
 
                     //## Methods ##//
                         /**

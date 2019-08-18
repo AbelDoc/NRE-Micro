@@ -11,6 +11,10 @@
 
     #include "NRE_Core.hpp"
 
+    #ifdef NRE_USE_ROM
+        #include "NRE_Rom.hpp"
+    #endif
+
     #ifdef NRE_USE_LED
         #include "NRE_Led.hpp"
     #endif

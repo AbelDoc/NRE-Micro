@@ -33,13 +33,6 @@
                 }
             }
 
-            inline MicroManager::~MicroManager() {
-                for (AbstractModule* module : modules) {
-                    delete module;
-                    module = nullptr;
-                }
-            }
-
             inline MicroManager& MicroManager::get() {
                 static MicroManager instance;
                 return instance;
