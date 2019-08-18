@@ -25,6 +25,10 @@
          */
         namespace Micro {
 
+            /**
+             * @struct Network
+             * @brief Represent a wifi network
+             */
             struct Network {
                 String name;    /**< The network name */
                 String pwd;     /**< The network password */

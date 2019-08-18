@@ -56,6 +56,10 @@
                         #endif
             };
 
+            /**
+             * @class ObservedData
+             * @brief Represent an observed data by the internal ROM if used, allowing an automatic update between RAM and ROM
+             */
             template <class T>
             class ObservedData : public AbstractData {
                 private :   // Fields
@@ -70,7 +74,6 @@
                         ObservedData();
                         /**
                          * Create the data from the object address
-                         * @param s    the object size in bytes
                          * @param args the object construction arguments
                          */
                         template <class ... Args>
@@ -148,13 +151,13 @@
                          * @param d the data to assign
                          * @return the reference of himself
                          */
-                        ObservedData& operator=(T const& data);
+                        ObservedData& operator=(T const& d);
                         /**
                          * Assign the given data internally
                          * @param d the data to assign
                          * @return the reference of himself
                          */
-                        ObservedData& operator=(T && data);
+                        ObservedData& operator=(T && d);
             };
 
             #ifdef NRE_USE_ROM

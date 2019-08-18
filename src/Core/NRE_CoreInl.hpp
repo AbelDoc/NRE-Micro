@@ -1,6 +1,6 @@
 
     /**
-     * @file NRE_Core.hpp
+     * @file NRE_CoreInl.hpp
      * @brief Implmenetation of Micro's API's Core
      * @author Louis ABEL
      * @date 17/08/2019

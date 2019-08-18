@@ -56,6 +56,10 @@
                         WebManager();
 
                     //## Methods ##//
+                        /**
+                         * Add a server handle to the internal web server
+                         * @param handler the handle function
+                         */
                         void addHandle(ServerHandle handler);
                         /**
                          * Setup the module

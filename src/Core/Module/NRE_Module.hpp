@@ -23,6 +23,10 @@
          */
         namespace Micro {
 
+            /**
+             * @class Module
+             * @brief Represent a module interface to create framework sub module
+             */
             template <class SubModule>
             class Module : public AbstractModule {
                 public :   // Methods

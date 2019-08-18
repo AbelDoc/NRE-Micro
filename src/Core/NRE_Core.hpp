@@ -29,6 +29,10 @@
 
             typedef uint16_t Pin;
 
+            /**
+             * @class MicroManager
+             * @brief Manage all modules in the framework, allowing the user simple utilisation of ESP8266 library and functionnality
+             */
             class MicroManager {
                 private :   // Fields
                     std::vector<AbstractModule*> modules;    /**< The framework active modules */
