@@ -15,6 +15,10 @@
         #include "NRE_Led.hpp"
     #endif
 
+    #ifdef NRE_USE_WIFI
+        #include "NRE_WiFi.hpp"
+    #endif
+
     #ifdef NRE_USE_WEB
         #include "NRE_Web.hpp"
     #endif
