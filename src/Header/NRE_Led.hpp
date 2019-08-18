@@ -10,6 +10,8 @@
     #pragma once
 
     #include "../LED/Manager/NRE_LedManager.hpp"
-    
+
     #include "../LED/Color/NRE_Color.hpp"
     #include "../LED/Controller/NRE_LedController.hpp"
+
+    #include "../LED/Effect/NRE_FixLight.hpp"

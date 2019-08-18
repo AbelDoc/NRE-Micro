@@ -13,6 +13,8 @@
      #include "../Color/NRE_Color.hpp"
      #include "../../Core/NRE_Core.hpp"
 
+     #include "../Effect/NRE_Effect.hpp"
+
      #include "../../ROM/Manager/NRE_RomManager.hpp"
 
      /**
@@ -129,6 +131,7 @@
                     Adafruit_NeoPixel controller;   /**< Internal controller */
                     Led* leds;                      /**< All controlled leds */
                     LedId nbLeds;                   /**< The number of controlled leds */
+                    Effect* lightEffect;            /**< The controller light effect */
 
                 public :    // Methods
                     //## Constructor ##//
@@ -243,10 +246,19 @@
                          */
                         void setColorHandle(LedId id, std::function<void(Color&)> handle);
                         /**
+                         * Set the light effect
+                         * @param effect the new effect
+                         */
+                        void setEffect(Effect* effect);
+                        /**
                          * Setup the controller
                          * @param startUpColor the startup color for all leds
                          */
                         void setup(Color const& startUpColor = BLACK);
+                        /**
+                         * The controller's loop
+                         */
+                        void loop();
 
                     //## Access Operator ##//
                         /**

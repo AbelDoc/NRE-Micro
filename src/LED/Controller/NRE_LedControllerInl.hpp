@@ -10,7 +10,7 @@
      namespace NRE {
          namespace Micro {
 
-            inline LedController::LedController(LedId nb, Pin pin, neoPixelType type) : controller(nb, pin, type), nbLeds(nb) {
+            inline LedController::LedController(LedId nb, Pin pin, neoPixelType type) : controller(nb, pin, type), nbLeds(nb), lightEffect(nullptr) {
                 leds = static_cast <Led*> (::operator new(sizeof(Led) * nb));
                 for (LedId i = 0; i < nbLeds; ++i) {
                     leds[i] = *(new(&leds[i]) Led(i, this));
@@ -22,6 +22,8 @@
                     leds[i].~Led();
                 }
                 ::operator delete(leds);
+                delete lightEffect;
+                lightEffect = nullptr;
             }
 
             inline LedController::Iterator LedController::begin() {
@@ -101,9 +103,23 @@
                 leds[id].setColorHandle(handle);
             }
 
+            inline void LedController::setEffect(Effect* effect) {
+                if (lightEffect) {
+                    lightEffect->stop(*this);
+                    delete lightEffect;
+                    lightEffect = nullptr;
+                }
+                lightEffect = effect;
+                lightEffect->start(*this);
+            }
+
             inline void LedController::setup(Color const& startUpColor) {
                 controller.begin();
                 setColor(startUpColor);
+            }
+
+            inline void LedController::loop() {
+                lightEffect->run(*this);
             }
 
             inline Led& LedController::operator[](LedId index) {
