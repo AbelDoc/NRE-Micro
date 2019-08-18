@@ -14,4 +14,5 @@
     #include "../LED/Color/NRE_Color.hpp"
     #include "../LED/Controller/NRE_LedController.hpp"
 
-    #include "../LED/Effect/NRE_FixLight.hpp"
+    #include "../LED/Effect/NRE_FixEffect.hpp"
+    #include "../LED/Effect/NRE_WaveEffect.hpp"

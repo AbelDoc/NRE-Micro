@@ -1,7 +1,7 @@
 
     /**
-     * @file NRE_FixLight.hpp
-     * @brief Declaration of Micro's API's Object : FixLight
+     * @file NRE_FixEffect.hpp
+     * @brief Declaration of Micro's API's Object : FixEffect
      * @author Louis ABEL
      * @date 18/08/2019
      * @copyright CC-BY-NC-SA
@@ -24,10 +24,10 @@
         namespace Micro {
 
             /**
-             * @class FixLight
+             * @class FixEffect
              * @brief Represent a fix light effect, setting all leds to the same color with no movement
              */
-            class FixLight : public Effect {
+            class FixEffect : public Effect {
                 private :   // Fields
                     ObservedData<Color>& color; /**< The effect color */
 
@@ -36,12 +36,12 @@
                         /**
                          * No default constructor
                          */
-                        FixLight() = delete;
+                        FixEffect() = delete;
                         /**
                          * Construct the effect from the fix color
                          * @param c the effect color
                          */
-                        FixLight(ObservedData<Color>& c) : color(c) {
+                        FixEffect(ObservedData<Color>& c) : color(c) {
                         }
 
                     //## Methods ##//

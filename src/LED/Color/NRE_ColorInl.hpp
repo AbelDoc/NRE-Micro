@@ -22,10 +22,6 @@
                 return b;
             }
 
-            inline CompressedColor Color::getColor() const {
-                return (static_cast <CompressedColor> (r) << 16) | (static_cast <CompressedColor> (g) <<  8) | b;
-            }
-
             inline void Color::setR(ColorChannel red) {
                 r = red;
             }

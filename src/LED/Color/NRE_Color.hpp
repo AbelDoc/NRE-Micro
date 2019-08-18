@@ -86,7 +86,9 @@
                         /**
                          * @return the compressed 32 bits color
                          */
-                        CompressedColor getColor() const;
+                        constexpr CompressedColor getColor() const {
+                            return (static_cast <CompressedColor> (r) << 16) | (static_cast <CompressedColor> (g) <<  8) | b;
+                        }
 
                     //## Setter ##//
                         /**
@@ -129,6 +131,14 @@
                         return static_cast <ColorChannel> ((color & 0xFFFF0000) >> 16);
                     }
                     /**
+                     * Extract the red channel from a color
+                     * @param  color the color to process
+                     * @return       the color red channel
+                     */
+                    static constexpr ColorChannel extractR(Color const& color) {
+                        return static_cast <ColorChannel> ((color.getColor() & 0xFFFF0000) >> 16);
+                    }
+                    /**
                      * Extract the green channel from a color
                      * @param  color the color to process
                      * @return       the color green channel
@@ -137,12 +147,28 @@
                         return static_cast <ColorChannel> ((color & 0xFF00FF00) >> 8);
                     }
                     /**
+                     * Extract the green channel from a color
+                     * @param  color the color to process
+                     * @return       the color green channel
+                     */
+                    static constexpr ColorChannel extractG(Color const& color) {
+                        return static_cast <ColorChannel> ((color.getColor() & 0xFF00FF00) >> 8);
+                    }
+                    /**
                      * Extract the blue channel from a color
                      * @param  color the color to process
                      * @return       the color blue channel
                      */
                     static constexpr ColorChannel extractB(CompressedColor color) {
                         return static_cast <ColorChannel> (color & 0xFF0000FF);
+                    }
+                    /**
+                     * Extract the blue channel from a color
+                     * @param  color the color to process
+                     * @return       the color blue channel
+                     */
+                    static constexpr ColorChannel extractB(Color const& color) {
+                        return static_cast <ColorChannel> (color.getColor() & 0xFF0000FF);
                     }
             };
 

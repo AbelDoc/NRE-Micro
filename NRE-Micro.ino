@@ -38,7 +38,7 @@
                 MicroManager::setup();
 
             //## Sub modules operationnals, can be used ##//
-                MicroManager::get<LedManager>().getController(id).setEffect(new FixLight(color));
+                MicroManager::get<LedManager>().getController(id).setEffect(new FixEffect(color));
         }
 
     //## Main loop ##//
