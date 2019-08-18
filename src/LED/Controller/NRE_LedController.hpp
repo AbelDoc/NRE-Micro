@@ -8,9 +8,10 @@
      */
 
      #pragma once
-    #include <Adafruit_NeoPixel.h>
-    #include "../NRE_Led.hpp"
-    #include "../../Core/NRE_Core.hpp"
+
+     #include <Adafruit_NeoPixel.h>
+     #include "../NRE_Led.hpp"
+     #include "../../Core/NRE_Core.hpp"
 
      /**
      * @namespace NRE

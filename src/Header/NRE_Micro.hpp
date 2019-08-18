@@ -14,3 +14,7 @@
     #ifdef NRE_USE_LED
         #include "NRE_Led.hpp"
     #endif
+
+    #ifdef NRE_USE_WEB
+        #include "NRE_Web.hpp"
+    #endif

@@ -33,7 +33,7 @@
                          * Default constructor
                          */
                         AbstractModule() = default;
-                        
+
                     //## Deconstructor ##//
                         /**
                          * AbstractModule Deconstructor
@@ -59,6 +59,11 @@
                          * Setup the module
                          */
                         virtual void setup() {
+                        }
+                        /**
+                         * The module loop
+                         */
+                        virtual void loop() {
                         }
 
                     //## Assignment Operator ##//

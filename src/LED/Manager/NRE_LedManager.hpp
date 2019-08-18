@@ -1,7 +1,7 @@
 
     /**
-     * @file NRE_LedController.hpp
-     * @brief Declaration of Micro's API's Object : LedMan
+     * @file NRE_LedManager.hpp
+     * @brief Declaration of Micro's API's Object : LedManager
      * @author Louis ABEL
      * @date 17/08/2019
      * @copyright CC-BY-NC-SA
@@ -11,6 +11,8 @@
 
      #include "../../Core/Module/NRE_Module.hpp"
      #include "../Controller/NRE_LedController.hpp"
+
+     #include <vector>
 
      /**
      * @namespace NRE
@@ -29,19 +31,15 @@
              * @brief Manage all leds controller
              */
             class LedManager : public Module<LedManager> {
-                private :   // Static
-                    static constexpr unsigned char MAX_CONTROLLERS = 4;
-
                 private :   // Fields
-                    LedController** controllers;    /**< The leds controllers */
-                    unsigned char size;             /**< The controllers array current size */
+                    std::vector<LedController*> controllers;    /**< The leds controllers */
 
                 public :    // Methods
                     //## Constructor ##//
                         /**
                          * Construct the led module
                          */
-                        LedManager();
+                        LedManager() = default;
 
                     //## Deconstructor ##//
                         /**

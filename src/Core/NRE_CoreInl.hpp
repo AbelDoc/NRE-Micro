@@ -10,15 +10,10 @@
     namespace NRE {
         namespace Micro {
 
-            inline MicroManager::MicroManager() : modules(new AbstractModule*[MAX_MODULES]) {
-                for (unsigned char i = 0; i < MAX_MODULES; ++i) {
-                    modules[i] = nullptr;
-                }
-            }
-
             template <class SubModule>
             inline void MicroManager::addModule(SubModule* module) {
-                modules[SubModule::getId()] = module;
+                assert(modules.size() == SubModule::getId());
+                modules.push_back(module);
             }
 
             template <class SubModule>
@@ -27,19 +22,22 @@
             }
 
             inline void MicroManager::setupModules() {
-                for (unsigned char i = 0; i < MAX_MODULES; ++i ) {
-                    if (modules[i] != nullptr) {
-                        modules[i]->setup();
-                    }
+                for (AbstractModule* module : modules) {
+                    module->setup();
+                }
+            }
+
+            inline void MicroManager::loopModules() {
+                for (AbstractModule* module : modules) {
+                    module->loop();
                 }
             }
 
             inline MicroManager::~MicroManager() {
-                for (unsigned char i = 0; i < MAX_MODULES; ++i) {
-                    delete modules[i];
-                    modules[i] = nullptr;
+                for (AbstractModule* module : modules) {
+                    delete module;
+                    module = nullptr;
                 }
-                delete[] modules;
             }
 
             inline MicroManager& MicroManager::get() {
@@ -58,7 +56,11 @@
             }
 
             inline void MicroManager::setup() {
-                MicroManager::get().setup();
+                MicroManager::get().setupModules();
+            }
+
+            inline void MicroManager::loop() {
+                MicroManager::get().loopModules();
             }
 
         }

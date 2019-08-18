@@ -13,6 +13,9 @@
 
     #include "Module/NRE_AbstractModule.hpp"
 
+    #include <vector>
+    #include <cassert>
+
     /**
      * @namespace NRE
      * @brief The NearlyRealEngine's global namespace
@@ -27,17 +30,15 @@
             typedef uint16_t Pin;
 
             class MicroManager {
-                private :   // Static
-                    static constexpr unsigned char MAX_MODULES = 8;
                 private :   // Fields
-                    AbstractModule** modules;    /**< The framework active modules */
+                    std::vector<AbstractModule*> modules;    /**< The framework active modules */
 
                 public :    // Methods
                     //## Constructor ##//
                         /**
                          * Construct the micro manager
                          */
-                        MicroManager();
+                        MicroManager() = default;
 
                     //## Copy Constructor ##//
                         /**
@@ -75,6 +76,10 @@
                          * Setup all modules
                          */
                         void setupModules();
+                        /**
+                         * Handle the loop for all modules
+                         */
+                        void loopModules();
 
                     //## Assignment Operator ##//
                         /**
@@ -112,6 +117,10 @@
                      * Setup all modules
                      */
                     static void setup();
+                    /**
+                     * Handle the loop for all modules
+                     */
+                    static void loop();
             };
 
         }

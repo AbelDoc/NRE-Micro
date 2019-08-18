@@ -2,6 +2,7 @@
     #include <Arduino.h>
 
     #define NRE_USE_LED     // Use LED SubModule
+    #define NRE_USE_WEB     // Use Web SubModule
 
     #include "src/Header/NRE_Micro.hpp"     // Include all used sub modules
 
