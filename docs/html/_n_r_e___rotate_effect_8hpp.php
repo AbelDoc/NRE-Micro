@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
         <meta name="generator" content="Doxygen 1.8.11"/>
         <script type="text/javascript" src="../../js/jquery-2.1.1.min.js"></script>
-        <title>NRE-Micro: /mnt/c/Users/abell/Documents/GitHub/NRE-Micro/src/Header/NRE_Led.hpp File Reference</title>
+        <title>NRE-Micro: /mnt/c/Users/abell/Documents/GitHub/NRE-Micro/src/LED/Effect/NRE_RotateEffect.hpp File Reference</title>
         <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
         <script type="text/javascript" src="dynsections.js"></script>
         <link href="search/search.css" rel="stylesheet" type="text/css"/>
@@ -93,30 +93,43 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.php">src</a></li><li class="navelem"><a class="el" href="dir_0bb4bacb73d7f86c6a963ab22a4f5c20.php">Header</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.php">src</a></li><li class="navelem"><a class="el" href="dir_6b864641f3cab9a7d09fa51df47d12f6.php">LED</a></li><li class="navelem"><a class="el" href="dir_14280b194263e09dcc6a357b683f8443.php">Effect</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">NRE_Led.hpp File Reference</div>  </div>
+<div class="title">NRE_RotateEffect.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Declaration of <a class="el" href="namespace_micro.php" title="Micro&#39;s API. ">Micro</a>'s API's LED Header.  
+<p>Declaration of <a class="el" href="namespace_micro.php" title="Micro&#39;s API. ">Micro</a>'s API's Object : RotateEffect.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="_n_r_e___led_manager_8hpp_source.php">../LED/Manager/NRE_LedManager.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_n_r_e___color_8hpp_source.php">../LED/Color/NRE_Color.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_n_r_e___led_controller_8hpp_source.php">../LED/Controller/NRE_LedController.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_n_r_e___fix_effect_8hpp_source.php">../LED/Effect/NRE_FixEffect.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_n_r_e___wave_effect_8hpp_source.php">../LED/Effect/NRE_WaveEffect.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_n_r_e___rotate_effect_8hpp_source.php">../LED/Effect/NRE_RotateEffect.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_n_r_e___rotate_fix_effect_8hpp_source.php">../LED/Effect/NRE_RotateFixEffect.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="_n_r_e___led_controller_8hpp_source.php">../Controller/NRE_LedController.hpp</a>&quot;</code><br />
 </div>
-<p><a href="_n_r_e___led_8hpp_source.php">Go to the source code of this file.</a></p>
+<p><a href="_n_r_e___rotate_effect_8hpp_source.php">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php">NRE::Micro::RotateEffect</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represent a rotate light effect, setting leds on one by one, only one led remain on at the same time.  <a href="class_n_r_e_1_1_micro_1_1_rotate_effect.php#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespace_n_r_e"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_n_r_e.php">NRE</a></td></tr>
+<tr class="memdesc:namespace_n_r_e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The NearlyRealEngine's global namespace. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespace_micro"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_micro.php">Micro</a></td></tr>
+<tr class="memdesc:namespace_micro"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespace_micro.php" title="Micro&#39;s API. ">Micro</a>'s API. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Declaration of <a class="el" href="namespace_micro.php" title="Micro&#39;s API. ">Micro</a>'s API's LED Header. </p>
+<div class="textblock"><p>Declaration of <a class="el" href="namespace_micro.php" title="Micro&#39;s API. ">Micro</a>'s API's Object : RotateEffect. </p>
 <dl class="section author"><dt>Author</dt><dd>Louis ABEL </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>17/08/2019 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>18/08/2019 </dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>CC-BY-NC-SA </dd></dl>
 </div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->

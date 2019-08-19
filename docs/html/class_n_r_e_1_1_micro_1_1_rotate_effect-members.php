@@ -8,7 +8,7 @@
         <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
         <meta name="generator" content="Doxygen 1.8.11"/>
         <script type="text/javascript" src="../../js/jquery-2.1.1.min.js"></script>
-        <title>NRE-Micro: /mnt/c/Users/abell/Documents/GitHub/NRE-Micro/src/Header/NRE_Led.hpp File Reference</title>
+        <title>NRE-Micro: Member List</title>
         <!--<link href="tabs.css" rel="stylesheet" type="text/css"/>-->
         <script type="text/javascript" src="dynsections.js"></script>
         <link href="search/search.css" rel="stylesheet" type="text/css"/>
@@ -52,8 +52,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.php"><span>Main&#160;Page</span></a></li>
       <li><a href="namespaces.php"><span>Namespaces</span></a></li>
-      <li><a href="annotated.php"><span>Classes</span></a></li>
-      <li class="current"><a href="files.php"><span>Files</span></a></li>
+      <li class="current"><a href="annotated.php"><span>Classes</span></a></li>
+      <li><a href="files.php"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -74,7 +74,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
-      <li><a href="files.php"><span>File&#160;List</span></a></li>
+      <li><a href="annotated.php"><span>Class&#160;List</span></a></li>
+      <li><a href="classes.php"><span>Class&#160;Index</span></a></li>
+      <li><a href="hierarchy.php"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="functions.php"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -93,32 +96,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.php">src</a></li><li class="navelem"><a class="el" href="dir_0bb4bacb73d7f86c6a963ab22a4f5c20.php">Header</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_n_r_e.php">NRE</a></li><li class="navelem"><b>Micro</b></li><li class="navelem"><a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php">RotateEffect</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">NRE_Led.hpp File Reference</div>  </div>
+<div class="title">NRE::Micro::RotateEffect Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Declaration of <a class="el" href="namespace_micro.php" title="Micro&#39;s API. ">Micro</a>'s API's LED Header.  
-<a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="_n_r_e___led_manager_8hpp_source.php">../LED/Manager/NRE_LedManager.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_n_r_e___color_8hpp_source.php">../LED/Color/NRE_Color.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_n_r_e___led_controller_8hpp_source.php">../LED/Controller/NRE_LedController.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_n_r_e___fix_effect_8hpp_source.php">../LED/Effect/NRE_FixEffect.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_n_r_e___wave_effect_8hpp_source.php">../LED/Effect/NRE_WaveEffect.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_n_r_e___rotate_effect_8hpp_source.php">../LED/Effect/NRE_RotateEffect.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_n_r_e___rotate_fix_effect_8hpp_source.php">../LED/Effect/NRE_RotateFixEffect.hpp</a>&quot;</code><br />
-</div>
-<p><a href="_n_r_e___led_8hpp_source.php">Go to the source code of this file.</a></p>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Declaration of <a class="el" href="namespace_micro.php" title="Micro&#39;s API. ">Micro</a>'s API's LED Header. </p>
-<dl class="section author"><dt>Author</dt><dd>Louis ABEL </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>17/08/2019 </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>CC-BY-NC-SA </dd></dl>
-</div></div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php">NRE::Micro::RotateEffect</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php#aa81771165f5a0ef53ce9b63b29ac0f45">RotateEffect</a>()=delete</td><td class="entry"><a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php">NRE::Micro::RotateEffect</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php#a110dede2e80fc73f21c08006efd08cc7">RotateEffect</a>(ObservedData&lt; Color &gt; &amp;c, unsigned char s=5, bool clockwiseEffect=true)</td><td class="entry"><a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php">NRE::Micro::RotateEffect</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php#ae427f12101dc8334910db2a7c4d34c3e">run</a>(LedController &amp;controller) override</td><td class="entry"><a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php">NRE::Micro::RotateEffect</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php#aaa0cb4d33076af4cd850b953f6bf24af">start</a>(LedController &amp;controller) override</td><td class="entry"><a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php">NRE::Micro::RotateEffect</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php#a26a4eac70d0b03d2265c8279de949583">stop</a>(LedController &amp;controller) override</td><td class="entry"><a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php">NRE::Micro::RotateEffect</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->
 </div>

@@ -118,8 +118,10 @@ Inheritance diagram for NRE::Micro::Effect:</div>
  <div class="center">
   <img src="class_n_r_e_1_1_micro_1_1_effect.png" usemap="#NRE::Micro::Effect_map" alt=""/>
   <map id="NRE::Micro::Effect_map" name="NRE::Micro::Effect_map">
-<area href="class_n_r_e_1_1_micro_1_1_fix_effect.php" title="Represent a fix light effect, setting all leds to the same color with no movement. " alt="NRE::Micro::FixEffect" shape="rect" coords="0,56,147,80"/>
-<area href="class_n_r_e_1_1_micro_1_1_wave_effect.php" title="Represent a wave light effect, setting all leds to the same color, starting from black to the given c..." alt="NRE::Micro::WaveEffect" shape="rect" coords="157,56,304,80"/>
+<area href="class_n_r_e_1_1_micro_1_1_fix_effect.php" title="Represent a fix light effect, setting all leds to the same color with no movement. " alt="NRE::Micro::FixEffect" shape="rect" coords="0,56,167,80"/>
+<area href="class_n_r_e_1_1_micro_1_1_rotate_effect.php" title="Represent a rotate light effect, setting leds on one by one, only one led remain on at the same time..." alt="NRE::Micro::RotateEffect" shape="rect" coords="177,56,344,80"/>
+<area href="class_n_r_e_1_1_micro_1_1_rotate_fix_effect.php" title="Represent a rotate light effect, setting leds on one by one, leds remains on while the effect is runn..." alt="NRE::Micro::RotateFixEffect" shape="rect" coords="354,56,521,80"/>
+<area href="class_n_r_e_1_1_micro_1_1_wave_effect.php" title="Represent a wave light effect, setting all leds to the same color, starting from black to the given c..." alt="NRE::Micro::WaveEffect" shape="rect" coords="531,56,698,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -158,7 +160,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Called at each loop iteration </p>
 
-<p>Implemented in <a class="el" href="class_n_r_e_1_1_micro_1_1_wave_effect.php#a5f8489eccf165da3f63acc81fdf8e7d5">NRE::Micro::WaveEffect</a>, and <a class="el" href="class_n_r_e_1_1_micro_1_1_fix_effect.php#a1accc8bbcfbc1ac2fef3e10bb2ed7f2e">NRE::Micro::FixEffect</a>.</p>
+<p>Implemented in <a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_fix_effect.php#a79f9ca1a5b2bee5991558adef2a65341">NRE::Micro::RotateFixEffect</a>, <a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php#ae427f12101dc8334910db2a7c4d34c3e">NRE::Micro::RotateEffect</a>, <a class="el" href="class_n_r_e_1_1_micro_1_1_wave_effect.php#a5f8489eccf165da3f63acc81fdf8e7d5">NRE::Micro::WaveEffect</a>, and <a class="el" href="class_n_r_e_1_1_micro_1_1_fix_effect.php#a1accc8bbcfbc1ac2fef3e10bb2ed7f2e">NRE::Micro::FixEffect</a>.</p>
 
 </div>
 </div>
@@ -185,7 +187,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Called when the effect is set to a controller </p>
 
-<p>Implemented in <a class="el" href="class_n_r_e_1_1_micro_1_1_wave_effect.php#adde9092c877e9b19ab9c416d0f1d4379">NRE::Micro::WaveEffect</a>, and <a class="el" href="class_n_r_e_1_1_micro_1_1_fix_effect.php#acd3cec3a646da0655464290af02947a5">NRE::Micro::FixEffect</a>.</p>
+<p>Implemented in <a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_fix_effect.php#a1834123e636878bdcf35c45bd258a407">NRE::Micro::RotateFixEffect</a>, <a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php#aaa0cb4d33076af4cd850b953f6bf24af">NRE::Micro::RotateEffect</a>, <a class="el" href="class_n_r_e_1_1_micro_1_1_wave_effect.php#adde9092c877e9b19ab9c416d0f1d4379">NRE::Micro::WaveEffect</a>, and <a class="el" href="class_n_r_e_1_1_micro_1_1_fix_effect.php#acd3cec3a646da0655464290af02947a5">NRE::Micro::FixEffect</a>.</p>
 
 </div>
 </div>
@@ -212,7 +214,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Called when the effect is replaced by another one in a controller </p>
 
-<p>Implemented in <a class="el" href="class_n_r_e_1_1_micro_1_1_wave_effect.php#a4cecbf43bd264e786bf42e22734dac98">NRE::Micro::WaveEffect</a>, and <a class="el" href="class_n_r_e_1_1_micro_1_1_fix_effect.php#aca4d9553c6b265f7b6f4add0ff1dd3ca">NRE::Micro::FixEffect</a>.</p>
+<p>Implemented in <a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_fix_effect.php#a0914e8c393cef1837a39110f98e2383e">NRE::Micro::RotateFixEffect</a>, <a class="el" href="class_n_r_e_1_1_micro_1_1_wave_effect.php#a4cecbf43bd264e786bf42e22734dac98">NRE::Micro::WaveEffect</a>, <a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php#a26a4eac70d0b03d2265c8279de949583">NRE::Micro::RotateEffect</a>, and <a class="el" href="class_n_r_e_1_1_micro_1_1_fix_effect.php#aca4d9553c6b265f7b6f4add0ff1dd3ca">NRE::Micro::FixEffect</a>.</p>
 
 </div>
 </div>

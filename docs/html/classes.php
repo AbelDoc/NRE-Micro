@@ -100,26 +100,26 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Class Index</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="qindex"><a class="qindex" href="#letter_A">A</a>&#160;|&#160;<a class="qindex" href="#letter_C">C</a>&#160;|&#160;<a class="qindex" href="#letter_E">E</a>&#160;|&#160;<a class="qindex" href="#letter_F">F</a>&#160;|&#160;<a class="qindex" href="#letter_L">L</a>&#160;|&#160;<a class="qindex" href="#letter_M">M</a>&#160;|&#160;<a class="qindex" href="#letter_N">N</a>&#160;|&#160;<a class="qindex" href="#letter_O">O</a>&#160;|&#160;<a class="qindex" href="#letter_W">W</a></div>
+<div class="qindex"><a class="qindex" href="#letter_A">A</a>&#160;|&#160;<a class="qindex" href="#letter_C">C</a>&#160;|&#160;<a class="qindex" href="#letter_E">E</a>&#160;|&#160;<a class="qindex" href="#letter_F">F</a>&#160;|&#160;<a class="qindex" href="#letter_L">L</a>&#160;|&#160;<a class="qindex" href="#letter_M">M</a>&#160;|&#160;<a class="qindex" href="#letter_N">N</a>&#160;|&#160;<a class="qindex" href="#letter_O">O</a>&#160;|&#160;<a class="qindex" href="#letter_R">R</a>&#160;|&#160;<a class="qindex" href="#letter_W">W</a></div>
 <table class="classindex">
 <tr><td rowspan="2" valign="bottom"><a name="letter_A"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;A&#160;&#160;</div></td></tr></table>
-</td><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_led_manager.php">LedManager</a> (NRE::Micro)&#160;&#160;&#160;</td></tr>
-<tr><td rowspan="2" valign="bottom"><a name="letter_M"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;M&#160;&#160;</div></td></tr></table>
-</td></tr>
-<tr><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_abstract_data.php">AbstractData</a> (NRE::Micro)&#160;&#160;&#160;</td></tr>
-<tr><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_abstract_module.php">AbstractModule</a> (NRE::Micro)&#160;&#160;&#160;</td><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_micro_manager.php">MicroManager</a> (NRE::Micro)&#160;&#160;&#160;</td></tr>
-<tr><td rowspan="2" valign="bottom"><a name="letter_C"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;C&#160;&#160;</div></td></tr></table>
 </td><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_module.php">Module</a> (NRE::Micro)&#160;&#160;&#160;</td></tr>
 <tr><td rowspan="2" valign="bottom"><a name="letter_N"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;N&#160;&#160;</div></td></tr></table>
 </td></tr>
-<tr><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_color.php">Color</a> (NRE::Micro)&#160;&#160;&#160;</td></tr>
-<tr><td rowspan="2" valign="bottom"><a name="letter_E"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;E&#160;&#160;</div></td></tr></table>
-</td><td valign="top"><a class="el" href="struct_n_r_e_1_1_micro_1_1_network.php">Network</a> (NRE::Micro)&#160;&#160;&#160;</td></tr>
-<tr><td rowspan="2" valign="bottom"><a name="letter_O"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;O&#160;&#160;</div></td></tr></table>
+<tr><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_abstract_data.php">AbstractData</a> (NRE::Micro)&#160;&#160;&#160;</td></tr>
+<tr><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_abstract_module.php">AbstractModule</a> (NRE::Micro)&#160;&#160;&#160;</td><td valign="top"><a class="el" href="struct_n_r_e_1_1_micro_1_1_network.php">Network</a> (NRE::Micro)&#160;&#160;&#160;</td></tr>
+<tr><td rowspan="2" valign="bottom"><a name="letter_C"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;C&#160;&#160;</div></td></tr></table>
+</td><td rowspan="2" valign="bottom"><a name="letter_O"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;O&#160;&#160;</div></td></tr></table>
 </td></tr>
-<tr><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_effect.php">Effect</a> (NRE::Micro)&#160;&#160;&#160;</td></tr>
+<tr></tr>
+<tr><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_color.php">Color</a> (NRE::Micro)&#160;&#160;&#160;</td><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_observed_data.php">ObservedData</a> (NRE::Micro)&#160;&#160;&#160;</td></tr>
+<tr><td rowspan="2" valign="bottom"><a name="letter_E"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;E&#160;&#160;</div></td></tr></table>
+</td><td rowspan="2" valign="bottom"><a name="letter_R"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;R&#160;&#160;</div></td></tr></table>
+</td></tr>
+<tr></tr>
+<tr><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_effect.php">Effect</a> (NRE::Micro)&#160;&#160;&#160;</td><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php">RotateEffect</a> (NRE::Micro)&#160;&#160;&#160;</td></tr>
 <tr><td rowspan="2" valign="bottom"><a name="letter_F"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;F&#160;&#160;</div></td></tr></table>
-</td><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_observed_data.php">ObservedData</a> (NRE::Micro)&#160;&#160;&#160;</td></tr>
+</td><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_fix_effect.php">RotateFixEffect</a> (NRE::Micro)&#160;&#160;&#160;</td></tr>
 <tr><td rowspan="2" valign="bottom"><a name="letter_W"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;W&#160;&#160;</div></td></tr></table>
 </td></tr>
 <tr><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_fix_effect.php">FixEffect</a> (NRE::Micro)&#160;&#160;&#160;</td></tr>
@@ -128,9 +128,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_web_manager.php">WebManager</a> (NRE::Micro)&#160;&#160;&#160;</td></tr>
 <tr><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_led.php">Led</a> (NRE::Micro)&#160;&#160;&#160;</td><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_wi_fi_manager.php">WiFiManager</a> (NRE::Micro)&#160;&#160;&#160;</td></tr>
 <tr><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_led_controller.php">LedController</a> (NRE::Micro)&#160;&#160;&#160;</td><td></td></tr>
+<tr><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_led_manager.php">LedManager</a> (NRE::Micro)&#160;&#160;&#160;</td><td></td></tr>
+<tr><td rowspan="2" valign="bottom"><a name="letter_M"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;M&#160;&#160;</div></td></tr></table>
+</td><td></td></tr>
+<tr><td></td></tr>
+<tr><td valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_micro_manager.php">MicroManager</a> (NRE::Micro)&#160;&#160;&#160;</td><td></td></tr>
 <tr><td></td><td></td></tr>
 </table>
-<div class="qindex"><a class="qindex" href="#letter_A">A</a>&#160;|&#160;<a class="qindex" href="#letter_C">C</a>&#160;|&#160;<a class="qindex" href="#letter_E">E</a>&#160;|&#160;<a class="qindex" href="#letter_F">F</a>&#160;|&#160;<a class="qindex" href="#letter_L">L</a>&#160;|&#160;<a class="qindex" href="#letter_M">M</a>&#160;|&#160;<a class="qindex" href="#letter_N">N</a>&#160;|&#160;<a class="qindex" href="#letter_O">O</a>&#160;|&#160;<a class="qindex" href="#letter_W">W</a></div>
+<div class="qindex"><a class="qindex" href="#letter_A">A</a>&#160;|&#160;<a class="qindex" href="#letter_C">C</a>&#160;|&#160;<a class="qindex" href="#letter_E">E</a>&#160;|&#160;<a class="qindex" href="#letter_F">F</a>&#160;|&#160;<a class="qindex" href="#letter_L">L</a>&#160;|&#160;<a class="qindex" href="#letter_M">M</a>&#160;|&#160;<a class="qindex" href="#letter_N">N</a>&#160;|&#160;<a class="qindex" href="#letter_O">O</a>&#160;|&#160;<a class="qindex" href="#letter_R">R</a>&#160;|&#160;<a class="qindex" href="#letter_W">W</a></div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
 <!-- start footer part -->

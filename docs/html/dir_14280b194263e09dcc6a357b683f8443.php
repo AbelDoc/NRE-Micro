@@ -110,6 +110,12 @@ Files</h2></td></tr>
 <tr class="memitem:_n_r_e___fix_effect_8hpp"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_n_r_e___fix_effect_8hpp.php">NRE_FixEffect.hpp</a> <a href="_n_r_e___fix_effect_8hpp_source.php">[code]</a></td></tr>
 <tr class="memdesc:_n_r_e___fix_effect_8hpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declaration of <a class="el" href="namespace_micro.php" title="Micro&#39;s API. ">Micro</a>'s API's Object : FixEffect. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:_n_r_e___rotate_effect_8hpp"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_n_r_e___rotate_effect_8hpp.php">NRE_RotateEffect.hpp</a> <a href="_n_r_e___rotate_effect_8hpp_source.php">[code]</a></td></tr>
+<tr class="memdesc:_n_r_e___rotate_effect_8hpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declaration of <a class="el" href="namespace_micro.php" title="Micro&#39;s API. ">Micro</a>'s API's Object : RotateEffect. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:_n_r_e___rotate_fix_effect_8hpp"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_n_r_e___rotate_fix_effect_8hpp.php">NRE_RotateFixEffect.hpp</a> <a href="_n_r_e___rotate_fix_effect_8hpp_source.php">[code]</a></td></tr>
+<tr class="memdesc:_n_r_e___rotate_fix_effect_8hpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declaration of <a class="el" href="namespace_micro.php" title="Micro&#39;s API. ">Micro</a>'s API's Object : RotateFixEffect. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:_n_r_e___wave_effect_8hpp"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_n_r_e___wave_effect_8hpp.php">NRE_WaveEffect.hpp</a> <a href="_n_r_e___wave_effect_8hpp_source.php">[code]</a></td></tr>
 <tr class="memdesc:_n_r_e___wave_effect_8hpp"><td class="mdescLeft">&#160;</td><td class="mdescRight">Declaration of <a class="el" href="namespace_micro.php" title="Micro&#39;s API. ">Micro</a>'s API's Object : WaveEffect. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>

@@ -147,6 +147,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9a34c7cebe81aeda12baa868ebc30ea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a2cecffbe7a62ec3a352dbdb0e3a302"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_n_r_e_1_1_micro_1_1_led.php">ConstIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_r_e_1_1_micro_1_1_led_controller.php#a1a2cecffbe7a62ec3a352dbdb0e3a302">cend</a> () const </td></tr>
 <tr class="separator:a1a2cecffbe7a62ec3a352dbdb0e3a302"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf67ef0f630bfc74d85ea0bb75e19c2c"><td class="memItemLeft" align="right" valign="top">LedId&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_r_e_1_1_micro_1_1_led_controller.php#acf67ef0f630bfc74d85ea0bb75e19c2c">getCount</a> () const </td></tr>
+<tr class="separator:acf67ef0f630bfc74d85ea0bb75e19c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab91228876528d9d66b1aa35b078b78e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_r_e_1_1_micro_1_1_led_controller.php#ab91228876528d9d66b1aa35b078b78e1">turnOff</a> ()</td></tr>
 <tr class="separator:ab91228876528d9d66b1aa35b078b78e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7829273c294972a1dcdc4e18e4cada12"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_n_r_e_1_1_micro_1_1_led_controller.php#a7829273c294972a1dcdc4e18e4cada12">turnOff</a> (LedId id)</td></tr>
@@ -483,6 +485,30 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>a const iterator on the end of the container </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="acf67ef0f630bfc74d85ea0bb75e19c2c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">LedId NRE::Micro::LedController::getCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>the leds count </dd></dl>
 
 </div>
 </div>

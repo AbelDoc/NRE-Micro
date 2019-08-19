@@ -212,6 +212,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>getController()
 : <a class="el" href="class_n_r_e_1_1_micro_1_1_led_manager.php#aa64ef572a79d594e67843ee27bf74b46">NRE::Micro::LedManager</a>
 </li>
+<li>getCount()
+: <a class="el" href="class_n_r_e_1_1_micro_1_1_led_controller.php#acf67ef0f630bfc74d85ea0bb75e19c2c">NRE::Micro::LedController</a>
+</li>
 <li>getG()
 : <a class="el" href="class_n_r_e_1_1_micro_1_1_color.php#a12f1cee974aad505f24f8287f8a970cf">NRE::Micro::Color</a>
 </li>
@@ -295,9 +298,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
+<li>RotateEffect()
+: <a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php#aa81771165f5a0ef53ce9b63b29ac0f45">NRE::Micro::RotateEffect</a>
+</li>
+<li>RotateFixEffect()
+: <a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_fix_effect.php#adac483f6f3ea2bb5306ee6a87a7fe7fb">NRE::Micro::RotateFixEffect</a>
+</li>
 <li>run()
 : <a class="el" href="class_n_r_e_1_1_micro_1_1_effect.php#a0c17b719e2f4974cfc75ba52b25adb83">NRE::Micro::Effect</a>
 , <a class="el" href="class_n_r_e_1_1_micro_1_1_fix_effect.php#a1accc8bbcfbc1ac2fef3e10bb2ed7f2e">NRE::Micro::FixEffect</a>
+, <a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php#ae427f12101dc8334910db2a7c4d34c3e">NRE::Micro::RotateEffect</a>
+, <a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_fix_effect.php#a79f9ca1a5b2bee5991558adef2a65341">NRE::Micro::RotateFixEffect</a>
 , <a class="el" href="class_n_r_e_1_1_micro_1_1_wave_effect.php#a5f8489eccf165da3f63acc81fdf8e7d5">NRE::Micro::WaveEffect</a>
 </li>
 </ul>
@@ -344,11 +355,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>start()
 : <a class="el" href="class_n_r_e_1_1_micro_1_1_effect.php#a5369c806d8afbfc2024b66ebcbbc1403">NRE::Micro::Effect</a>
 , <a class="el" href="class_n_r_e_1_1_micro_1_1_fix_effect.php#acd3cec3a646da0655464290af02947a5">NRE::Micro::FixEffect</a>
+, <a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php#aaa0cb4d33076af4cd850b953f6bf24af">NRE::Micro::RotateEffect</a>
+, <a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_fix_effect.php#a1834123e636878bdcf35c45bd258a407">NRE::Micro::RotateFixEffect</a>
 , <a class="el" href="class_n_r_e_1_1_micro_1_1_wave_effect.php#adde9092c877e9b19ab9c416d0f1d4379">NRE::Micro::WaveEffect</a>
 </li>
 <li>stop()
 : <a class="el" href="class_n_r_e_1_1_micro_1_1_effect.php#a146b60fdfbad0c0b02fcbc37fe3c5043">NRE::Micro::Effect</a>
 , <a class="el" href="class_n_r_e_1_1_micro_1_1_fix_effect.php#aca4d9553c6b265f7b6f4add0ff1dd3ca">NRE::Micro::FixEffect</a>
+, <a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_effect.php#a26a4eac70d0b03d2265c8279de949583">NRE::Micro::RotateEffect</a>
+, <a class="el" href="class_n_r_e_1_1_micro_1_1_rotate_fix_effect.php#a0914e8c393cef1837a39110f98e2383e">NRE::Micro::RotateFixEffect</a>
 , <a class="el" href="class_n_r_e_1_1_micro_1_1_wave_effect.php#a4cecbf43bd264e786bf42e22734dac98">NRE::Micro::WaveEffect</a>
 </li>
 </ul>

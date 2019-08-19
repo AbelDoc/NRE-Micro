@@ -25,6 +25,8 @@ var searchData=
   ['nre_5from_2ehpp',['NRE_Rom.hpp',['../_n_r_e___rom_8hpp.php',1,'']]],
   ['nre_5frommanager_2ehpp',['NRE_RomManager.hpp',['../_n_r_e___rom_manager_8hpp.php',1,'']]],
   ['nre_5frommanagerinl_2ehpp',['NRE_RomManagerInl.hpp',['../_n_r_e___rom_manager_inl_8hpp.php',1,'']]],
+  ['nre_5frotateeffect_2ehpp',['NRE_RotateEffect.hpp',['../_n_r_e___rotate_effect_8hpp.php',1,'']]],
+  ['nre_5frotatefixeffect_2ehpp',['NRE_RotateFixEffect.hpp',['../_n_r_e___rotate_fix_effect_8hpp.php',1,'']]],
   ['nre_5fwaveeffect_2ehpp',['NRE_WaveEffect.hpp',['../_n_r_e___wave_effect_8hpp.php',1,'']]],
   ['nre_5fweb_2ehpp',['NRE_Web.hpp',['../_n_r_e___web_8hpp.php',1,'']]],
   ['nre_5fwebmanager_2ehpp',['NRE_WebManager.hpp',['../_n_r_e___web_manager_8hpp.php',1,'']]],
