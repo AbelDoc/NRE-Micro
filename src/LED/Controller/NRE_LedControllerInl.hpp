@@ -50,6 +50,10 @@
                 return end();
             }
 
+            inline LedId LedController::getCount() const {
+                return nbLeds;
+            }
+
             inline void LedController::turnOff() {
                 controller.clear();
                 controller.show();

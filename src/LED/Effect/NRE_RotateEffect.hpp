@@ -1,7 +1,7 @@
 
     /**
-     * @file NRE_WaveEffect.hpp
-     * @brief Declaration of Micro's API's Object : WaveEffect
+     * @file NRE_RotateEffect.hpp
+     * @brief Declaration of Micro's API's Object : RotateEffect
      * @author Louis ABEL
      * @date 18/08/2019
      * @copyright CC-BY-NC-SA
@@ -24,29 +24,30 @@
         namespace Micro {
 
             /**
-             * @class WaveEffect
-             * @brief Represent a wave light effect, setting all leds to the same color, starting from black to the given color and then back to black
+             * @class RotateEffect
+             * @brief Represent a rotate light effect, setting leds on one by one, only one led remain on at the same time
              */
-            class WaveEffect : public Effect {
+            class RotateEffect : public Effect {
                 private :   // Fields
                     ObservedData<Color>& color; /**< The effect color */
                     unsigned char speed;        /**< The effect speed */
-                    int current;                /**< The current step */
+                    LedId current;              /**< The current step */
                     unsigned long lastTime;     /**< The last step time */
-                    bool down;                  /**< Tell if the effect is going down or up in intensity */
+                    bool clockwise;             /**< Tell if the effect is going clockwise or not */
 
                 public :    // Methods
                     //## Constructor ##//
                         /**
                          * No default constructor
                          */
-                        WaveEffect() = delete;
+                        RotateEffect() = delete;
                         /**
                          * Construct the effect from the fix color
-                         * @param c the effect color
-                         * @param s the effect speed
+                         * @param c               the effect color
+                         * @param s               the effect speed
+                         * @param clockwiseEffect tell if the effect is rotating clockwise or not
                          */
-                        WaveEffect(ObservedData<Color>& c, unsigned char s = 5) : color(c), speed(s), current(0), lastTime(0), down(false) {
+                        RotateEffect(ObservedData<Color>& c, unsigned char s = 5, bool clockwiseEffect = true) : color(c), speed(s), current(0), lastTime(0), clockwise(clockwiseEffect) {
                         }
 
                     //## Methods ##//
@@ -66,29 +67,24 @@
                             }
                             lastTime = time;
 
-                            if (down) {
-                                --current;
-                                if (current < 0) {
-                                    current = 0;
-                                    down = false;
+                            int next = static_cast <int> (current);
+
+                            if (clockwise) {
+                                --next;
+                                if (next < 0) {
+                                    next = controller.getCount() - 1;
                                 }
                             } else {
-                                ++current;
-                                if (current > 255) {
-                                    current = 255;
-                                    down = true;
+                                ++next;
+                                if (next >= controller.getCount()) {
+                                    next = 0;
                                 }
                             }
 
-                            ColorChannel r = Color::extractR(color.get());
-                            ColorChannel g = Color::extractG(color.get());
-                            ColorChannel b = Color::extractB(color.get());
+                            controller.setColor(current, BLACK);
+                            current = static_cast <LedId> (next);
 
-                            r = r - (255 - current);
-                            g = g - (255 - current);
-                            b = b - (255 - current);
-
-                            controller.setColor(Color(r, g, b));
+                            controller.setColor(current, color);
                         }
                         /**
                          * Called when the effect is replaced by another one in a controller

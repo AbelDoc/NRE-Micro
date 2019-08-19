@@ -16,3 +16,5 @@
 
     #include "../LED/Effect/NRE_FixEffect.hpp"
     #include "../LED/Effect/NRE_WaveEffect.hpp"
+    #include "../LED/Effect/NRE_RotateEffect.hpp"
+    #include "../LED/Effect/NRE_RotateFixEffect.hpp"

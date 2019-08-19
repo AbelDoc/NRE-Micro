@@ -193,6 +193,12 @@
                          */
                         ConstIterator cend() const;
 
+                    //## Getter ##//
+                        /**
+                         * @return the leds count
+                         */
+                        LedId getCount() const;
+
                     //## Methods ##//
                         /**
                          * Turn all leds off
