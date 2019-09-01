@@ -18,8 +18,8 @@
         void setup() {
             //## Configuring sub modules ##//
                 auto id = MicroManager::get<LedManager>().addController(10, 15);
-                MicroManager::get<RomManager>().addData(color0);
-                MicroManager::get<RomManager>().addData(color1);
+                //MicroManager::get<RomManager>().addData(color0);
+                //MicroManager::get<RomManager>().addData(color1);
 
                 //MicroManager::get<WiFiManager>().addKnownNetwork("freebox_AB", "mireilleetdidier");
                 MicroManager::get<WiFiManager>().addKnownNetwork("ABEL-ELITE-LAN", "AbelDocLan");
