@@ -47,7 +47,7 @@
                          * @param s               the effect speed
                          * @param clockwiseEffect tell if the effect is rotating clockwise or not
                          */
-                        RotateEffect(ObservedData<Color>& c, unsigned char s = 5, bool clockwiseEffect = true) : color(c), speed(s), current(0), lastTime(0), clockwise(clockwiseEffect) {
+                        RotateEffect(ObservedData<Color>& c, unsigned char s = 10, bool clockwiseEffect = true) : color(c), speed(s), current(0), lastTime(0), clockwise(clockwiseEffect) {
                         }
 
                     //## Methods ##//
@@ -65,7 +65,6 @@
                             if (time - lastTime <= 100 * speed) {
                                 delay(100 * speed - (time - lastTime));
                             }
-                            lastTime = time;
 
                             int next = static_cast <int> (current);
 
@@ -85,6 +84,7 @@
                             current = static_cast <LedId> (next);
 
                             controller.setColor(current, color);
+                            lastTime = micros();
                         }
                         /**
                          * Called when the effect is replaced by another one in a controller

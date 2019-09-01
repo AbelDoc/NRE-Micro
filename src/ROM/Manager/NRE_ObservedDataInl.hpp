@@ -47,7 +47,7 @@
             template <class T>
             inline void ObservedData<T>::update() {
                 #ifdef  NRE_USE_ROM
-                    MicroManager::get<RomManager>().write<T>(&data, ptr);
+                    MicroManager::get<RomManager>().write<T>(data, ptr);
                 #endif
                 if (handle) {
                     handle(data);

@@ -68,6 +68,10 @@
                          * Setup the module
                          */
                         void setup() override;
+                        /**
+                         * Loop through all controller
+                         */
+                        void loop() override;
             };
 
             static LedManager _ledManager;

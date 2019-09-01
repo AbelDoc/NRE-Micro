@@ -202,7 +202,13 @@
                              * @param data the data to write
                              */
                             template <class T>
-                            void write(T* data, int addr);
+                            void write(T& data, int addr);
+                            /**
+                             * Read a character
+                             * @param  addr the character address
+                             * @return      the read character
+                             */
+                            unsigned char read(int addr);
                             /**
                              * Setup the module
                              */

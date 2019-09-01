@@ -38,15 +38,19 @@
             }
 
             template <>
-            inline void RomManager::write(String* data, int addr) {
-                memcpy(reinterpret_cast <uint8_t*> (data), &EEPROM[addr], data->length());
+            inline void RomManager::write(String& data, int addr) {
+                memcpy(reinterpret_cast <uint8_t*> (&data), &EEPROM[addr], data.length());
                 EEPROM.commit();
             }
 
             template <class T>
-            inline void RomManager::write(T* data, int addr) {
-                EEPROM.put<T>(addr, *data);
+            inline void RomManager::write(T& data, int addr) {
+                EEPROM.put<T>(addr, data);
                 EEPROM.commit();
+            }
+
+            inline unsigned char RomManager::read(int addr) {
+                return EEPROM[addr];
             }
 
             inline void RomManager::setup() {

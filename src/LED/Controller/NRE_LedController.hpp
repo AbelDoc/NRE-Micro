@@ -260,7 +260,7 @@
                          * Setup the controller
                          * @param startUpColor the startup color for all leds
                          */
-                        void setup(Color const& startUpColor = BLACK);
+                        void setup(Color const& startUpColor = RED);
                         /**
                          * The controller's loop
                          */

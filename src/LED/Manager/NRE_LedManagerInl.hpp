@@ -33,5 +33,11 @@
                 }
             }
 
+            inline void LedManager::loop() {
+                for (LedController* controller : controllers) {
+                    controller->loop();
+                }
+            }
+
         }
     }

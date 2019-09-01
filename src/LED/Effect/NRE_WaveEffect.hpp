@@ -31,7 +31,7 @@
                 private :   // Fields
                     ObservedData<Color>& color; /**< The effect color */
                     unsigned char speed;        /**< The effect speed */
-                    int current;                /**< The current step */
+                    float current;              /**< The current step */
                     unsigned long lastTime;     /**< The last step time */
                     bool down;                  /**< Tell if the effect is going down or up in intensity */
 
@@ -46,7 +46,7 @@
                          * @param c the effect color
                          * @param s the effect speed
                          */
-                        WaveEffect(ObservedData<Color>& c, unsigned char s = 5) : color(c), speed(s), current(0), lastTime(0), down(false) {
+                        WaveEffect(ObservedData<Color>& c, unsigned char s = 2) : color(c), speed(s), current(0), lastTime(0), down(false) {
                         }
 
                     //## Methods ##//
@@ -64,31 +64,31 @@
                             if (time - lastTime <= 100 * speed) {
                                 delay(100 * speed - (time - lastTime));
                             }
-                            lastTime = time;
+
+                            float r = color.get().getR();
+                            float g = color.get().getG();
+                            float b = color.get().getB();
 
                             if (down) {
-                                --current;
+                                current -= 0.01;
                                 if (current < 0) {
                                     current = 0;
                                     down = false;
                                 }
                             } else {
-                                ++current;
-                                if (current > 255) {
-                                    current = 255;
+                                current += 0.01;
+                                if (current > 1) {
+                                    current = 1;
                                     down = true;
                                 }
                             }
 
-                            ColorChannel r = Color::extractR(color.get());
-                            ColorChannel g = Color::extractG(color.get());
-                            ColorChannel b = Color::extractB(color.get());
+                            r *= current;
+                            g *= current;
+                            b *= current;
 
-                            r = r - (255 - current);
-                            g = g - (255 - current);
-                            b = b - (255 - current);
-
-                            controller.setColor(Color(r, g, b));
+                            controller.setColor(Color(static_cast <ColorChannel> (r), static_cast <ColorChannel> (g), static_cast <ColorChannel> (b)));
+                            lastTime = micros();
                         }
                         /**
                          * Called when the effect is replaced by another one in a controller
