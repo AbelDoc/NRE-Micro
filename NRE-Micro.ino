@@ -4,11 +4,13 @@
     #define NRE_USE_LED      // Use LED SubModule
     #define NRE_USE_WEB      // Use Web SubModule
     #define NRE_USE_WIFI     // Use WiFi SubModule
-    //#define NRE_USE_ROM      // Use Rom SubModule
+    #define NRE_USE_ROM      // Use Rom SubModule
 
     #include "src/Header/NRE_Micro.hpp"     // Include all used sub modules
 
     using namespace NRE::Micro;
+
+    //#include <EEPROM.h>
 
     //## Program Variables ##//
         ObservedData<Color> color0(BLUE);
@@ -18,12 +20,10 @@
         void setup() {
             //## Configuring sub modules ##//
                 auto id = MicroManager::get<LedManager>().addController(10, 15);
-                //MicroManager::get<RomManager>().addData(color0);
-                //MicroManager::get<RomManager>().addData(color1);
+                MicroManager::get<RomManager>().addData(color0);
+                MicroManager::get<RomManager>().addData(color1);
 
-                //MicroManager::get<WiFiManager>().addKnownNetwork("freebox_AB", "mireilleetdidier");
                 MicroManager::get<WiFiManager>().addKnownNetwork("ABEL-ELITE-LAN", "AbelDocLan");
-                //MicroManager::get<WiFiManager>().setAPOnSetup("pomme", "mireilleabel");
 
                 MicroManager::get<WebManager>().addHandle([&](ESP8266WebServer& server) {
                     if (server.args() > 0) {
@@ -59,8 +59,8 @@
                                 }
                                 server.send(200, "text/html", "OK");
                             }
-                            /*if (server.args() == 1 && server.argName(0) == "debug" && server.arg(0) == "color") {
-                                server.send(200, "text/html", String(color.get().getColor()));
+                            if (server.args() == 1 && server.argName(0) == "debug" && server.arg(0) == "color") {
+                                server.send(200, "text/html", String(color0.get().getColor()) + "-" + String(color1.get().getColor()));
                             }
                             if (server.args() == 1 && server.argName(0) == "debug" && server.arg(0) == "rom") {
                                 server.send(200, "text/html", String(MicroManager::get<RomManager>().read(0)));
@@ -75,7 +75,7 @@
                             }
                             if (server.args() == 1 && server.argName(0) == "debug" && server.arg(0) == "adr") {
                                 server.send(200, "text/html", String(static_cast <int> (color0.ptr)) + "-" + String(static_cast <int> (color1.ptr)));
-                            }*/
+                            }
                         }
                     }
                 });

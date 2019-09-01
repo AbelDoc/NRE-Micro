@@ -71,34 +71,34 @@
                          * Called at each loop iteration
                          */
                         void run(LedController& controller) override {
-                                unsigned long time = micros();
-                                if (time - lastTime <= 100 * speed) {
-                                    delay(100 * speed - (time - lastTime));
-                                }
+                            unsigned long time = micros();
+                            if (time - lastTime <= 100 * speed) {
+                                delay(100 * speed - (time - lastTime));
+                            }
 
-                                for (int i = 0; i < controller.getCount(); i++) {
-                                    if (downs[i]) {
-                                        currents[i] -= 0.01;
-                                        if (currents[i] < 0) {
-                                            currents[i] = 0;
-                                            downs[i] = false;
-                                        }
-                                    } else {
-                                        currents[i] += 0.01;
-                                        if (currents[i] > 1) {
-                                            currents[i] = 1.0;
-                                            downs[i] = true;
-                                        }
+                            for (int i = 0; i < controller.getCount(); i++) {
+                                if (downs[i]) {
+                                    currents[i] -= 0.01;
+                                    if (currents[i] < 0) {
+                                        currents[i] = 0;
+                                        downs[i] = false;
                                     }
-
-                                    float r = (endColor.get().getR() * currents[i]) + (startColor.get().getR() * (1.0f - currents[i]));
-                                    float g = (endColor.get().getG() * currents[i]) + (startColor.get().getG() * (1.0f - currents[i]));
-                                    float b = (endColor.get().getB() * currents[i]) + (startColor.get().getB() * (1.0f - currents[i]));
-
-                                    controller.setColor(i, Color(static_cast <ColorChannel> (r), static_cast <ColorChannel> (g), static_cast <ColorChannel> (b)));
+                                } else {
+                                    currents[i] += 0.01;
+                                    if (currents[i] > 1) {
+                                        currents[i] = 1.0;
+                                        downs[i] = true;
+                                    }
                                 }
 
-                                lastTime = micros();
+                                float r = (endColor.get().getR() * currents[i]) + (startColor.get().getR() * (1.0f - currents[i]));
+                                float g = (endColor.get().getG() * currents[i]) + (startColor.get().getG() * (1.0f - currents[i]));
+                                float b = (endColor.get().getB() * currents[i]) + (startColor.get().getB() * (1.0f - currents[i]));
+
+                                controller.setColor(i, Color(static_cast <ColorChannel> (r), static_cast <ColorChannel> (g), static_cast <ColorChannel> (b)));
+                            }
+
+                            lastTime = micros();
                         }
                         /**
                          * Called when the effect is replaced by another one in a controller
