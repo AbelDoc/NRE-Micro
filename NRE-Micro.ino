@@ -18,7 +18,8 @@
         void setup() {
             //## Configuring sub modules ##//
                 auto id = MicroManager::get<LedManager>().addController(10, 15);
-                //MicroManager::get<RomManager>().addData(color);
+                MicroManager::get<RomManager>().addData(color0);
+                MicroManager::get<RomManager>().addData(color1);
 
                 //MicroManager::get<WiFiManager>().addKnownNetwork("freebox_AB", "mireilleetdidier");
                 MicroManager::get<WiFiManager>().addKnownNetwork("ABEL-ELITE-LAN", "AbelDocLan");
@@ -58,7 +59,7 @@
                                 }
                                 server.send(200, "text/html", "OK");
                             }
-                            if (server.args() == 1 && server.argName(0) == "debug" && server.arg(0) == "color") {
+                            /*if (server.args() == 1 && server.argName(0) == "debug" && server.arg(0) == "color") {
                                 server.send(200, "text/html", String(color.get().getColor()));
                             }
                             if (server.args() == 1 && server.argName(0) == "debug" && server.arg(0) == "rom") {
@@ -73,8 +74,8 @@
                                 server.send(200, "text/html", "OK");
                             }
                             if (server.args() == 1 && server.argName(0) == "debug" && server.arg(0) == "adr") {
-                                server.send(200, "text/html", String(static_cast <int> (color.ptr)));
-                            }
+                                server.send(200, "text/html", String(static_cast <int> (color0.ptr)) + "-" + String(static_cast <int> (color1.ptr)));
+                            }*/
                         }
                     }
                 });
