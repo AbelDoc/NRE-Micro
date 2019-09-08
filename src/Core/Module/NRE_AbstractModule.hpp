@@ -54,6 +54,14 @@
                          */
                         AbstractModule(AbstractModule && m) = delete;
 
+                    //## Getter ##//
+                        /**
+                         * @return tell if the module has to be setup first, used for rom manager
+                         */
+                        virtual bool setupPrior() const {
+                            return false;
+                        }
+
                     //## Methods ##//
                         /**
                          * Setup the module

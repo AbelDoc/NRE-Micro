@@ -60,21 +60,43 @@
                 template <class T>
                 inline void ObservedData<T>::read(void* ptr) {
                     memcpy(reinterpret_cast <char*> (&data), ptr, getSize());
+                    if (handle) {
+                        handle(data);
+                    }
                 }
 
                 template <>
                 inline void ObservedData<String>::read(void* ptr) {
                     char* buf = static_cast <char*> (ptr);
-                    String tmp;
-                    tmp.reserve(getSize());
-
-                    for (uint32_t i = 0; i < getSize(); ++i) {
-                        tmp += buf[i];
+                    for (std::size_t i = 0; i < getSize(); i++) {
+                        data[i] = buf[i];
                     }
-                    data = tmp;
-                }
 
+                    if (handle) {
+                        handle(data);
+                    }
+                }
             #endif
+
+            template <class T>
+            inline T const& ObservedData<T>::operator*() const {
+                return data;
+            }
+
+            template <class T>
+            inline const T* ObservedData<T>::operator->() const {
+                return &data;
+            }
+
+            template <class T>
+            inline T& ObservedData<T>::operator*() {
+                return data;
+            }
+
+            template <class T>
+            inline T* ObservedData<T>::operator->() {
+                return &data;
+            }
 
             template <class T>
             inline ObservedData<T>& ObservedData<T>::operator=(T const& d) {
@@ -85,10 +107,32 @@
                 return *this;
             }
 
+            template <>
+            inline ObservedData<String>& ObservedData<String>::operator=(String const& d) {
+                if (&data != &d) {
+                    for (std::size_t i = 0; i < data.length(); i++) {
+                        data[i] = d[i];
+                    }
+                    update();
+                }
+                return *this;
+            }
+
             template <class T>
             inline ObservedData<T>& ObservedData<T>::operator=(T && d) {
                 if (&data != &d) {
                     data = std::move(d);
+                    update();
+                }
+                return *this;
+            }
+
+            template <>
+            inline ObservedData<String>& ObservedData<String>::operator=(String && d) {
+                if (&data != &d) {
+                    for (std::size_t i = 0; i < data.length(); i++) {
+                        data[i] = d[i];
+                    }
                     update();
                 }
                 return *this;

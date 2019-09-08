@@ -23,7 +23,14 @@
 
             inline void MicroManager::setupModules() {
                 for (AbstractModule* module : modules) {
-                    module->setup();
+                    if (module->setupPrior()) {
+                        module->setup();
+                    }
+                }
+                for (AbstractModule* module : modules) {
+                    if (!module->setupPrior()) {
+                        module->setup();
+                    }
                 }
             }
 

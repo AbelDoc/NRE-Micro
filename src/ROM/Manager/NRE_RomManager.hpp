@@ -133,6 +133,28 @@
                             void read(void* ptr) override;
                         #endif
 
+                    //## Access Operator ##//
+                        /**
+                         * Dereference operator, allow access to the data
+                         * @return the observed data
+                         */
+                        T const& operator*() const;
+                        /**
+                         * Dereference operator, allow access to the data
+                         * @return the observed data
+                         */
+                        T& operator*();
+                        /**
+                         * Arrow dereference operator, allow access to the data
+                         * @return the observed data pointer
+                         */
+                        const T* operator->() const;
+                        /**
+                         * Arrow dereference operator, allow access to the data
+                         * @return the observed data pointer
+                         */
+                        T* operator->();
+
                     //## Assignment Operator ##//
                         /**
                          * Copy assign d into this
@@ -158,6 +180,20 @@
                          * @return the reference of himself
                          */
                         ObservedData& operator=(T && d);
+
+                public :    // Static
+                    /**
+                     * Resize a string up to the given length
+                     * @param str  the string to resize
+                     * @param size the new size
+                     */
+                    static void resizeString(ObservedData<String>& str, std::size_t size) {
+                        String& internal = str.get();
+                        internal.reserve(size);
+                        for (std::size_t i = internal.length(); i < size; i++) {
+                            internal += '\0';
+                        }
+                    }
             };
 
             #ifdef NRE_USE_ROM
@@ -170,6 +206,7 @@
                     private :   // Fields
                         std::vector<AbstractData*> objects;  /**< The managed objects */
                         int currentPtr;
+                        std::function<void()> onLoad;
 
                     public :    // Methods
                         //## Constructor ##//
@@ -177,6 +214,19 @@
                              * Construct the wifi module
                              */
                             RomManager();
+
+                        //## Getter ##//
+                            /**
+                             * @return tell if the module has to be setup first, used for rom manager
+                             */
+                            bool setupPrior() const override;
+
+                        //## Setter ##//
+                            /**
+                             * Set the function called on load
+                             * @param func the new function
+                             */
+                            void setOnLoad(std::function<void(void)> func);
 
                         //## Methods ##//
                             /**

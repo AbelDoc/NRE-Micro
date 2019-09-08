@@ -16,14 +16,28 @@
         ObservedData<Color> color0(BLUE);
         ObservedData<Color> color1(RED);
 
+        ObservedData<String> ssid("");
+        ObservedData<String> ssidPwd("");
+
     //## Setup ##//
         void setup() {
+            //## Observed String need to be resized to an upper limit ##//
+                ObservedData<String>::resizeString(ssid,    50);
+                ObservedData<String>::resizeString(ssidPwd, 50);
+
             //## Configuring sub modules ##//
                 auto id = MicroManager::get<LedManager>().addController(10, 15);
                 MicroManager::get<RomManager>().addData(color0);
                 MicroManager::get<RomManager>().addData(color1);
+                MicroManager::get<RomManager>().addData(ssid);
+                MicroManager::get<RomManager>().addData(ssidPwd);
 
-                MicroManager::get<WiFiManager>().addKnownNetwork("ABEL-ELITE-LAN", "AbelDocLan");
+                MicroManager::get<RomManager>().setOnLoad([&]() {
+                    if (strlen(ssid->c_str()) != 0) {
+                        MicroManager::get<WiFiManager>().addKnownNetwork(ssid, ssidPwd);
+                    }
+                    MicroManager::get<WiFiManager>().setAPOnSetup("MyLight", "NRESoftware", false);
+                });
 
                 MicroManager::get<WebManager>().addHandle([&](ESP8266WebServer& server) {
                     if (server.args() > 0) {
@@ -59,11 +73,15 @@
                                 }
                                 server.send(200, "text/html", "OK");
                             }
-                            if (server.args() == 1 && server.argName(0) == "debug" && server.arg(0) == "color") {
-                                server.send(200, "text/html", String(color0.get().getColor()) + "-" + String(color1.get().getColor()));
+                            if (server.args() == 1 && server.argName(0) == "info") {
+                                server.send(200, "text/html", ssid.get() + "\n" + ssidPwd.get());
                             }
-                            if (server.args() == 1 && server.argName(0) == "debug" && server.arg(0) == "rom") {
-                                server.send(200, "text/html", String(MicroManager::get<RomManager>().read(0)));
+                            if (server.args() == 2 && server.argName(0) == "ssid" && server.argName(1) == "pwd") {
+                                ssid    = server.arg(0);
+                                ssidPwd = server.arg(1);
+                                server.send(200, "text/html", ssid.get() + "\n" + ssidPwd.get());
+                                delay(2000);
+                                ESP.restart();
                             }
                             if (server.args() == 1 && server.argName(0) == "debug" && server.arg(0) == "reset") {
                                 MicroManager::get<RomManager>().resetROM();
@@ -73,8 +91,8 @@
                                 MicroManager::get<RomManager>().clearROM();
                                 server.send(200, "text/html", "OK");
                             }
-                            if (server.args() == 1 && server.argName(0) == "debug" && server.arg(0) == "adr") {
-                                server.send(200, "text/html", String(static_cast <int> (color0.ptr)) + "-" + String(static_cast <int> (color1.ptr)));
+                            if (server.args() == 1 && server.argName(0) == "auth") {
+                                server.send(200, "text/html", "OK");
                             }
                         }
                     }
