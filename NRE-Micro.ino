@@ -19,6 +19,8 @@
         ObservedData<String> ssid("");
         ObservedData<String> ssidPwd("");
 
+        ObservedData<unsigned char> effect(6);
+
     //## Setup ##//
         void setup() {
             //## Observed String need to be resized to an upper limit ##//
@@ -31,12 +33,46 @@
                 MicroManager::get<RomManager>().addData(color1);
                 MicroManager::get<RomManager>().addData(ssid);
                 MicroManager::get<RomManager>().addData(ssidPwd);
+                MicroManager::get<RomManager>().addData(effect);
 
                 MicroManager::get<RomManager>().setOnLoad([&]() {
                     if (strlen(ssid->c_str()) != 0) {
                         MicroManager::get<WiFiManager>().addKnownNetwork(ssid, ssidPwd);
                     }
                     MicroManager::get<WiFiManager>().setAPOnSetup("MyLight", "NRESoftware", false);
+                });
+
+                effect.setHandle([&](unsigned char& data) {
+                    switch (data) {
+                        case (0) : {
+                            MicroManager::get<LedManager>().getController(id).setEffect(new FixEffect(color0));
+                            break;
+                        }
+                        case (1) : {
+                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateEffect(color0, 10));
+                            break;
+                        }
+                        case (2) : {
+                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateFixEffect(color0, 10));
+                            break;
+                        }
+                        case (3) : {
+                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateFixEffect(color0, 10, true, true));
+                            break;
+                        }
+                        case (4) : {
+                            MicroManager::get<LedManager>().getController(id).setEffect(new WaveEffect(color0, 2));
+                            break;
+                        }
+                        case (5) : {
+                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateLinearEffect(color0, 1));
+                            break;
+                        }
+                        case (6) :
+                        default : {
+                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateLinearGradiantEffect(color0, color1, 1));
+                        }
+                    }
                 });
 
                 MicroManager::get<WebManager>().addHandle([&](ESP8266WebServer& server) {
@@ -50,27 +86,7 @@
                             server.send(200, "text/html", server.arg(1) + "-" + server.arg(2) + "-" + server.arg(3));
                         } else {
                             if (server.args() == 1 && server.argName(0) == "effect") {
-                                if (server.arg(0).toInt() == 0) {
-                                    MicroManager::get<LedManager>().getController(id).setEffect(new FixEffect(color0));
-                                }
-                                if (server.arg(0).toInt() == 1) {
-                                    MicroManager::get<LedManager>().getController(id).setEffect(new RotateEffect(color0, 10));
-                                }
-                                if (server.arg(0).toInt() == 2) {
-                                    MicroManager::get<LedManager>().getController(id).setEffect(new RotateFixEffect(color0, 10));
-                                }
-                                if (server.arg(0).toInt() == 3) {
-                                    MicroManager::get<LedManager>().getController(id).setEffect(new RotateFixEffect(color0, 10, true, true));
-                                }
-                                if (server.arg(0).toInt() == 4) {
-                                    MicroManager::get<LedManager>().getController(id).setEffect(new WaveEffect(color0, 2));
-                                }
-                                if (server.arg(0).toInt() == 5) {
-                                    MicroManager::get<LedManager>().getController(id).setEffect(new RotateLinearEffect(color0, 1));
-                                }
-                                if (server.arg(0).toInt() == 6) {
-                                    MicroManager::get<LedManager>().getController(id).setEffect(new RotateLinearGradiantEffect(color0, color1, 1));
-                                }
+                                effect = static_cast <unsigned char> (server.arg(0).toInt());
                                 server.send(200, "text/html", "OK");
                             }
                             if (server.args() == 1 && server.argName(0) == "info") {
@@ -99,9 +115,6 @@
                 });
             //## Launching sub modules ##//
                 MicroManager::setup();
-
-            //## Sub modules operationnals, can be used ##//
-                MicroManager::get<LedManager>().getController(id).setEffect(new RotateLinearGradiantEffect(color0, color1, 1));
         }
 
     //## Main loop ##//
