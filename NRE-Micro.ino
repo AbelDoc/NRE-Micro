@@ -10,11 +10,13 @@
 
     using namespace NRE::Micro;
 
-    //#include <EEPROM.h>
-
     //## Program Variables ##//
-        ObservedData<Color> color0(BLUE);
-        ObservedData<Color> color1(RED);
+        ObservedData<Color> color0(RED);
+        ObservedData<Color> color1(YELLOW);
+        ObservedData<Color> color2(GREEN);
+        ObservedData<Color> color3(CYAN);
+        ObservedData<Color> color4(BLUE);
+        ObservedData<Color> color5(MAGENTA);
 
         ObservedData<String> ssid("");
         ObservedData<String> ssidPwd("");
@@ -28,12 +30,16 @@
                 ObservedData<String>::resizeString(ssidPwd, 50);
 
             //## Configuring sub modules ##//
-                auto id = MicroManager::get<LedManager>().addController(10, 15);
+                auto id = MicroManager::get<LedManager>().addController(24, 15);
                 MicroManager::get<RomManager>().addData(color0);
                 MicroManager::get<RomManager>().addData(color1);
                 MicroManager::get<RomManager>().addData(ssid);
                 MicroManager::get<RomManager>().addData(ssidPwd);
                 MicroManager::get<RomManager>().addData(effect);
+                MicroManager::get<RomManager>().addData(color2);
+                MicroManager::get<RomManager>().addData(color3);
+                MicroManager::get<RomManager>().addData(color4);
+                MicroManager::get<RomManager>().addData(color5);
 
                 MicroManager::get<RomManager>().setOnLoad([&]() {
                     if (strlen(ssid->c_str()) != 0) {
@@ -68,9 +74,17 @@
                             MicroManager::get<LedManager>().getController(id).setEffect(new RotateLinearEffect(color0, 1));
                             break;
                         }
-                        case (6) :
+                        case (6) : {
+                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateLinearGradiantEffect(color0, color1, 1));
+                            break;
+                        }
+                        case (7) : {
+                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateLinearRainbowEffect(color0, color1, color2, color3, color4, color5, 1));
+                            break;
+                        }
                         default : {
                             MicroManager::get<LedManager>().getController(id).setEffect(new RotateLinearGradiantEffect(color0, color1, 1));
+                            break;
                         }
                     }
                 });
@@ -78,10 +92,31 @@
                 MicroManager::get<WebManager>().addHandle([&](ESP8266WebServer& server) {
                     if (server.args() > 0) {
                         if (server.args() >= 4 && server.argName(0) == "color") {
-                            if (server.arg(0).toInt() == 0) {
-                                color0 = Color(server.arg(1).toInt(), server.arg(2).toInt(), server.arg(3).toInt());
-                            } else {
-                                color1 = Color(server.arg(1).toInt(), server.arg(2).toInt(), server.arg(3).toInt());
+                            switch (server.arg(0).toInt()) {
+                                case (0) : {
+                                    color0 = Color(server.arg(1).toInt(), server.arg(2).toInt(), server.arg(3).toInt());
+                                    break;
+                                }
+                                case (1) : {
+                                    color1 = Color(server.arg(1).toInt(), server.arg(2).toInt(), server.arg(3).toInt());
+                                    break;
+                                }
+                                case (2) : {
+                                    color2 = Color(server.arg(1).toInt(), server.arg(2).toInt(), server.arg(3).toInt());
+                                    break;
+                                }
+                                case (3) : {
+                                    color3 = Color(server.arg(1).toInt(), server.arg(2).toInt(), server.arg(3).toInt());
+                                    break;
+                                }
+                                case (4) : {
+                                    color4 = Color(server.arg(1).toInt(), server.arg(2).toInt(), server.arg(3).toInt());
+                                    break;
+                                }
+                                case (5) : {
+                                    color5 = Color(server.arg(1).toInt(), server.arg(2).toInt(), server.arg(3).toInt());
+                                    break;
+                                }
                             }
                             server.send(200, "text/html", server.arg(1) + "-" + server.arg(2) + "-" + server.arg(3));
                         } else {

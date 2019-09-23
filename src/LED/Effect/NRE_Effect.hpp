@@ -32,14 +32,17 @@
                     //## Methods ##//
                         /**
                          * Called when the effect is set to a controller
+                         * @param controller the master controller
                          */
                         virtual void start(LedController& controller) = 0;
                         /**
                          * Called at each loop iteration
+                         * @param controller the master controller
                          */
                         virtual void run(LedController& controller) = 0;
                         /**
                          * Called when the effect is replaced by another one in a controller
+                         * @param controller the master controller
                          */
                         virtual void stop(LedController& controller) = 0;
             };

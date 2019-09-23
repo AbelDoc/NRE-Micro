@@ -9,7 +9,7 @@
 
      #pragma once
 
-     #include "../Controller/NRE_LedController.hpp"
+     #include "../../Controller/NRE_LedController.hpp"
 
      /**
      * @namespace NRE

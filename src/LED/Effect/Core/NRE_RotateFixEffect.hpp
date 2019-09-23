@@ -1,7 +1,7 @@
 
     /**
-     * @file NRE_RotateEffect.hpp
-     * @brief Declaration of Micro's API's Object : RotateEffect
+     * @file NRE_RotateFixEffect.hpp
+     * @brief Declaration of Micro's API's Object : RotateFixEffect
      * @author Louis ABEL
      * @date 18/08/2019
      * @copyright CC-BY-NC-SA
@@ -9,7 +9,7 @@
 
      #pragma once
 
-     #include "../Controller/NRE_LedController.hpp"
+     #include "../../Controller/NRE_LedController.hpp"
 
      /**
      * @namespace NRE
@@ -24,30 +24,36 @@
         namespace Micro {
 
             /**
-             * @class RotateEffect
-             * @brief Represent a rotate light effect, setting leds on one by one, only one led remain on at the same time
+             * @class RotateFixEffect
+             * @brief Represent a rotate light effect, setting leds on one by one, leds remains on while the effect is running
              */
-            class RotateEffect : public Effect {
+            class RotateFixEffect : public Effect {
                 private :   // Fields
                     ObservedData<Color>& color; /**< The effect color */
                     unsigned char speed;        /**< The effect speed */
                     LedId current;              /**< The current step */
                     unsigned long lastTime;     /**< The last step time */
                     bool clockwise;             /**< Tell if the effect is going clockwise or not */
+                    bool negateOrFill;          /**< Tell if the effect turn all leds off when a cycle is complete, or turn them off one by one in the next cycle */
+                    bool cycleComplete;         /**< Tell that we have finish a cycle */
 
                 public :    // Methods
                     //## Constructor ##//
                         /**
                          * No default constructor
                          */
-                        RotateEffect() = delete;
+                        RotateFixEffect() = delete;
                         /**
                          * Construct the effect from the fix color
-                         * @param c               the effect color
-                         * @param s               the effect speed
-                         * @param clockwiseEffect tell if the effect is rotating clockwise or not
+                         * @param c                  the effect color
+                         * @param s                  the effect speed
+                         * @param clockwiseEffect    tell if the effect is rotating clockwise or not
+                         * @param negateOrFillEffect tell if the effect turn all leds off when a cycle is complete or if each led is turn off in the next cycle
                          */
-                        RotateEffect(ObservedData<Color>& c, unsigned char s = 10, bool clockwiseEffect = true) : color(c), speed(s), current(0), lastTime(0), clockwise(clockwiseEffect) {
+                        RotateFixEffect(ObservedData<Color>& c, unsigned char s = 10, bool clockwiseEffect = true, bool negateOrFillEffect = false) : color(c), speed(s), current(0), lastTime(0), clockwise(clockwiseEffect), negateOrFill(negateOrFillEffect), cycleComplete(false) {
+                            if (clockwise) {
+                                cycleComplete = true;
+                            }
                         }
 
                     //## Methods ##//
@@ -72,18 +78,32 @@
                                 --next;
                                 if (next < 0) {
                                     next = controller.getCount() - 1;
+                                    if (!negateOrFill) {
+                                        controller.setColor(BLACK);
+                                    } else {
+                                        cycleComplete = !cycleComplete;
+                                    }
                                 }
                             } else {
                                 ++next;
                                 if (next >= controller.getCount()) {
                                     next = 0;
+                                    if (!negateOrFill) {
+                                        controller.setColor(BLACK);
+                                    } else {
+                                        cycleComplete = !cycleComplete;
+                                    }
                                 }
                             }
 
-                            controller.setColor(current, BLACK);
                             current = static_cast <LedId> (next);
 
-                            controller.setColor(current, color);
+                            if (negateOrFill && cycleComplete) {
+                                controller.setColor(current, BLACK);
+                            } else {
+                                controller.setColor(current, color);
+                            }
+
                             lastTime = micros();
                         }
                         /**
