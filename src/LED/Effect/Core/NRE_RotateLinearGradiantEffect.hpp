@@ -31,7 +31,7 @@
                 private :   // Fields
                     ObservedData<Color>& startColor;    /**< The start color */
                     ObservedData<Color>& endColor;      /**< The end color */
-                    unsigned char speed;                /**< The effect speed */
+                    ObservedData<unsigned int>& speed;  /**< The effect speed */
                     float* currents;                    /**< The current step */
                     bool* downs;                        /**< Tell if the effect is going down or up in intensity */
                     unsigned long lastTime;             /**< The last step time */
@@ -47,7 +47,7 @@
                          * @param c the effect color
                          * @param s the effect speed
                          */
-                        RotateLinearGradiantEffect(ObservedData<Color>& startC, ObservedData<Color>& endC, unsigned char s = 1) : startColor(startC), endColor(endC), speed(s), currents(nullptr),  downs(nullptr), lastTime(0) {
+                        RotateLinearGradiantEffect(ObservedData<Color>& startC, ObservedData<Color>& endC, ObservedData<unsigned int>& s) : startColor(startC), endColor(endC), speed(s), currents(nullptr),  downs(nullptr), lastTime(0) {
                         }
 
                     //## Methods ##//
@@ -72,8 +72,8 @@
                          */
                         void run(LedController& controller) override {
                             unsigned long time = micros();
-                            if (time - lastTime <= 100 * speed) {
-                                delay(100 * speed - (time - lastTime));
+                            if (time - lastTime <= speed.get()) {
+                                delay(speed.get() - (time - lastTime));
                             }
 
                             for (int i = 0; i < controller.getCount(); i++) {

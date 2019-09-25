@@ -117,6 +117,11 @@
                 lightEffect->start(*this);
             }
 
+            inline void LedController::changeController(LedId nb, Pin pin, neoPixelType type) {
+                controller = Adafruit_NeoPixel(nb, pin, type);
+                controller.begin();
+            }
+
             inline void LedController::setup(Color const& startUpColor) {
                 controller.begin();
                 setColor(startUpColor);

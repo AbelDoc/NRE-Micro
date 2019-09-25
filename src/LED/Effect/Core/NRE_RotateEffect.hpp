@@ -29,11 +29,11 @@
              */
             class RotateEffect : public Effect {
                 private :   // Fields
-                    ObservedData<Color>& color; /**< The effect color */
-                    unsigned char speed;        /**< The effect speed */
-                    LedId current;              /**< The current step */
-                    unsigned long lastTime;     /**< The last step time */
-                    bool clockwise;             /**< Tell if the effect is going clockwise or not */
+                    ObservedData<Color>& color;         /**< The effect color */
+                    ObservedData<unsigned int>& speed;  /**< The effect speed */
+                    LedId current;                      /**< The current step */
+                    unsigned long lastTime;             /**< The last step time */
+                    bool clockwise;                     /**< Tell if the effect is going clockwise or not */
 
                 public :    // Methods
                     //## Constructor ##//
@@ -47,7 +47,7 @@
                          * @param s               the effect speed
                          * @param clockwiseEffect tell if the effect is rotating clockwise or not
                          */
-                        RotateEffect(ObservedData<Color>& c, unsigned char s = 10, bool clockwiseEffect = true) : color(c), speed(s), current(0), lastTime(0), clockwise(clockwiseEffect) {
+                        RotateEffect(ObservedData<Color>& c, ObservedData<unsigned int>& s, bool clockwiseEffect = true) : color(c), speed(s), current(0), lastTime(0), clockwise(clockwiseEffect) {
                         }
 
                     //## Methods ##//
@@ -62,8 +62,8 @@
                          */
                         void run(LedController& controller) override {
                             unsigned long time = micros();
-                            if (time - lastTime <= 100 * speed) {
-                                delay(100 * speed - (time - lastTime));
+                            if (time - lastTime <= speed.get()) {
+                                delay(speed.get() - (time - lastTime));
                             }
 
                             int next = static_cast <int> (current);

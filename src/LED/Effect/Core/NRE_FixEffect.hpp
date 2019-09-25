@@ -50,6 +50,9 @@
                          */
                         void start(LedController& controller) override {
                             controller.setColor(color);
+                            color.setHandle([&](Color& data) {
+                                controller.setColor(color);
+                            });
                         }
                         /**
                          * Called at each loop iteration
@@ -61,6 +64,8 @@
                          */
                         void stop(LedController& controller) override {
                             controller.setColor(BLACK);
+                            color.setHandle([&](Color& data) {
+                            });
                         }
             };
 

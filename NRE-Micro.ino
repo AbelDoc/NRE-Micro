@@ -18,6 +18,8 @@
         ObservedData<Color> color4(BLUE);
         ObservedData<Color> color5(MAGENTA);
 
+        ObservedData<unsigned int> speed(100);
+
         ObservedData<String> ssid("");
         ObservedData<String> ssidPwd("");
 
@@ -30,7 +32,8 @@
                 ObservedData<String>::resizeString(ssidPwd, 50);
 
             //## Configuring sub modules ##//
-                auto id = MicroManager::get<LedManager>().addController(24, 15);
+                //auto id = MicroManager::get<LedManager>().addController(24, 15);
+                auto id = MicroManager::get<LedManager>().addController(10, 15);
                 MicroManager::get<RomManager>().addData(color0);
                 MicroManager::get<RomManager>().addData(color1);
                 MicroManager::get<RomManager>().addData(ssid);
@@ -40,6 +43,7 @@
                 MicroManager::get<RomManager>().addData(color3);
                 MicroManager::get<RomManager>().addData(color4);
                 MicroManager::get<RomManager>().addData(color5);
+                MicroManager::get<RomManager>().addData(speed);
 
                 MicroManager::get<RomManager>().setOnLoad([&]() {
                     if (strlen(ssid->c_str()) != 0) {
@@ -55,35 +59,35 @@
                             break;
                         }
                         case (1) : {
-                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateEffect(color0, 10));
+                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateEffect(color0, speed));
                             break;
                         }
                         case (2) : {
-                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateFixEffect(color0, 10));
+                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateFixEffect(color0, speed));
                             break;
                         }
                         case (3) : {
-                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateFixEffect(color0, 10, true, true));
+                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateFixEffect(color0, speed, true, true));
                             break;
                         }
                         case (4) : {
-                            MicroManager::get<LedManager>().getController(id).setEffect(new WaveEffect(color0, 2));
+                            MicroManager::get<LedManager>().getController(id).setEffect(new WaveEffect(color0, speed));
                             break;
                         }
                         case (5) : {
-                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateLinearEffect(color0, 1));
+                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateLinearEffect(color0, speed));
                             break;
                         }
                         case (6) : {
-                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateLinearGradiantEffect(color0, color1, 1));
+                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateLinearGradiantEffect(color0, color1, speed));
                             break;
                         }
                         case (7) : {
-                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateLinearRainbowEffect(color0, color1, color2, color3, color4, color5, 1));
+                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateLinearRainbowEffect(color0, color1, color2, color3, color4, color5, speed));
                             break;
                         }
                         default : {
-                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateLinearGradiantEffect(color0, color1, 1));
+                            MicroManager::get<LedManager>().getController(id).setEffect(new RotateLinearGradiantEffect(color0, color1, speed));
                             break;
                         }
                     }
@@ -120,12 +124,26 @@
                             }
                             server.send(200, "text/html", server.arg(1) + "-" + server.arg(2) + "-" + server.arg(3));
                         } else {
+                            if (server.args() == 1 && server.argName(0) == "speed") {
+                                speed = static_cast <unsigned int> (server.arg(0).toInt());
+                                server.send(200, "text/html", "OK");
+                            }
                             if (server.args() == 1 && server.argName(0) == "effect") {
                                 effect = static_cast <unsigned char> (server.arg(0).toInt());
                                 server.send(200, "text/html", "OK");
                             }
                             if (server.args() == 1 && server.argName(0) == "info") {
-                                server.send(200, "text/html", ssid.get() + "\n" + ssidPwd.get());
+                                server.send(200, "text/html", ssid.get() + "\n" +
+                                                              ssidPwd.get() + "\n" +
+                                                              String(color0->getR()) + "-" + String(color0->getG()) + "-" + String(color0->getB()) + "\n" +
+                                                              String(color1->getR()) + "-" + String(color1->getG()) + "-" + String(color1->getB()) + "\n" +
+                                                              String(color2->getR()) + "-" + String(color2->getG()) + "-" + String(color2->getB()) + "\n" +
+                                                              String(color3->getR()) + "-" + String(color3->getG()) + "-" + String(color3->getB()) + "\n" +
+                                                              String(color4->getR()) + "-" + String(color4->getG()) + "-" + String(color4->getB()) + "\n" +
+                                                              String(color5->getR()) + "-" + String(color5->getG()) + "-" + String(color5->getB()) + "\n" +
+                                                              String(effect.get()) + "\n" +
+                                                              String(speed.get())
+                                                              );
                             }
                             if (server.args() == 2 && server.argName(0) == "ssid" && server.argName(1) == "pwd") {
                                 ssid    = server.arg(0);

@@ -29,11 +29,11 @@
              */
             class WaveEffect : public Effect {
                 private :   // Fields
-                    ObservedData<Color>& color; /**< The effect color */
-                    unsigned char speed;        /**< The effect speed */
-                    float current;              /**< The current step */
-                    unsigned long lastTime;     /**< The last step time */
-                    bool down;                  /**< Tell if the effect is going down or up in intensity */
+                    ObservedData<Color>& color;         /**< The effect color */
+                    ObservedData<unsigned int>& speed;  /**< The effect speed */
+                    float current;                      /**< The current step */
+                    unsigned long lastTime;             /**< The last step time */
+                    bool down;                          /**< Tell if the effect is going down or up in intensity */
 
                 public :    // Methods
                     //## Constructor ##//
@@ -46,7 +46,7 @@
                          * @param c the effect color
                          * @param s the effect speed
                          */
-                        WaveEffect(ObservedData<Color>& c, unsigned char s = 2) : color(c), speed(s), current(0), lastTime(0), down(false) {
+                        WaveEffect(ObservedData<Color>& c, ObservedData<unsigned int>& s) : color(c), speed(s), current(0), lastTime(0), down(false) {
                         }
 
                     //## Methods ##//
@@ -61,8 +61,8 @@
                          */
                         void run(LedController& controller) override {
                             unsigned long time = micros();
-                            if (time - lastTime <= 100 * speed) {
-                                delay(100 * speed - (time - lastTime));
+                            if (time - lastTime <= speed.get()) {
+                                delay(speed.get() - (time - lastTime));
                             }
 
                             float r = color.get().getR();

@@ -35,7 +35,7 @@
                     ObservedData<Color>& c4;            /**< The fourth color */
                     ObservedData<Color>& c5;            /**< The fifth color */
                     ObservedData<Color>& c6;            /**< The sixth color */
-                    unsigned char speed;                /**< The effect speed */
+                    ObservedData<unsigned int>& speed;  /**< The effect speed */
                     float* currents;                    /**< The current step */
                     int* currentColors;                 /**< The currents color */
                     ObservedData<Color>** startColors;  /**< The starts colors */
@@ -58,7 +58,7 @@
                          * @param color6 the sixth effect color
                          * @param s      the effect speed
                          */
-                        RotateLinearRainbowEffect(ObservedData<Color>& color1, ObservedData<Color>& color2, ObservedData<Color>& color3, ObservedData<Color>& color4, ObservedData<Color>& color5, ObservedData<Color>& color6, unsigned char s = 1) : c1(color1), c2(color2), c3(color3), c4(color4), c5(color5), c6(color6), startColors(nullptr), endColors(nullptr), speed(s), currents(nullptr), currentColors(nullptr), lastTime(0) {
+                        RotateLinearRainbowEffect(ObservedData<Color>& color1, ObservedData<Color>& color2, ObservedData<Color>& color3, ObservedData<Color>& color4, ObservedData<Color>& color5, ObservedData<Color>& color6, ObservedData<unsigned int>& s) : c1(color1), c2(color2), c3(color3), c4(color4), c5(color5), c6(color6), startColors(nullptr), endColors(nullptr), speed(s), currents(nullptr), currentColors(nullptr), lastTime(0) {
                         }
 
                     //## Methods ##//
@@ -81,7 +81,7 @@
                             }
 
                             for (int i = 1; i < controller.getCount(); i++) {
-                                currents[i] = currents[i - 1] + 1.0f / controller.getCount();
+                                currents[i] = currents[i - 1] + 0.2;
                             }
                         }
                         /**
@@ -89,14 +89,14 @@
                          */
                         void run(LedController& controller) override {
                             unsigned long time = micros();
-                            if (time - lastTime <= 100 * speed) {
-                                delay(100 * speed - (time - lastTime));
+                            if (time - lastTime <= speed.get()) {
+                                delay(speed.get() - (time - lastTime));
                             }
 
                             for (int i = 0; i < controller.getCount(); i++) {
-                                currents[i] += 0.01;
-                                if (currents[i] > 1) {
-                                    currents[i] = 0.0;
+                                currents[i] += 0.05;
+                                while (currents[i] > 1) {
+                                    currents[i] = currents[i] - 1.0;
                                     ObservedData<Color>* next;
                                     switch (currentColors[i]) {
                                         case (0) : {

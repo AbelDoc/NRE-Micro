@@ -29,11 +29,11 @@
              */
             class RotateLinearEffect : public Effect {
                 private :   // Fields
-                    ObservedData<Color>& color; /**< The effect color */
-                    unsigned char speed;        /**< The effect speed */
-                    float* currents;            /**< The current step */
-                    bool* downs;                /**< Tell if the effect is going down or up in intensity */
-                    unsigned long lastTime;     /**< The last step time */
+                    ObservedData<Color>& color;         /**< The effect color */
+                    ObservedData<unsigned int>& speed;  /**< The effect speed */
+                    float* currents;                    /**< The current step */
+                    bool* downs;                        /**< Tell if the effect is going down or up in intensity */
+                    unsigned long lastTime;             /**< The last step time */
 
                 public :    // Methods
                     //## Constructor ##//
@@ -46,7 +46,7 @@
                          * @param c the effect color
                          * @param s the effect speed
                          */
-                        RotateLinearEffect(ObservedData<Color>& c, unsigned char s = 1) : color(c), speed(s), currents(nullptr),  downs(nullptr), lastTime(0) {
+                        RotateLinearEffect(ObservedData<Color>& c, ObservedData<unsigned int>& s) : color(c), speed(s), currents(nullptr),  downs(nullptr), lastTime(0) {
                         }
 
                     //## Methods ##//
@@ -71,8 +71,8 @@
                          */
                         void run(LedController& controller) override {
                                 unsigned long time = micros();
-                                if (time - lastTime <= 100 * speed) {
-                                    delay(100 * speed - (time - lastTime));
+                                if (time - lastTime <= speed.get()) {
+                                    delay(speed.get() - (time - lastTime));
                                 }
 
                                 for (int i = 0; i < controller.getCount(); i++) {

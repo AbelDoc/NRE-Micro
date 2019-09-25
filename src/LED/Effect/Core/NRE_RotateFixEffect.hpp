@@ -29,13 +29,13 @@
              */
             class RotateFixEffect : public Effect {
                 private :   // Fields
-                    ObservedData<Color>& color; /**< The effect color */
-                    unsigned char speed;        /**< The effect speed */
-                    LedId current;              /**< The current step */
-                    unsigned long lastTime;     /**< The last step time */
-                    bool clockwise;             /**< Tell if the effect is going clockwise or not */
-                    bool negateOrFill;          /**< Tell if the effect turn all leds off when a cycle is complete, or turn them off one by one in the next cycle */
-                    bool cycleComplete;         /**< Tell that we have finish a cycle */
+                    ObservedData<Color>& color;         /**< The effect color */
+                    ObservedData<unsigned int>& speed;  /**< The effect speed */
+                    LedId current;                      /**< The current step */
+                    unsigned long lastTime;             /**< The last step time */
+                    bool clockwise;                     /**< Tell if the effect is going clockwise or not */
+                    bool negateOrFill;                  /**< Tell if the effect turn all leds off when a cycle is complete, or turn them off one by one in the next cycle */
+                    bool cycleComplete;                 /**< Tell that we have finish a cycle */
 
                 public :    // Methods
                     //## Constructor ##//
@@ -50,7 +50,7 @@
                          * @param clockwiseEffect    tell if the effect is rotating clockwise or not
                          * @param negateOrFillEffect tell if the effect turn all leds off when a cycle is complete or if each led is turn off in the next cycle
                          */
-                        RotateFixEffect(ObservedData<Color>& c, unsigned char s = 10, bool clockwiseEffect = true, bool negateOrFillEffect = false) : color(c), speed(s), current(0), lastTime(0), clockwise(clockwiseEffect), negateOrFill(negateOrFillEffect), cycleComplete(false) {
+                        RotateFixEffect(ObservedData<Color>& c, ObservedData<unsigned int>& s, bool clockwiseEffect = true, bool negateOrFillEffect = false) : color(c), speed(s), current(0), lastTime(0), clockwise(clockwiseEffect), negateOrFill(negateOrFillEffect), cycleComplete(false) {
                             if (clockwise) {
                                 cycleComplete = true;
                             }
@@ -68,8 +68,8 @@
                          */
                         void run(LedController& controller) override {
                             unsigned long time = micros();
-                            if (time - lastTime <= 100 * speed) {
-                                delay(100 * speed - (time - lastTime));
+                            if (time - lastTime <= speed.get()) {
+                                delay(speed.get() - (time - lastTime));
                             }
 
                             int next = static_cast <int> (current);

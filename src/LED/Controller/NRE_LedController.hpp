@@ -257,6 +257,13 @@
                          */
                         void setEffect(Effect* effect);
                         /**
+                         * Change the internal controller
+                         * @param nb   the number of controlled led
+                         * @param pin  the leds strip pin
+                         * @param type the leds type
+                         */
+                        void changeController(LedId nb, Pin pin, neoPixelType type = NEO_GRB + NEO_KHZ800);
+                        /**
                          * Setup the controller
                          * @param startUpColor the startup color for all leds
                          */
