@@ -72,6 +72,9 @@
                     loadROM();
                 } else {
                     clearROM();
+                    for (AbstractData* obj : objects) {
+                        obj->update();
+                    }
                 }
             }
 

@@ -53,6 +53,10 @@
                              * @param ptr the data pointer
                              */
                             virtual void read(void* ptr) = 0;
+                            /**
+                             * Update internally the data
+                             */
+                            virtual void update() = 0;
                         #endif
             };
 
