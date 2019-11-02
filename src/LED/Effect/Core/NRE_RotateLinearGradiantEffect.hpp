@@ -47,7 +47,7 @@
                          * @param c the effect color
                          * @param s the effect speed
                          */
-                        RotateLinearGradiantEffect(ObservedData<Color>& startC, ObservedData<Color>& endC, ObservedData<unsigned int>& s) : startColor(startC), endColor(endC), speed(s), currents(nullptr),  downs(nullptr), lastTime(0) {
+                        RotateLinearGradiantEffect(ObservedData<Color>& startC, ObservedData<Color>& endC, ObservedData<unsigned int>& s) : startColor(startC), endColor(endC), speed(s), currents(nullptr),  downs(nullptr), lastTime(millis()) {
                         }
 
                     //## Methods ##//
@@ -71,7 +71,7 @@
                          * Called at each loop iteration
                          */
                         void run(LedController& controller) override {
-                            unsigned long time = micros();
+                            unsigned long time = millis();
                             if (time - lastTime <= speed.get()) {
                                 delay(speed.get() - (time - lastTime));
                             }
@@ -98,7 +98,7 @@
                                 controller.setColor(i, Color(static_cast <ColorChannel> (r), static_cast <ColorChannel> (g), static_cast <ColorChannel> (b)));
                             }
 
-                            lastTime = micros();
+                            lastTime = millis();
                         }
                         /**
                          * Called when the effect is replaced by another one in a controller

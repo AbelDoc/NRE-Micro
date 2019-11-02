@@ -49,23 +49,17 @@
                          * Called when the effect is set to a controller
                          */
                         void start(LedController& controller) override {
-                            controller.setColor(color);
-                            color.setHandle([&](Color& data) {
-                                controller.setColor(color);
-                            });
                         }
                         /**
                          * Called at each loop iteration
                          */
                         void run(LedController& controller) override {
+                            controller.setColor(color);
                         }
                         /**
                          * Called when the effect is replaced by another one in a controller
                          */
                         void stop(LedController& controller) override {
-                            controller.setColor(BLACK);
-                            color.setHandle([&](Color& data) {
-                            });
                         }
             };
 

@@ -46,7 +46,7 @@
                          * @param c the effect color
                          * @param s the effect speed
                          */
-                        WaveEffect(ObservedData<Color>& c, ObservedData<unsigned int>& s) : color(c), speed(s), current(0), lastTime(0), down(false) {
+                        WaveEffect(ObservedData<Color>& c, ObservedData<unsigned int>& s) : color(c), speed(s), current(0), lastTime(millis()), down(false) {
                         }
 
                     //## Methods ##//
@@ -60,7 +60,7 @@
                          * Called at each loop iteration
                          */
                         void run(LedController& controller) override {
-                            unsigned long time = micros();
+                            unsigned long time = millis();
                             if (time - lastTime <= speed.get()) {
                                 delay(speed.get() - (time - lastTime));
                             }
@@ -88,7 +88,7 @@
                             b *= current;
 
                             controller.setColor(Color(static_cast <ColorChannel> (r), static_cast <ColorChannel> (g), static_cast <ColorChannel> (b)));
-                            lastTime = micros();
+                            lastTime = millis();
                         }
                         /**
                          * Called when the effect is replaced by another one in a controller

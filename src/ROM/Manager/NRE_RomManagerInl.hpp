@@ -38,9 +38,6 @@
                 for (AbstractData* obj : objects) {
                     obj->read(&EEPROM[obj->ptr]);
                 }
-                if (onLoad) {
-                    onLoad();
-                }
             }
 
             inline void RomManager::resetROM() {
@@ -75,6 +72,9 @@
                     for (AbstractData* obj : objects) {
                         obj->update();
                     }
+                }
+                if (onLoad) {
+                    onLoad();
                 }
             }
 

@@ -11,43 +11,11 @@
          namespace Micro {
 
             inline LedController::LedController(LedId nb, Pin pin, neoPixelType type) : controller(nb, pin, type), nbLeds(nb), lightEffect(nullptr) {
-                leds = static_cast <Led*> (::operator new(sizeof(Led) * nb));
-                for (LedId i = 0; i < nbLeds; ++i) {
-                    leds[i] = *(new(&leds[i]) Led(i, this));
-                }
             }
 
             inline LedController::~LedController() {
-                for (LedId i = 0; i < nbLeds; ++i) {
-                    leds[i].~Led();
-                }
-                ::operator delete(leds);
                 delete lightEffect;
                 lightEffect = nullptr;
-            }
-
-            inline LedController::Iterator LedController::begin() {
-                return leds;
-            }
-
-            inline LedController::ConstIterator LedController::begin() const {
-                return ConstIterator(leds);
-            }
-
-            inline LedController::ConstIterator LedController::cbegin() const {
-                return begin();
-            }
-
-            inline LedController::Iterator LedController::end() {
-                return leds + nbLeds;
-            }
-
-            inline LedController::ConstIterator LedController::end() const {
-                return ConstIterator(leds + nbLeds);
-            }
-
-            inline LedController::ConstIterator LedController::cend() const {
-                return end();
             }
 
             inline LedId LedController::getCount() const {
@@ -56,32 +24,10 @@
 
             inline void LedController::turnOff() {
                 controller.clear();
-                controller.show();
-            }
-
-            inline void LedController::turnOn() {
-                for (LedId i = 0; i < nbLeds; ++i) {
-                    controller.setPixelColor(i, leds[i].getColor());
-                }
-                controller.show();
-            }
-
-            inline void LedController::turnOff(LedId id) {
-                controller.setPixelColor(id, BLACK.getColor());
-                controller.show();
-            }
-
-            inline void LedController::turnOn(LedId id) {
-                controller.setPixelColor(id, leds[id].getColor());
-                controller.show();
             }
 
             inline void LedController::setColor(Color const& color) {
-                for (Led l : *this) {
-                    l.setColor(color);
-                }
                 controller.fill(color.getColor(), 0, nbLeds);
-                controller.show();
             }
 
             inline void LedController::setColor(ObservedData<Color> const& color) {
@@ -89,37 +35,23 @@
             }
 
             inline void LedController::setColor(LedId id, Color const& color) {
-                leds[id].setColor(color);
-                turnOn(id);
+                controller.setPixelColor(id, color.getColor());
             }
 
             inline void LedController::setColor(LedId id, ObservedData<Color> const& color) {
                 setColor(id, color.get());
             }
 
-            inline void LedController::setColorHandle(std::function<void(Color&)> handle) {
-                for (Led l : *this) {
-                    l.setColorHandle(handle);
-                }
-            }
-
-            inline void LedController::setColorHandle(LedId id, std::function<void(Color&)> handle) {
-                leds[id].setColorHandle(handle);
-            }
-
             inline void LedController::setEffect(Effect* effect) {
                 if (lightEffect) {
                     lightEffect->stop(*this);
+                    controller.show();
                     delete lightEffect;
                     lightEffect = nullptr;
                 }
                 lightEffect = effect;
                 lightEffect->start(*this);
-            }
-
-            inline void LedController::changeController(LedId nb, Pin pin, neoPixelType type) {
-                controller = Adafruit_NeoPixel(nb, pin, type);
-                controller.begin();
+                controller.show();
             }
 
             inline void LedController::setup(Color const& startUpColor) {
@@ -129,14 +61,7 @@
 
             inline void LedController::loop() {
                 lightEffect->run(*this);
-            }
-
-            inline Led& LedController::operator[](LedId index) {
-                return leds[index];
-            }
-
-            inline Led const& LedController::operator[](LedId index) const {
-                return leds[index];
+                controller.show();
             }
 
          }

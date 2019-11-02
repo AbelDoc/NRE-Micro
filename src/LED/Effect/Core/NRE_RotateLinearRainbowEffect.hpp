@@ -58,7 +58,7 @@
                          * @param color6 the sixth effect color
                          * @param s      the effect speed
                          */
-                        RotateLinearRainbowEffect(ObservedData<Color>& color1, ObservedData<Color>& color2, ObservedData<Color>& color3, ObservedData<Color>& color4, ObservedData<Color>& color5, ObservedData<Color>& color6, ObservedData<unsigned int>& s) : c1(color1), c2(color2), c3(color3), c4(color4), c5(color5), c6(color6), startColors(nullptr), endColors(nullptr), speed(s), currents(nullptr), currentColors(nullptr), lastTime(0) {
+                        RotateLinearRainbowEffect(ObservedData<Color>& color1, ObservedData<Color>& color2, ObservedData<Color>& color3, ObservedData<Color>& color4, ObservedData<Color>& color5, ObservedData<Color>& color6, ObservedData<unsigned int>& s) : c1(color1), c2(color2), c3(color3), c4(color4), c5(color5), c6(color6), startColors(nullptr), endColors(nullptr), speed(s), currents(nullptr), currentColors(nullptr), lastTime(millis()) {
                         }
 
                     //## Methods ##//
@@ -88,7 +88,7 @@
                          * Called at each loop iteration
                          */
                         void run(LedController& controller) override {
-                            unsigned long time = micros();
+                            unsigned long time = millis();
                             if (time - lastTime <= speed.get()) {
                                 delay(speed.get() - (time - lastTime));
                             }
@@ -136,7 +136,7 @@
                                 controller.setColor(i, Color(static_cast <ColorChannel> (r), static_cast <ColorChannel> (g), static_cast <ColorChannel> (b)));
                             }
 
-                            lastTime = micros();
+                            lastTime = millis();
                         }
                         /**
                          * Called when the effect is replaced by another one in a controller

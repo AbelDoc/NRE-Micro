@@ -50,7 +50,7 @@
                          * @param clockwiseEffect    tell if the effect is rotating clockwise or not
                          * @param negateOrFillEffect tell if the effect turn all leds off when a cycle is complete or if each led is turn off in the next cycle
                          */
-                        RotateFixEffect(ObservedData<Color>& c, ObservedData<unsigned int>& s, bool clockwiseEffect = true, bool negateOrFillEffect = false) : color(c), speed(s), current(0), lastTime(0), clockwise(clockwiseEffect), negateOrFill(negateOrFillEffect), cycleComplete(false) {
+                        RotateFixEffect(ObservedData<Color>& c, ObservedData<unsigned int>& s, bool clockwiseEffect = true, bool negateOrFillEffect = false) : color(c), speed(s), current(0), lastTime(millis()), clockwise(clockwiseEffect), negateOrFill(negateOrFillEffect), cycleComplete(false) {
                             if (clockwise) {
                                 cycleComplete = true;
                             }
@@ -67,7 +67,7 @@
                          * Called at each loop iteration
                          */
                         void run(LedController& controller) override {
-                            unsigned long time = micros();
+                            unsigned long time = millis();
                             if (time - lastTime <= speed.get()) {
                                 delay(speed.get() - (time - lastTime));
                             }
@@ -104,7 +104,7 @@
                                 controller.setColor(current, color);
                             }
 
-                            lastTime = micros();
+                            lastTime = millis();
                         }
                         /**
                          * Called when the effect is replaced by another one in a controller
