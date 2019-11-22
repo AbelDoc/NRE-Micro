@@ -3,3 +3,5 @@
 *.exe
 DoxyFile
 *.dll
+.idea/*
+cmake-build-debug/*

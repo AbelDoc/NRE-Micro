@@ -70,8 +70,9 @@
                         }
                         /**
                          * The module loop
+                         * @param delta the delta time from last frame
                          */
-                        virtual void loop() {
+                        virtual void loop(long delta) {
                         }
 
                     //## Assignment Operator ##//

@@ -29,41 +29,23 @@
              */
             class RotateLinearRainbowEffect : public Effect {
                 private :   // Fields
-                    ObservedData<Color>& c1;            /**< The first color */
-                    ObservedData<Color>& c2;            /**< The second color */
-                    ObservedData<Color>& c3;            /**< The third color */
-                    ObservedData<Color>& c4;            /**< The fourth color */
-                    ObservedData<Color>& c5;            /**< The fifth color */
-                    ObservedData<Color>& c6;            /**< The sixth color */
-                    ObservedData<unsigned int>& speed;  /**< The effect speed */
                     float* currents;                    /**< The current step */
                     int* currentColors;                 /**< The currents color */
                     ObservedData<Color>** startColors;  /**< The starts colors */
                     ObservedData<Color>** endColors;    /**< The ends colors */
-                    unsigned long lastTime;             /**< The last step time */
 
                 public :    // Methods
                     //## Constructor ##//
                         /**
-                         * No default constructor
+                         * Construct the effect
                          */
-                        RotateLinearRainbowEffect() = delete;
-                        /**
-                         * Construct the effect from the fix color
-                         * @param color1 the first effect color
-                         * @param color2 the second effect color
-                         * @param color3 the third effect color
-                         * @param color4 the fourth effect color
-                         * @param color5 the fifth effect color
-                         * @param color6 the sixth effect color
-                         * @param s      the effect speed
-                         */
-                        RotateLinearRainbowEffect(ObservedData<Color>& color1, ObservedData<Color>& color2, ObservedData<Color>& color3, ObservedData<Color>& color4, ObservedData<Color>& color5, ObservedData<Color>& color6, ObservedData<unsigned int>& s) : c1(color1), c2(color2), c3(color3), c4(color4), c5(color5), c6(color6), startColors(nullptr), endColors(nullptr), speed(s), currents(nullptr), currentColors(nullptr), lastTime(millis()) {
+                        RotateLinearRainbowEffect() : startColors(nullptr), endColors(nullptr), currents(nullptr), currentColors(nullptr) {
                         }
 
                     //## Methods ##//
                         /**
                          * Called when the effect is set to a controller
+                         * @param controller the master controller
                          */
                         void start(LedController& controller) override {
                             controller.setColor(BLACK);
@@ -73,6 +55,8 @@
                             currentColors = new int[controller.getCount()];
 
                             currents[0] = 0;
+                            ObservedData<Color>& c1 = controller.getColor(0);
+                            ObservedData<Color>& c2 = controller.getColor(1);
 
                             for (int i = 0; i < controller.getCount(); i++) {
                                 startColors[i] = &c1;
@@ -86,12 +70,20 @@
                         }
                         /**
                          * Called at each loop iteration
+                         * @param controller the master controller
+                         * @param delta      the delta time from last frame
                          */
-                        void run(LedController& controller) override {
-                            unsigned long time = millis();
-                            if (time - lastTime <= speed.get()) {
-                                delay(speed.get() - (time - lastTime));
+                        void run(LedController& controller, long delta) override {
+                            ObservedData<long>& speed = controller.getSpeed();
+                            if (delta <= speed.get()) {
+                                controller.sleep(speed.get() - delta);
                             }
+                            ObservedData<Color>& c1 = controller.getColor(0);
+                            ObservedData<Color>& c2 = controller.getColor(1);
+                            ObservedData<Color>& c3 = controller.getColor(2);
+                            ObservedData<Color>& c4 = controller.getColor(3);
+                            ObservedData<Color>& c5 = controller.getColor(4);
+                            ObservedData<Color>& c6 = controller.getColor(5);
 
                             for (int i = 0; i < controller.getCount(); i++) {
                                 currents[i] += 0.05;
@@ -135,11 +127,10 @@
 
                                 controller.setColor(i, Color(static_cast <ColorChannel> (r), static_cast <ColorChannel> (g), static_cast <ColorChannel> (b)));
                             }
-
-                            lastTime = millis();
                         }
                         /**
                          * Called when the effect is replaced by another one in a controller
+                         * @param controller the master controller
                          */
                         void stop(LedController& controller) override {
                             controller.setColor(BLACK);

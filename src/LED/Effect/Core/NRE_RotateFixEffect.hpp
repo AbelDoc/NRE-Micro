@@ -29,10 +29,7 @@
              */
             class RotateFixEffect : public Effect {
                 private :   // Fields
-                    ObservedData<Color>& color;         /**< The effect color */
-                    ObservedData<unsigned int>& speed;  /**< The effect speed */
                     LedId current;                      /**< The current step */
-                    unsigned long lastTime;             /**< The last step time */
                     bool clockwise;                     /**< Tell if the effect is going clockwise or not */
                     bool negateOrFill;                  /**< Tell if the effect turn all leds off when a cycle is complete, or turn them off one by one in the next cycle */
                     bool cycleComplete;                 /**< Tell that we have finish a cycle */
@@ -40,17 +37,11 @@
                 public :    // Methods
                     //## Constructor ##//
                         /**
-                         * No default constructor
-                         */
-                        RotateFixEffect() = delete;
-                        /**
-                         * Construct the effect from the fix color
-                         * @param c                  the effect color
-                         * @param s                  the effect speed
+                         * Construct the effect
                          * @param clockwiseEffect    tell if the effect is rotating clockwise or not
                          * @param negateOrFillEffect tell if the effect turn all leds off when a cycle is complete or if each led is turn off in the next cycle
                          */
-                        RotateFixEffect(ObservedData<Color>& c, ObservedData<unsigned int>& s, bool clockwiseEffect = true, bool negateOrFillEffect = false) : color(c), speed(s), current(0), lastTime(millis()), clockwise(clockwiseEffect), negateOrFill(negateOrFillEffect), cycleComplete(false) {
+                        RotateFixEffect(bool clockwiseEffect = true, bool negateOrFillEffect = false) : current(0), clockwise(clockwiseEffect), negateOrFill(negateOrFillEffect), cycleComplete(false) {
                             if (clockwise) {
                                 cycleComplete = true;
                             }
@@ -59,19 +50,23 @@
                     //## Methods ##//
                         /**
                          * Called when the effect is set to a controller
+                         * @param controller the master controller
                          */
                         void start(LedController& controller) override {
                             controller.setColor(BLACK);
                         }
                         /**
                          * Called at each loop iteration
+                         * @param controller the master controller
+                         * @param delta      the delta time from last frame
                          */
-                        void run(LedController& controller) override {
-                            unsigned long time = millis();
-                            if (time - lastTime <= speed.get()) {
-                                delay(speed.get() - (time - lastTime));
+                        void run(LedController& controller, long delta) override {
+                            ObservedData<long>& speed = controller.getSpeed();
+                            if (delta <= speed.get()) {
+                                controller.sleep(speed.get() - delta);
                             }
-
+                            ObservedData<Color>& color = controller.getColor(0);
+    
                             int next = static_cast <int> (current);
 
                             if (clockwise) {
@@ -103,11 +98,10 @@
                             } else {
                                 controller.setColor(current, color);
                             }
-
-                            lastTime = millis();
                         }
                         /**
                          * Called when the effect is replaced by another one in a controller
+                         * @param controller the master controller
                          */
                         void stop(LedController& controller) override {
                             controller.setColor(BLACK);

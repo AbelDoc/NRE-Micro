@@ -29,30 +29,21 @@
              */
             class RotateLinearGradiantEffect : public Effect {
                 private :   // Fields
-                    ObservedData<Color>& startColor;    /**< The start color */
-                    ObservedData<Color>& endColor;      /**< The end color */
-                    ObservedData<unsigned int>& speed;  /**< The effect speed */
                     float* currents;                    /**< The current step */
                     bool* downs;                        /**< Tell if the effect is going down or up in intensity */
-                    unsigned long lastTime;             /**< The last step time */
 
                 public :    // Methods
                     //## Constructor ##//
                         /**
-                         * No default constructor
+                         * Construct the effect
                          */
-                        RotateLinearGradiantEffect() = delete;
-                        /**
-                         * Construct the effect from the fix color
-                         * @param c the effect color
-                         * @param s the effect speed
-                         */
-                        RotateLinearGradiantEffect(ObservedData<Color>& startC, ObservedData<Color>& endC, ObservedData<unsigned int>& s) : startColor(startC), endColor(endC), speed(s), currents(nullptr),  downs(nullptr), lastTime(millis()) {
+                        RotateLinearGradiantEffect() : currents(nullptr),  downs(nullptr) {
                         }
 
                     //## Methods ##//
                         /**
                          * Called when the effect is set to a controller
+                         * @param controller the master controller
                          */
                         void start(LedController& controller) override {
                             controller.setColor(BLACK);
@@ -69,12 +60,16 @@
                         }
                         /**
                          * Called at each loop iteration
+                         * @param controller the master controller
+                         * @param delta      the delta time from last frame
                          */
-                        void run(LedController& controller) override {
-                            unsigned long time = millis();
-                            if (time - lastTime <= speed.get()) {
-                                delay(speed.get() - (time - lastTime));
+                        void run(LedController& controller, long delta) override {
+                            ObservedData<long>& speed = controller.getSpeed();
+                            if (delta <= speed.get()) {
+                                controller.sleep(speed.get() - delta);
                             }
+                            ObservedData<Color>& startColor = controller.getColor(0);
+                            ObservedData<Color>& endColor = controller.getColor(1);
 
                             for (int i = 0; i < controller.getCount(); i++) {
                                 if (downs[i]) {
@@ -97,11 +92,10 @@
 
                                 controller.setColor(i, Color(static_cast <ColorChannel> (r), static_cast <ColorChannel> (g), static_cast <ColorChannel> (b)));
                             }
-
-                            lastTime = millis();
                         }
                         /**
                          * Called when the effect is replaced by another one in a controller
+                         * @param controller the master controller
                          */
                         void stop(LedController& controller) override {
                             controller.setColor(BLACK);

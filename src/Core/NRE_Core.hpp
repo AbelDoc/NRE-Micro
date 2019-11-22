@@ -36,6 +36,7 @@
             class MicroManager {
                 private :   // Fields
                     std::vector<AbstractModule*> modules;    /**< The framework active modules */
+                    unsigned long lastTime;                  /**< The last frame time */
 
                 public :    // Methods
                     //## Constructor ##//
@@ -63,6 +64,12 @@
                          * MicroManager Deconstructor
                          */
                         ~MicroManager() = default;
+    
+                    //## Getter ##//
+                        /**
+                         * @return the current delta time
+                         */
+                        long getCurrentDelta() const;
 
                     //## Methods ##//
                         /**
@@ -125,6 +132,10 @@
                      * Handle the loop for all modules
                      */
                     static void loop();
+                    /**
+                     * @return the current delta time
+                     */
+                    static long getDelta();
             };
 
         }

@@ -21,6 +21,10 @@
             inline ColorChannel Color::getB() const {
                 return b;
             }
+            
+            inline String Color::getInfo() const {
+                return String(getR()) + "-" + String(getG()) + "-" + String(getB());
+            }
 
             inline void Color::setR(ColorChannel red) {
                 r = red;

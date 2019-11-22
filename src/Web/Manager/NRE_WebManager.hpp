@@ -67,8 +67,9 @@
                         void setup() override;
                         /**
                          * The module loop
+                         * @param delta the delta time from the last frame
                          */
-                        void loop() override;
+                        void loop(long delta) override;
             };
 
             static WebManager _webManager;

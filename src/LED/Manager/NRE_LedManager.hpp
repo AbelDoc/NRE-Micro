@@ -12,7 +12,16 @@
      #include "../../Core/Module/NRE_Module.hpp"
      #include "../Controller/NRE_LedController.hpp"
 
+     #include "../Effect/Core/NRE_FixEffect.hpp"
+     #include "../Effect/Core/NRE_WaveEffect.hpp"
+     #include "../Effect/Core/NRE_RotateEffect.hpp"
+     #include "../Effect/Core/NRE_RotateFixEffect.hpp"
+     #include "../Effect/Core/NRE_RotateLinearEffect.hpp"
+     #include "../Effect/Core/NRE_RotateLinearGradiantEffect.hpp"
+     #include "../Effect/Core/NRE_RotateLinearRainbowEffect.hpp"
+
      #include <vector>
+     #include <memory>
 
      /**
      * @namespace NRE
@@ -25,7 +34,7 @@
          * @brief Micro's API
          */
         namespace Micro {
-
+            
             /**
              * @class LedManager
              * @brief Manage all leds controller
@@ -63,15 +72,16 @@
                          * @param type the leds type
                          * @return the controller id
                          */
-                        unsigned char addController(LedId nb, Pin pin, neoPixelType type = NEO_GRB + NEO_KHZ800);
+                        unsigned char addController(LedId nb, Pin pin, neoPixelType type = NEO_GRB + NEO_KHZ800, bool addInRom = true);
                         /**
                          * Setup the module
                          */
                         void setup() override;
                         /**
                          * Loop through all controller
+                         * @param delta the delta time from the last frame
                          */
-                        void loop() override;
+                        void loop(long delta) override;
             };
 
             static LedManager _ledManager;

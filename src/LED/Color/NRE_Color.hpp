@@ -89,6 +89,10 @@
                         constexpr CompressedColor getColor() const {
                             return (static_cast <CompressedColor> (r) << 16) | (static_cast <CompressedColor> (g) <<  8) | b;
                         }
+                        /**
+                         * @return the color info
+                         */
+                        String getInfo() const;
 
                     //## Setter ##//
                         /**

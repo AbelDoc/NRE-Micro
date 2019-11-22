@@ -38,8 +38,9 @@
                         /**
                          * Called at each loop iteration
                          * @param controller the master controller
+                         * @param delta      the delta time from last frame
                          */
-                        virtual void run(LedController& controller) = 0;
+                        virtual void run(LedController& controller, long delta) = 0;
                         /**
                          * Called when the effect is replaced by another one in a controller
                          * @param controller the master controller

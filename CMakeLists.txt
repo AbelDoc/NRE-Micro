@@ -1,0 +1,60 @@
+cmake_minimum_required(VERSION 3.15)
+project(NRE_Micro)
+
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories(.)
+include_directories(src/Core)
+include_directories(src/Core/Module)
+include_directories(src/Header)
+include_directories(src/LED)
+include_directories(src/LED/Color)
+include_directories(src/LED/Controller)
+include_directories(src/LED/Effect)
+include_directories(src/LED/Effect/Core)
+include_directories(src/LED/Effect/Modifier)
+include_directories(src/LED/Manager)
+include_directories(src/ROM)
+include_directories(src/ROM/Manager)
+include_directories(src/Web)
+include_directories(src/Web/Manager)
+include_directories(src/WiFi)
+include_directories(src/WiFi/Manager)
+
+add_executable(NRE_Micro
+        src/Core/Module/NRE_AbstractModule.cpp
+        src/Core/Module/NRE_AbstractModule.hpp
+        src/Core/Module/NRE_Module.hpp
+        src/Core/NRE_Core.hpp
+        src/Core/NRE_CoreInl.hpp
+        src/Header/NRE_Core.hpp
+        src/Header/NRE_Led.hpp
+        src/Header/NRE_Micro.hpp
+        src/Header/NRE_Rom.hpp
+        src/Header/NRE_Web.hpp
+        src/Header/NRE_WiFi.hpp
+        src/LED/Color/NRE_Color.hpp
+        src/LED/Color/NRE_ColorInl.hpp
+        src/LED/Controller/NRE_LedController.hpp
+        src/LED/Controller/NRE_LedControllerInl.hpp
+        src/LED/Effect/Core/NRE_FixEffect.hpp
+        src/LED/Effect/Core/NRE_RotateEffect.hpp
+        src/LED/Effect/Core/NRE_RotateFixEffect.hpp
+        src/LED/Effect/Core/NRE_RotateLinearEffect.hpp
+        src/LED/Effect/Core/NRE_RotateLinearGradiantEffect.hpp
+        src/LED/Effect/Core/NRE_RotateLinearRainbowEffect.hpp
+        src/LED/Effect/Core/NRE_WaveEffect.hpp
+        src/LED/Effect/Modifier/NRE_AbstractEffectModifier.hpp
+        src/LED/Effect/Modifier/NRE_AbstractEffectModifierInl.hpp
+        src/LED/Effect/Modifier/NRE_EffectModifier.hpp
+        src/LED/Effect/NRE_Effect.hpp
+        src/LED/Manager/NRE_LedManager.hpp
+        src/LED/Manager/NRE_LedManagerInl.hpp
+        src/ROM/Manager/NRE_ObservedDataInl.hpp
+        src/ROM/Manager/NRE_RomManager.hpp
+        src/ROM/Manager/NRE_RomManagerInl.hpp
+        src/Web/Manager/NRE_WebManager.hpp
+        src/Web/Manager/NRE_WebManagerInl.hpp
+        src/WiFi/Manager/NRE_WiFiManager.hpp
+        src/WiFi/Manager/NRE_WiFiManagerInl.hpp
+        NRE-Micro.ino)

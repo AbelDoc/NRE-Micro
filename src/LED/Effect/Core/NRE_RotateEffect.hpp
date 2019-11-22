@@ -29,43 +29,40 @@
              */
             class RotateEffect : public Effect {
                 private :   // Fields
-                    ObservedData<Color>& color;         /**< The effect color */
-                    ObservedData<unsigned int>& speed;  /**< The effect speed */
                     LedId current;                      /**< The current step */
-                    unsigned long lastTime;             /**< The last step time */
                     bool clockwise;                     /**< Tell if the effect is going clockwise or not */
 
                 public :    // Methods
                     //## Constructor ##//
                         /**
-                         * No default constructor
-                         */
-                        RotateEffect() = delete;
-                        /**
-                         * Construct the effect from the fix color
-                         * @param c               the effect color
-                         * @param s               the effect speed
+                         * Construct the effect
                          * @param clockwiseEffect tell if the effect is rotating clockwise or not
                          */
-                        RotateEffect(ObservedData<Color>& c, ObservedData<unsigned int>& s, bool clockwiseEffect = true) : color(c), speed(s), current(0), lastTime(millis()), clockwise(clockwiseEffect) {
+                        RotateEffect(bool clockwiseEffect = true) : current(0), clockwise(clockwiseEffect) {
                         }
 
                     //## Methods ##//
                         /**
                          * Called when the effect is set to a controller
+                         * @param controller the master controller
                          */
                         void start(LedController& controller) override {
+                            
+                            
                             controller.setColor(BLACK);
                         }
                         /**
                          * Called at each loop iteration
+                         * @param controller the master controller
+                         * @param delta      the delta time from last frame
                          */
-                        void run(LedController& controller) override {
-                            unsigned long time = millis();
-                            if (time - lastTime <= speed.get()) {
-                                delay(speed.get() - (time - lastTime));
+                        void run(LedController& controller, long delta) override {
+                            ObservedData<long>& speed = controller.getSpeed();
+                            if (delta <= speed.get()) {
+                                controller.sleep(speed.get() - delta);
                             }
-
+                            ObservedData<Color>& color = controller.getColor(0);
+    
                             int next = static_cast <int> (current);
 
                             if (clockwise) {
@@ -84,10 +81,10 @@
                             current = static_cast <LedId> (next);
 
                             controller.setColor(current, color);
-                            lastTime = millis();
                         }
                         /**
                          * Called when the effect is replaced by another one in a controller
+                         * @param controller the master controller
                          */
                         void stop(LedController& controller) override {
                             controller.setColor(BLACK);

@@ -29,41 +29,36 @@
              */
             class WaveEffect : public Effect {
                 private :   // Fields
-                    ObservedData<Color>& color;         /**< The effect color */
-                    ObservedData<unsigned int>& speed;  /**< The effect speed */
                     float current;                      /**< The current step */
-                    unsigned long lastTime;             /**< The last step time */
                     bool down;                          /**< Tell if the effect is going down or up in intensity */
 
                 public :    // Methods
                     //## Constructor ##//
                         /**
-                         * No default constructor
+                         * Construct the effect
                          */
-                        WaveEffect() = delete;
-                        /**
-                         * Construct the effect from the fix color
-                         * @param c the effect color
-                         * @param s the effect speed
-                         */
-                        WaveEffect(ObservedData<Color>& c, ObservedData<unsigned int>& s) : color(c), speed(s), current(0), lastTime(millis()), down(false) {
+                        WaveEffect() : current(0), down(false) {
                         }
 
                     //## Methods ##//
                         /**
                          * Called when the effect is set to a controller
+                         * @param controller the master controller
                          */
                         void start(LedController& controller) override {
                             controller.setColor(BLACK);
                         }
                         /**
                          * Called at each loop iteration
+                         * @param controller the master controller
+                         * @param delta      the delta time from last frame
                          */
-                        void run(LedController& controller) override {
-                            unsigned long time = millis();
-                            if (time - lastTime <= speed.get()) {
-                                delay(speed.get() - (time - lastTime));
+                        void run(LedController& controller, long delta) override {
+                            ObservedData<long>& speed = controller.getSpeed();
+                            if (delta <= speed.get()) {
+                                controller.sleep(speed.get() - delta);
                             }
+                            ObservedData<Color>& color = controller.getColor(0);
 
                             float r = color.get().getR();
                             float g = color.get().getG();
@@ -88,10 +83,10 @@
                             b *= current;
 
                             controller.setColor(Color(static_cast <ColorChannel> (r), static_cast <ColorChannel> (g), static_cast <ColorChannel> (b)));
-                            lastTime = millis();
                         }
                         /**
                          * Called when the effect is replaced by another one in a controller
+                         * @param controller the master controller
                          */
                         void stop(LedController& controller) override {
                             controller.setColor(BLACK);

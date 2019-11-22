@@ -29,29 +29,21 @@
              */
             class RotateLinearEffect : public Effect {
                 private :   // Fields
-                    ObservedData<Color>& color;         /**< The effect color */
-                    ObservedData<unsigned int>& speed;  /**< The effect speed */
                     float* currents;                    /**< The current step */
                     bool* downs;                        /**< Tell if the effect is going down or up in intensity */
-                    unsigned long lastTime;             /**< The last step time */
 
                 public :    // Methods
                     //## Constructor ##//
                         /**
-                         * No default constructor
-                         */
-                        RotateLinearEffect() = delete;
-                        /**
                          * Construct the effect from the fix color
-                         * @param c the effect color
-                         * @param s the effect speed
                          */
-                        RotateLinearEffect(ObservedData<Color>& c, ObservedData<unsigned int>& s) : color(c), speed(s), currents(nullptr),  downs(nullptr), lastTime(millis()) {
+                        RotateLinearEffect() : currents(nullptr),  downs(nullptr) {
                         }
 
                     //## Methods ##//
                         /**
                          * Called when the effect is set to a controller
+                         * @param controller the master controller
                          */
                         void start(LedController& controller) override {
                             controller.setColor(BLACK);
@@ -68,43 +60,45 @@
                         }
                         /**
                          * Called at each loop iteration
+                         * @param controller the master controller
+                         * @param delta      the delta time from last frame
                          */
-                        void run(LedController& controller) override {
-                                unsigned long time = millis();
-                                if (time - lastTime <= speed.get()) {
-                                    delay(speed.get() - (time - lastTime));
-                                }
+                        void run(LedController& controller, long delta) override {
+                            ObservedData<long>& speed = controller.getSpeed();
+                            if (delta <= speed.get()) {
+                                controller.sleep(speed.get() - delta);
+                            }
+                            ObservedData<Color>& color = controller.getColor(0);
 
-                                for (int i = 0; i < controller.getCount(); i++) {
-                                    float r = color.get().getR();
-                                    float g = color.get().getG();
-                                    float b = color.get().getB();
+                            for (int i = 0; i < controller.getCount(); i++) {
+                                float r = color.get().getR();
+                                float g = color.get().getG();
+                                float b = color.get().getB();
 
-                                    if (downs[i]) {
-                                        currents[i] -= 0.01;
-                                        if (currents[i] < 0) {
-                                            currents[i] = 0;
-                                            downs[i] = false;
-                                        }
-                                    } else {
-                                        currents[i] += 0.01;
-                                        if (currents[i] > 1) {
-                                            currents[i] = 1;
-                                            downs[i] = true;
-                                        }
+                                if (downs[i]) {
+                                    currents[i] -= 0.01;
+                                    if (currents[i] < 0) {
+                                        currents[i] = 0;
+                                        downs[i] = false;
                                     }
-
-                                    r *= currents[i];
-                                    g *= currents[i];
-                                    b *= currents[i];
-
-                                    controller.setColor(i, Color(static_cast <ColorChannel> (r), static_cast <ColorChannel> (g), static_cast <ColorChannel> (b)));
+                                } else {
+                                    currents[i] += 0.01;
+                                    if (currents[i] > 1) {
+                                        currents[i] = 1;
+                                        downs[i] = true;
+                                    }
                                 }
 
-                                lastTime = millis();
+                                r *= currents[i];
+                                g *= currents[i];
+                                b *= currents[i];
+
+                                controller.setColor(i, Color(static_cast <ColorChannel> (r), static_cast <ColorChannel> (g), static_cast <ColorChannel> (b)));
+                            }
                         }
                         /**
                          * Called when the effect is replaced by another one in a controller
+                         * @param controller the master controller
                          */
                         void stop(LedController& controller) override {
                             controller.setColor(BLACK);

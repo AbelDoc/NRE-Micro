@@ -42,6 +42,11 @@
                     Adafruit_NeoPixel controller;   /**< Internal controller */
                     LedId nbLeds;                   /**< The number of controlled leds */
                     Effect* lightEffect;            /**< The controller light effect */
+                    long sleepTimer;                /**< Allow the controller to sleep without impacting other module */
+                    
+                    ObservedData<Color> colors[6];
+                    ObservedData<long> speed;
+                    ObservedData<unsigned char> effect;
 
                 public :    // Methods
                     //## Constructor ##//
@@ -51,11 +56,12 @@
                         LedController() = delete;
                         /**
                          * Construct the led controller
-                         * @param nb   the number of controlled led
-                         * @param pin  the leds strip pin
-                         * @param type the leds type
+                         * @param nb       the number of controlled led
+                         * @param pin      the leds strip pin
+                         * @param type     the leds type
+                         * @param addInRom tell if we add the observed data from the controller in the rom
                          */
-                        LedController(LedId nb, Pin pin, neoPixelType type = NEO_GRB + NEO_KHZ800);
+                        LedController(LedId nb, Pin pin, neoPixelType type = NEO_GRB + NEO_KHZ800, bool addInRom = true);
 
                     //## Copy Constructor ##//
                         /**
@@ -82,6 +88,28 @@
                          * @return the leds count
                          */
                         LedId getCount() const;
+                        /**
+                         * @return the sleep timer value
+                         */
+                        unsigned long getTimer() const;
+                        /**
+                         * Query an observed color
+                         * @param index the color index
+                         * @return the corresponding color
+                         */
+                        ObservedData<Color>& getColor(int index);
+                        /**
+                         * @return the observed speed
+                         */
+                        ObservedData<long>& getSpeed();
+                        /**
+                         * @return the observed effect
+                         */
+                        ObservedData<unsigned char>& getEffect();
+                        /**
+                         * @return controller infos
+                         */
+                        String getInfo() const;
 
                     //## Methods ##//
                         /**
@@ -122,9 +150,15 @@
                         void setup(Color const& startUpColor = RED);
                         /**
                          * The controller's loop
+                         * @param delta the delta time from last frame
                          */
-                        void loop();
-
+                        void loop(long delta);
+                        /**
+                         * Set the sleep timer
+                         * @param time the new timer
+                         */
+                        void sleep(long time);
+                        
                     //## Assignment Operator ##//
                         /**
                          * Copy assign forbidden

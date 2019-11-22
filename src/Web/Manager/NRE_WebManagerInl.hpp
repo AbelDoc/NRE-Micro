@@ -28,7 +28,7 @@
                 });
             }
 
-            inline void WebManager::loop() {
+            inline void WebManager::loop(long delta) {
                 server.handleClient();
             }
 

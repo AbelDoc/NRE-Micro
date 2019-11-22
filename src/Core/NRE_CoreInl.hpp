@@ -15,7 +15,11 @@
                 assert(modules.size() == SubModule::getId());
                 modules.push_back(module);
             }
-
+            
+            inline long MicroManager::getCurrentDelta() const {
+                return static_cast <long> (millis() - lastTime);
+            }
+            
             template <class SubModule>
             inline SubModule& MicroManager::getModule() {
                 return *(static_cast <SubModule*> (modules[SubModule::getId()]));
@@ -32,12 +36,15 @@
                         module->setup();
                     }
                 }
+                lastTime = millis();
             }
 
             inline void MicroManager::loopModules() {
                 for (AbstractModule* module : modules) {
-                    module->loop();
+                    long delta = millis() - lastTime;
+                    module->loop(delta);
                 }
+                lastTime = millis();
             }
 
             inline MicroManager& MicroManager::get() {
@@ -61,6 +68,10 @@
 
             inline void MicroManager::loop() {
                 MicroManager::get().loopModules();
+            }
+            
+            inline long MicroManager::getDelta() {
+                MicroManager::get().getCurrentDelta();
             }
 
         }
