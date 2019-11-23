@@ -40,7 +40,13 @@
              * @brief Manage all leds controller
              */
             class LedManager : public Module<LedManager> {
+                private :   // Static
+                    static constexpr int MAX_CONTROLLER = 10;
+                
                 private :   // Fields
+                    ObservedData<int> nbControllers;            /**< The number of controllers */
+                    ObservedData<LedId> nbLeds[MAX_CONTROLLER]; /**< The number of leds for each controllers */
+                    ObservedData<Pin> pins[MAX_CONTROLLER];     /**< The pin number for each controllers */
                     std::vector<LedController*> controllers;    /**< The leds controllers */
 
                 public :    // Methods
@@ -48,7 +54,7 @@
                         /**
                          * Construct the led module
                          */
-                        LedManager() = default;
+                        LedManager();
 
                     //## Deconstructor ##//
                         /**
@@ -63,6 +69,52 @@
                          * @return    the corresponding controller
                          */
                         LedController& getController(unsigned char id);
+                        /**
+                         * @return the number of controller in rom
+                         */
+                        int getNbControllers() const;
+                        /**
+                         * @return the manager info
+                         */
+                        String getInfo() const;
+    
+                    //## Setter ##//
+                        /**
+                         * Set a controller color
+                         * @param index  the controller id
+                         * @param cIndex the color index
+                         * @param color  the new color
+                         */
+                        void setColor(unsigned char index, unsigned char cIndex, Color color);
+                        /**
+                         * Set a controller speed
+                         * @param index the controller id
+                         * @param speed the new speed
+                         */
+                        void setSpeed(unsigned char index, long speed);
+                        /**
+                         * Set a controller effect
+                         * @param index the controller id
+                         * @param speed the new effect
+                         */
+                        void setEffect(unsigned char index, unsigned char effect);
+                        /**
+                         * Set the number of controllers in rom
+                         * @param nb  the number of controllers
+                         */
+                        void setNbControllers(int nb);
+                        /**
+                         * Set a controller number of leds
+                         * @param index the controller id
+                         * @param leds  the number of leds
+                         */
+                        void setLeds(unsigned char index, LedId leds);
+                        /**
+                         * Set a controller pin
+                         * @param index the controller id
+                         * @param pin   the controller pin
+                         */
+                        void setPin(unsigned char index, Pin pin);
 
                     //## Methods ##//
                         /**
@@ -82,6 +134,16 @@
                          * @param delta the delta time from the last frame
                          */
                         void loop(long delta) override;
+                        #ifdef NRE_USE_ROM
+                            /**
+                             * Load controllers from rom
+                             */
+                            void loadFromROM();
+                            /**
+                             * Add manager data into rom
+                             */
+                            void addData();
+                        #endif
             };
 
             static LedManager _ledManager;

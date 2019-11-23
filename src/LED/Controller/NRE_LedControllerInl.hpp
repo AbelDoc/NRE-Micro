@@ -10,15 +10,19 @@
      namespace NRE {
          namespace Micro {
 
-            inline LedController::LedController(LedId nb, Pin pin, neoPixelType type, bool addInRom) : controller(nb, pin, type), nbLeds(nb), lightEffect(nullptr), sleepTimer(0), colors{RED, YELLOW, GREEN, CYAN, BLUE, MAGENTA}, speed(100), effect(6) {
-                MicroManager::get<RomManager>().addData(speed);
-                MicroManager::get<RomManager>().addData(colors[0]);
-                MicroManager::get<RomManager>().addData(colors[1]);
-                MicroManager::get<RomManager>().addData(colors[2]);
-                MicroManager::get<RomManager>().addData(colors[3]);
-                MicroManager::get<RomManager>().addData(colors[4]);
-                MicroManager::get<RomManager>().addData(colors[5]);
-                MicroManager::get<RomManager>().addData(effect);
+            inline LedController::LedController(LedId nb, Pin p, neoPixelType type, bool addInRom) : controller(nb, p, type), nbLeds(nb), pin(p), lightEffect(nullptr), sleepTimer(0), colors{RED, YELLOW, GREEN, CYAN, BLUE, MAGENTA}, speed(100), effect(6) {
+                #ifdef NRE_USE_ROM
+                    if (addInRom) {
+                        MicroManager::get<RomManager>().addData(speed);
+                        MicroManager::get<RomManager>().addData(colors[0]);
+                        MicroManager::get<RomManager>().addData(colors[1]);
+                        MicroManager::get<RomManager>().addData(colors[2]);
+                        MicroManager::get<RomManager>().addData(colors[3]);
+                        MicroManager::get<RomManager>().addData(colors[4]);
+                        MicroManager::get<RomManager>().addData(colors[5]);
+                        MicroManager::get<RomManager>().addData(effect);
+                    }
+                #endif
             }
 
             inline LedController::~LedController() {
@@ -49,6 +53,8 @@
             inline String LedController::getInfo() const {
                 return String(effect.get()) + "\n" +
                        String(speed.get()) + "\n" +
+                       String(nbLeds) + "\n" +
+                       String(pin) + "\n" +
                        String(colors[0]->getInfo()) + "\n" +
                        String(colors[1]->getInfo()) + "\n" +
                        String(colors[2]->getInfo()) + "\n" +
@@ -85,19 +91,24 @@
                     lightEffect = nullptr;
                 }
                 lightEffect = effect;
-                lightEffect->start(*this);
-                controller.show();
+                if (effect) {
+                    lightEffect->start(*this);
+                    controller.show();
+                }
             }
 
             inline void LedController::setup(Color const& startUpColor) {
                 controller.begin();
                 setColor(startUpColor);
+                controller.show();
             }
 
             inline void LedController::loop(long delta) {
                 if (sleepTimer <= 0) {
-                    lightEffect->run(*this, delta);
-                    controller.show();
+                    if (lightEffect) {
+                        lightEffect->run(*this, delta);
+                        controller.show();
+                    }
                 } else {
                     if (delta <= 0) {
                         delta = 1;

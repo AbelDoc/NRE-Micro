@@ -41,6 +41,7 @@
                 private :   // Fields
                     Adafruit_NeoPixel controller;   /**< Internal controller */
                     LedId nbLeds;                   /**< The number of controlled leds */
+                    Pin pin;                        /**< The controller pin */
                     Effect* lightEffect;            /**< The controller light effect */
                     long sleepTimer;                /**< Allow the controller to sleep without impacting other module */
                     
@@ -57,11 +58,11 @@
                         /**
                          * Construct the led controller
                          * @param nb       the number of controlled led
-                         * @param pin      the leds strip pin
+                         * @param p        the leds strip pin
                          * @param type     the leds type
                          * @param addInRom tell if we add the observed data from the controller in the rom
                          */
-                        LedController(LedId nb, Pin pin, neoPixelType type = NEO_GRB + NEO_KHZ800, bool addInRom = true);
+                        LedController(LedId nb, Pin p, neoPixelType type = NEO_GRB + NEO_KHZ800, bool addInRom = true);
 
                     //## Copy Constructor ##//
                         /**

@@ -9,6 +9,9 @@
 
     namespace NRE {
         namespace Micro {
+            
+            inline LedManager::LedManager() : nbControllers(1), nbLeds{10, 10, 10, 10, 10, 10, 10, 10, 10, 10}, pins{15, 14, 13, 12, 11, 10, 9, 8, 7, 6} {
+            }
 
             inline LedManager::~LedManager() {
                 for (LedController* controller : controllers) {
@@ -19,6 +22,44 @@
 
             inline LedController& LedManager::getController(unsigned char id) {
                 return *(controllers[id]);
+            }
+            
+            inline int LedManager::getNbControllers() const {
+                return nbControllers.get();
+            }
+            
+            inline String LedManager::getInfo() const {
+                String res(nbControllers.get());
+                res += "\n";
+                for (std::size_t i = 0; i < controllers.size() - 1; i++) {
+                    res += controllers[i]->getInfo() + "\n";
+                }
+                res += controllers[controllers.size() - 1]->getInfo();
+                return res;
+            }
+            
+            inline void LedManager::setColor(unsigned char index, unsigned char cIndex, Color color) {
+                controllers[index]->getColor(cIndex) = color;
+            }
+            
+            inline void LedManager::setSpeed(unsigned char index, long speed) {
+                controllers[index]->getSpeed() = speed;
+            }
+    
+            inline void LedManager::setEffect(unsigned char index, unsigned char effect) {
+                controllers[index]->getEffect() = effect;
+            }
+            
+            inline void LedManager::setNbControllers(int nb) {
+                nbControllers = nb;
+            }
+            
+            inline void LedManager::setLeds(unsigned char index, LedId leds) {
+                nbLeds[index] = leds;
+            }
+            
+            inline void LedManager::setPin(unsigned char index, Pin pin) {
+                pins[index] = pin;
             }
 
             inline unsigned char LedManager::addController(LedId nb, Pin pin, neoPixelType type, bool addInRom) {
@@ -80,6 +121,24 @@
                     controller->loop(delta);
                 }
             }
+
+            #ifdef NRE_USE_ROM
+                inline void LedManager::addData() {
+                    MicroManager::get<RomManager>().addData(nbControllers);
+                    for (auto i = 0; i < MAX_CONTROLLER; i++) {
+                        MicroManager::get<RomManager>().addData(nbLeds[i]);
+                        MicroManager::get<RomManager>().addData(pins[i]);
+                    }
+                }
+                
+                inline void LedManager::loadFromROM() {
+                    for (int i = 0; i < nbControllers.get(); i++) {
+                        addController(nbLeds[i].get(), pins[i].get());
+                    }
+                    MicroManager::get<RomManager>().loadROM();
+                    setup();
+                }
+            #endif
 
         }
     }

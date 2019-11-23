@@ -22,7 +22,7 @@
                 updater.setup(&server);
 
                 server.on("/", [&]() {
-                    for (ServerHandle handle : handles) {
+                    for (ServerHandle& handle : handles) {
                         handle(server);
                     }
                 });
