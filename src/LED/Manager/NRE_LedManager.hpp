@@ -9,6 +9,10 @@
 
      #pragma once
 
+        #ifndef NRE_USE_ROM
+            #pragma message("Enable the ROM module to get automatic LEDs management")
+        #endif
+
      #include "../../Core/Module/NRE_Module.hpp"
      #include "../Controller/NRE_LedController.hpp"
 

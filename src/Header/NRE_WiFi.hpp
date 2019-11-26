@@ -8,5 +8,9 @@
      */
 
     #pragma once
+    
+    #ifndef LWIP_OPEN_SRC
+        #define LWIP_OPEN_SRC
+    #endif
 
     #include "../WiFi/Manager/NRE_WiFiManager.hpp"
