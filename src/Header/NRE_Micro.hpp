@@ -9,9 +9,15 @@
 
     #pragma once
 
+    #define NRE_HEADER_GUARD
+
     #include "NRE_Core.hpp"
 
     #include "NRE_Rom.hpp"
+
+    #ifdef NRE_USE_TIME
+        #include "NRE_Time.hpp"
+    #endif
     
     #ifdef NRE_USE_LED
         #include "NRE_Led.hpp"

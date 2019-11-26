@@ -9,6 +9,10 @@
 
     #pragma once
 
+    #ifndef NRE_HEADER_GUARD
+        #error Only include module by using NRE_USE_LED macro and import NRE_Micro header
+    #endif
+
     #include "../LED/Manager/NRE_LedManager.hpp"
 
     #include "../LED/Color/NRE_Color.hpp"

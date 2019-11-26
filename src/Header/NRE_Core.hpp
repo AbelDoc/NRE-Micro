@@ -9,7 +9,10 @@
 
     #pragma once
 
-
+    #ifndef NRE_HEADER_GUARD
+        #error Only include core by import NRE_Micro header
+    #endif
+    
     #include "../Core/Module/NRE_AbstractModule.hpp"
     #include "../Core/Module/NRE_Module.hpp"
     #include "../Core/NRE_Core.hpp"

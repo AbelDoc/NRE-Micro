@@ -40,11 +40,12 @@
             }
 
             inline void MicroManager::loopModules() {
+                long unsigned current = millis();
+                long delta = current - lastTime;
                 for (AbstractModule* module : modules) {
-                    long delta = millis() - lastTime;
                     module->loop(delta);
                 }
-                lastTime = millis();
+                lastTime = current;
             }
 
             inline MicroManager& MicroManager::get() {

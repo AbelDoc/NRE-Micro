@@ -8,6 +8,10 @@
      */
 
     #pragma once
+
+    #ifndef NRE_HEADER_GUARD
+        #error Only include module by using NRE_USE_WIFI macro and import NRE_Micro header
+    #endif
     
     #ifndef LWIP_OPEN_SRC
         #define LWIP_OPEN_SRC

@@ -9,4 +9,8 @@
 
     #pragma once
 
+    #ifndef NRE_HEADER_GUARD
+        #error Only include module by using NRE_USE_WEB macro and import NRE_Micro header
+    #endif
+
     #include "../Web/Manager/NRE_WebManager.hpp"

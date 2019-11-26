@@ -5,6 +5,7 @@
     #define NRE_USE_WEB      // Use Web SubModule
     #define NRE_USE_WIFI     // Use WiFi SubModule
     #define NRE_USE_ROM      // Use Rom SubModule
+    #define NRE_USE_TIME     // Use Time SubModule
 
     #include "Header/NRE_Micro.hpp"     // Include all used sub modules
 
@@ -31,73 +32,122 @@
                     if (strlen(ssid->c_str()) != 0) {
                         MicroManager::get<WiFiManager>().addKnownNetwork(ssid, ssidPwd);
                     }
-                    MicroManager::get<WiFiManager>().setAPOnSetup("MyLight", "NRESoftware", false);
+                    MicroManager::get<WiFiManager>().setAPOnSetup("MyLight_" + String(ESP.getChipId(), 16), "NRESoftware", false);
                 });
 
                 MicroManager::get<WebManager>().addHandle([&](ESP8266WebServer& server) {
-                    if (server.args() > 0) {
-                        if (server.args() == 5 && server.argName(0) == "color") {
-                            MicroManager::get<LedManager>().setColor(server.arg(0).toInt(), server.arg(1).toInt(), Color(server.arg(2).toInt(), server.arg(3).toInt(), server.arg(4).toInt()));
-                            server.send(200, "text/html", server.arg(2) + "-" + server.arg(3) + "-" + server.arg(4));
-                        } else {
-                            if (server.args() == 2 && server.argName(0) == "speed") {
-                                MicroManager::get<LedManager>().setSpeed(server.arg(0).toInt(), static_cast <long> (server.arg(1).toInt()));
-                                server.send(200, "text/html", "OK");
-                            }
-                            if (server.args() == 2 && server.argName(0) == "effect") {
-                                MicroManager::get<LedManager>().setEffect(server.arg(0).toInt(), static_cast <unsigned char> (server.arg(1).toInt()));
-                                server.send(200, "text/html", "OK");
-                            }
-                            if (server.args() == 1 && server.argName(0) == "controllers") {
+                    switch (server.args()) {
+                        case (1) : {
+                            String const& arg = server.argName(0);
+                            if (arg == "controllers") {
                                 MicroManager::get<LedManager>().setNbControllers(server.arg(0).toInt());
                                 server.send(200, "text/html", "OK");
+                                return;
                             }
-                            if (server.args() == 2 && server.argName(0) == "leds") {
-                                MicroManager::get<LedManager>().setLeds(server.arg(0).toInt(), static_cast <LedId> (server.arg(1).toInt()));
-                                server.send(200, "text/html", "OK");
-                            }
-                            if (server.args() == 2 && server.argName(0) == "pin") {
-                                MicroManager::get<LedManager>().setPin(server.arg(0).toInt(), static_cast <Pin> (server.arg(1).toInt()));
-                                server.send(200, "text/html", "OK");
-                            }
-                            if (server.args() == 1 && server.argName(0) == "restart") {
+                            if (arg == "restart") {
                                 server.send(200, "text/html", "OK");
                                 delay(1000);
                                 ESP.restart();
+                                return;
                             }
-                            if (server.args() == 1 && server.argName(0) == "info") {
+                            if (arg == "info") {
                                 server.send(200, "text/html", ssid.get() + "\n" +
                                                               ssidPwd.get() + "\n" +
                                                               MicroManager::get<LedManager>().getInfo());
+                                return;
                             }
-                            if (server.args() == 2 && server.argName(0) == "ssid" && server.argName(1) == "pwd") {
-                                ssid    = server.arg(0);
-                                ssidPwd = server.arg(1);
-                                server.send(200, "text/html", ssid.get() + "\n" + ssidPwd.get());
+                            if (arg == "auth") {
+                                server.send(200, "text/html", "OK");
+                                return;
                             }
-                            if (server.args() == 1 && server.argName(0) == "debug" && server.arg(0) == "reset") {
+                            String const& value = server.arg(0);
+                            if (arg == "debug" && value == "reset") {
                                 MicroManager::get<RomManager>().resetROM();
                                 server.send(200, "text/html", "OK");
+                                return;
                             }
-                            if (server.args() == 1 && server.argName(0) == "debug" && server.arg(0) == "clear") {
+                            if (arg == "debug" && value == "clear") {
                                 MicroManager::get<RomManager>().clearROM();
                                 server.send(200, "text/html", "OK");
+                                return;
                             }
-                            if (server.args() == 1 && server.argName(0) == "debug" && server.arg(0) == "delta") {
+                            if (arg == "debug" && value == "delta") {
                                 server.send(200, "text/html", String(MicroManager::getDelta()));
+                                return;
                             }
-                            if (server.args() == 1 && server.argName(0) == "debug" && server.arg(0) == "time") {
-                                server.send(200, "text/html", String(millis()));
+                            if (arg == "debug" && value == "time") {
+                                server.send(200, "text/html", MicroManager::get<TimeManager>().getInfo());
+                                return;
                             }
-                            if (server.args() == 1 && server.argName(0) == "debug" && server.arg(0) == "controller") {
+                            if (arg == "debug" && value == "controller") {
                                 server.send(200, "text/html", String(MicroManager::get<LedManager>().getNbControllers()));
-                            }
-                            if (server.args() == 1 && server.argName(0) == "auth") {
-                                server.send(200, "text/html", "OK");
+                                return;
                             }
                         }
+                        case (2) : {
+                            String const& arg0 = server.argName(0);
+                            String const& value0 = server.arg(0);
+                            String const& value1 = server.arg(1);
+                            if (arg0 == "speed") {
+                                MicroManager::get<LedManager>().setSpeed(value0.toInt(), static_cast <long> (value1.toInt()));
+                                server.send(200, "text/html", "OK");
+                                return;
+                            }
+                            if (arg0 == "effect") {
+                                MicroManager::get<LedManager>().setEffect(value0.toInt(), static_cast <unsigned char> (value1.toInt()));
+                                server.send(200, "text/html", "OK");
+                                return;
+                            }
+                            if (arg0 == "leds") {
+                                MicroManager::get<LedManager>().setLeds(value0.toInt(), static_cast <LedId> (value1.toInt()));
+                                server.send(200, "text/html", "OK");
+                                return;
+                            }
+                            if (arg0 == "pin") {
+                                MicroManager::get<LedManager>().setPin(value0.toInt(), static_cast <Pin> (value1.toInt()));
+                                server.send(200, "text/html", "OK");
+                                return;
+                            }
+                            String const& arg1 = server.argName(1);
+                            if (arg0 == "ssid" && server.argName(1) == "pwd") {
+                                ssid    = value0;
+                                ssidPwd = value1;
+                                server.send(200, "text/html", ssid.get() + "\n" + ssidPwd.get());
+                                return;
+                            }
+                        }
+                        case (5) : {
+                            String const& arg0 = server.argName(0);
+                            String const& value0 = server.arg(0);
+                            String const& value1 = server.arg(1);
+                            String const& value2 = server.arg(2);
+                            String const& value3 = server.arg(3);
+                            String const& value4 = server.arg(4);
+                            if (server.argName(0) == "color") {
+                                MicroManager::get<LedManager>().setColor(value0.toInt(), value1.toInt(), Color(value2.toInt(), value3.toInt(), value4.toInt()));
+                                server.send(200, "text/html", server.arg(2) + "-" + server.arg(3) + "-" + server.arg(4));
+                                return;
+                            }
+                        }
+                        case (8) : {
+                            String const& arg0 = server.argName(0);
+                            String const& value1 = server.arg(1);
+                            String const& value2 = server.arg(2);
+                            String const& value3 = server.arg(3);
+                            String const& value4 = server.arg(4);
+                            String const& value5 = server.arg(5);
+                            String const& value6 = server.arg(6);
+                            String const& value7 = server.arg(7);
+                            if (server.argName(0) == "time") {
+                                MicroManager::get<TimeManager>().setDate(Date(value1.toInt(), value2.toInt() - 1, value3.toInt() - 1, value4.toInt(), value5.toInt(), value6.toInt(), value7.toInt()));
+                                server.send(200, "text/html", "OK");
+                                return;
+                            }
+                        }
+                        server.send(404, "text/plain", "404: Not found");
                     }
                 });
+                
             //## Launching sub modules ##//
                 MicroManager::setup();
         }

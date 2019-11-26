@@ -9,4 +9,8 @@
 
     #pragma once
 
+    #ifndef NRE_HEADER_GUARD
+        #error Only include module by using NRE_USE_ROM macro and import NRE_Micro header
+    #endif
+
     #include "../ROM/Manager/NRE_RomManager.hpp"

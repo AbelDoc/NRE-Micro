@@ -37,7 +37,7 @@
         namespace Micro {
 
             typedef std::function<void(ESP8266WebServer& server)> ServerHandle;
-
+            
             /**
              * @class WebManager
              * @brief Manage a web serveur and http updater
