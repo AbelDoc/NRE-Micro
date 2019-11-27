@@ -74,8 +74,16 @@
                          */
                         virtual void loop(long delta) {
                         }
-
-                    //## Assignment Operator ##//
+                        #ifdef NRE_USE_ROM
+                            /**
+                             * Add manager data into rom
+                             */
+                            virtual void addData() {
+                            }
+                        #endif
+    
+    
+                //## Assignment Operator ##//
                         /**
                          * Copy assign forbidden
                          * @param m the module to copy

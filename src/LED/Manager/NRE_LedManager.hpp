@@ -140,13 +140,13 @@
                         void loop(long delta) override;
                         #ifdef NRE_USE_ROM
                             /**
-                             * Load controllers from rom
+                             * Load data from rom
                              */
                             void loadFromROM();
                             /**
                              * Add manager data into rom
                              */
-                            void addData();
+                            void addData() override;
                         #endif
             };
 

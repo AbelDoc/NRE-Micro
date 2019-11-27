@@ -106,6 +106,20 @@
                         }
                     }
                 });
+                
+                controllers[*(id.get())]->getModifier().setHandle([id, this](unsigned char& data) {
+                    int c = *(id.get());
+                    switch (data) {
+                        case (0) : {
+                            controllers[c]->setModifier(nullptr);
+                            break;
+                        }
+                        default : {
+                            controllers[c]->setModifier(nullptr);
+                            break;
+                        }
+                    }
+                });
 
                 return *(id.get());
             }

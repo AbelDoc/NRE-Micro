@@ -91,7 +91,7 @@
                          * Handle the loop for all modules
                          */
                         void loopModules();
-
+                        
                     //## Assignment Operator ##//
                         /**
                          * Copy assign forbidden

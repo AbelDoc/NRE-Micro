@@ -26,5 +26,9 @@
     #include "../LED/Effect/Core/NRE_RotateLinearGradiantEffect.hpp"
     #include "../LED/Effect/Core/NRE_RotateLinearRainbowEffect.hpp"
 
-    #include "../LED/Effect/Modifier/NRE_AbstractEffectModifier.hpp"
-    #include "../LED/Effect/Modifier/NRE_EffectModifier.hpp"
+    #include "../LED/Modifier/NRE_Modifier.hpp"
+
+    #ifdef NRE_USE_TIME
+        #include "../LED/Modifier/Core/NRE_TimeModifier.hpp"
+    #endif
+    

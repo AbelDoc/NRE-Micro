@@ -14,13 +14,14 @@
      #include "../../Core/NRE_Core.hpp"
 
      #include "../Effect/NRE_Effect.hpp"
+     #include "../Modifier/NRE_Modifier.hpp"
 
      #include "../../ROM/Manager/NRE_RomManager.hpp"
 
-     /**
-     * @namespace NRE
-     * @brief The NearlyRealEngine's global namespace
-     */
+    /**
+    * @namespace NRE
+    * @brief The NearlyRealEngine's global namespace
+    */
     namespace NRE {
 
         /**
@@ -39,15 +40,17 @@
              */
             class LedController {
                 private :   // Fields
-                    Adafruit_NeoPixel controller;   /**< Internal controller */
-                    LedId nbLeds;                   /**< The number of controlled leds */
-                    Pin pin;                        /**< The controller pin */
-                    Effect* lightEffect;            /**< The controller light effect */
-                    long sleepTimer;                /**< Allow the controller to sleep without impacting other module */
+                    Adafruit_NeoPixel controller;        /**< Internal controller */
+                    LedId nbLeds;                        /**< The number of controlled leds */
+                    Pin pin;                             /**< The controller pin */
+                    Effect* lightEffect;                 /**< The controller light effect */
+                    Modifier* modifier;                  /**< The controller effect modifier */
+                    long sleepTimer;                     /**< Allow the controller to sleep without impacting other module */
                     
                     ObservedData<Color> colors[6];
                     ObservedData<long> speed;
                     ObservedData<unsigned char> effect;
+                    ObservedData<unsigned char> modifierNum;
 
                 public :    // Methods
                     //## Constructor ##//
@@ -108,15 +111,20 @@
                          */
                         ObservedData<unsigned char>& getEffect();
                         /**
+                         * @return the observed modifier
+                         */
+                        ObservedData<unsigned char>& getModifier();
+                        /**
                          * @return controller infos
                          */
                         String getInfo() const;
-
-                    //## Methods ##//
+    
+                    //## Setter ##//
                         /**
-                         * Turn all leds off
+                         * Set the controller modifier
+                         * @param m the new modifier
                          */
-                        void turnOff();
+                        void setModifier(Modifier* m);
                         /**
                          * Set all leds color (and turn them on)
                          * @param color the new color
@@ -144,6 +152,12 @@
                          * @param effect the new effect
                          */
                         void setEffect(Effect* effect);
+
+                    //## Methods ##//
+                        /**
+                         * Turn all leds off
+                         */
+                        void turnOff();
                         /**
                          * Setup the controller
                          * @param startUpColor the startup color for all leds

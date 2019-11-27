@@ -24,11 +24,12 @@
             //## Configuring sub modules ##//
                 MicroManager::get<RomManager>().addData(ssid);
                 MicroManager::get<RomManager>().addData(ssidPwd);
+                MicroManager::get<TimeManager>().addData();
                 
-                MicroManager::get<LedManager>().addData();
+                //MicroManager::get<LedManager>().addData();  // Add nothing beyond LedManager ROM data
                 
                 MicroManager::get<RomManager>().setOnLoad([&]() {
-                    MicroManager::get<LedManager>().loadFromROM();
+                    //MicroManager::get<LedManager>().loadFromROM();
                     if (strlen(ssid->c_str()) != 0) {
                         MicroManager::get<WiFiManager>().addKnownNetwork(ssid, ssidPwd);
                     }
@@ -83,6 +84,7 @@
                                 server.send(200, "text/html", String(MicroManager::get<LedManager>().getNbControllers()));
                                 return;
                             }
+                            break;
                         }
                         case (2) : {
                             String const& arg0 = server.argName(0);
@@ -115,6 +117,7 @@
                                 server.send(200, "text/html", ssid.get() + "\n" + ssidPwd.get());
                                 return;
                             }
+                            break;
                         }
                         case (5) : {
                             String const& arg0 = server.argName(0);
@@ -128,6 +131,7 @@
                                 server.send(200, "text/html", server.arg(2) + "-" + server.arg(3) + "-" + server.arg(4));
                                 return;
                             }
+                            break;
                         }
                         case (8) : {
                             String const& arg0 = server.argName(0);
@@ -143,9 +147,31 @@
                                 server.send(200, "text/html", "OK");
                                 return;
                             }
+                            break;
                         }
-                        server.send(404, "text/plain", "404: Not found");
+                        case (9) : {
+                            String const& arg0 = server.argName(0);
+                            String const& value0 = server.arg(0);
+                            String const& value1 = server.arg(1);
+                            String const& value2 = server.arg(2);
+                            String const& value3 = server.arg(3);
+                            String const& value4 = server.arg(4);
+                            String const& value5 = server.arg(5);
+                            String const& value6 = server.arg(6);
+                            String const& value7 = server.arg(7);
+                            String const& value8 = server.arg(8);
+                            if (server.argName(0) == "timer") {
+                                Date stop = Date(value1.toInt(), value2.toInt() - 1, value3.toInt() - 1, value4.toInt(), value5.toInt(), value6.toInt(), value7.toInt());
+                                Date start(stop);
+                                start.add(value8.toInt(), MINUTES);
+                                MicroManager::get<LedManager>().getController(value0.toInt()).setModifier(new TimeModifier(stop, start));
+                                server.send(200, "text/html", "OK");
+                                return;
+                            }
+                            break;
+                        }
                     }
+                    server.send(404, "text/plain", "404: Not found");
                 });
                 
             //## Launching sub modules ##//
