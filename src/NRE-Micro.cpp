@@ -164,7 +164,7 @@
                                 Date stop = Date(value1.toInt(), value2.toInt() - 1, value3.toInt() - 1, value4.toInt(), value5.toInt(), value6.toInt(), value7.toInt());
                                 Date start(stop);
                                 start.add(value8.toInt(), MINUTES);
-                                MicroManager::get<LedManager>().getController(value0.toInt()).setModifier(new TimeModifier(stop, start, Date(0, 0, 0, value9.toInt(), 0, 0, 0)));
+                                MicroManager::get<LedManager>().getController(value0.toInt()).setModifier(new TimeModifier(stop, start, Date(0, 0, 0,  value9.toInt(), 0, 0, 0)));
                                 server.send(200, "text/html", "OK");
                                 return;
                             }

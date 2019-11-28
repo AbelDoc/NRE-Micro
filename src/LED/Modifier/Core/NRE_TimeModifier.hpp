@@ -56,8 +56,8 @@
                                 return 0;
                             } else {
                                 if (current > start) {
-                                    stop += current;
-                                    start += current;
+                                    stop += relaunchTimer;
+                                    start += relaunchTimer;
                                 }
                                 return color;
                             }
