@@ -55,6 +55,21 @@
                     }
                 }
             }
+    
+            inline String Date::getInfo() const {
+                return String(day + 1) + "/" + String(month + 1)+ "/" + String(year) + " at " + String(hours) + ":" + String(minutes) + ":" + String(seconds) + ":" + String(milliseconds);
+            }
+            
+            inline Date& Date::operator+=(Date const& d) {
+                for (int i = YEARS; i != INVALID; i--) {
+                    add(*(&d.milliseconds + i), static_cast <TimeUnit> (i));
+                }
+                return *this;
+            }
+            
+            inline Date Date::operator+(Date const& d) const {
+                return Date(*this) += d;
+            }
             
             inline bool Date::operator ==(Date const& d) const {
                 if (this == &d) {
@@ -78,7 +93,7 @@
                     if (unit < otherUnit) {
                         return false;
                     }
-                    current = static_cast <TimeUnit> (current + 1);
+                    current = static_cast <TimeUnit> (current - 1);
                 }
                 return false;
             }
@@ -94,7 +109,7 @@
                     if (unit > otherUnit) {
                         return false;
                     }
-                    current = static_cast <TimeUnit> (current + 1);
+                    current = static_cast <TimeUnit> (current - 1);
                 }
                 return false;
             }
@@ -118,11 +133,11 @@
             }
     
             inline String TimeManager::getInfo() const {
-                return String(current->day + 1) + "/" + String(current->month + 1)+ "/" + String(current->year) + " at " + String(current->hours) + ":" + String(current->minutes) + ":" + String(current->seconds) + ":" + String(current->milliseconds);
+                return current.getInfo();
             }
             
-            inline Date TimeManager::getCurrent() const {
-                return current.get();
+            inline Date const& TimeManager::getCurrent() const {
+                return current;
             }
     
             inline void TimeManager::setDate(Date const& ref) {
@@ -130,16 +145,8 @@
             }
     
             inline void TimeManager::loop(long delta) {
-                current->add(delta, TimeUnit::MILLISECONDS);
-                current.update();
+                current.add(delta, TimeUnit::MILLISECONDS);
             }
-
-
-            #ifdef NRE_USE_ROM
-                inline void TimeManager::addData() {
-                    MicroManager::get<RomManager>().addData(current);
-                }
-            #endif
         
         }
     }

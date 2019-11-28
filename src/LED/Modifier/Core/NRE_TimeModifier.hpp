@@ -32,15 +32,17 @@
                 private :   // Fields
                     Date stop;
                     Date start;
+                    Date relaunchTimer;
                 
                 public :    // Methods
                     //## Constructor ##//
                         /**
                          * Construct the time modifier from the given time target
-                         * @param sto the modifier stop time
-                         * @param sta the modifier start time
+                         * @param sto      the modifier stop time
+                         * @param sta      the modifier start time
+                         * @param relaunch the timer relaunch time
                          */
-                        TimeModifier(Date sto, Date sta) : stop(sto), start(sta) {
+                        TimeModifier(Date sto, Date sta, Date relaunch) : stop(sto), start(sta), relaunchTimer(relaunch) {
                         }
                         
                     //## Methods ##//
@@ -53,8 +55,19 @@
                             if (current >= stop && current <= start) {
                                 return 0;
                             } else {
+                                if (current > start) {
+                                    stop += current;
+                                    start += current;
+                                }
                                 return color;
                             }
+                        }
+                        /**
+                         * @return if the modifier has done his work
+                         */
+                        bool isFinished() override {
+                            Date const& current = MicroManager::get<TimeManager>().getCurrent();
+                            return relaunchTimer == Date(0, 0, 0, 0, 0, 0, 0) && current > start;
                         }
             };
             

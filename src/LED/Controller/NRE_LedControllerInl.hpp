@@ -21,7 +21,6 @@
                         MicroManager::get<RomManager>().addData(colors[4]);
                         MicroManager::get<RomManager>().addData(colors[5]);
                         MicroManager::get<RomManager>().addData(effect);
-                        MicroManager::get<RomManager>().addData(modifierNum);
                     }
                 #endif
             }
@@ -51,10 +50,6 @@
             
             inline ObservedData<unsigned char>& LedController::getEffect() {
                 return effect;
-            }
-            
-            inline ObservedData<unsigned char>& LedController::getModifier() {
-                return modifierNum;
             }
             
             inline String LedController::getInfo() const {
@@ -128,6 +123,12 @@
                     if (lightEffect) {
                         lightEffect->run(*this, delta);
                         controller.show();
+                    }
+                    if (modifier != nullptr) {
+                        if (modifier->isFinished()) {
+                            delete modifier;
+                            modifier = nullptr;
+                        }
                     }
                 } else {
                     if (delta <= 0) {

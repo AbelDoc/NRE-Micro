@@ -33,6 +33,10 @@
                          * @return the modified color
                          */
                         virtual Color modify(Color color) = 0;
+                        /**
+                         * @return if the modifier has done his work
+                         */
+                        virtual bool isFinished() = 0;
             };
             
         }

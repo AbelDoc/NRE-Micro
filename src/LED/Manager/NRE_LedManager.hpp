@@ -146,7 +146,7 @@
                             /**
                              * Add manager data into rom
                              */
-                            void addData() override;
+                            void addData();
                         #endif
             };
 

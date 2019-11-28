@@ -73,6 +73,12 @@
                          * @param ms the time milliseconds
                          */
                         Date(int y, int mt, int d, int h, int m, int s, int ms);
+    
+                    //## Getter ##//
+                        /**
+                         * @return the date info
+                         */
+                        String getInfo() const;
         
                     //## Methods ##//
                         /**
@@ -81,6 +87,22 @@
                          * @param unit   the time unit to add
                          */
                         void add(long amount, TimeUnit unit);
+    
+                    //## Shortcut Operator ##//
+                        /**
+                         * Compute the date resulting in the addition of the given date and this
+                         * @param d the other date
+                         * @return  a reference to this
+                         */
+                        Date& operator+=(Date const& d);
+        
+                    //## Arithmetic Operator ##//
+                        /**
+                         * Compute the date resulting in the addition of the given date and this
+                         * @param d the other date
+                         * @return  the computed date
+                         */
+                        Date operator+(Date const& d) const;
     
                     //## Comparison Operator ##//
                         /**
@@ -159,7 +181,8 @@
              */
             class TimeManager : public Module<TimeManager> {
                 private :   // Fields
-                    ObservedData<Date> current; /**< The time manager clock */
+                    Date current;     /**< The time manager clock */
+                    long writeTimer;  /**< The write timer, telling when we write the clock in the ROM */
                 
                 public :    // Methods
                     //## Constructor ##//
@@ -176,7 +199,7 @@
                         /**
                          * @return the manager clock
                          */
-                        Date getCurrent() const;
+                        Date const& getCurrent() const;
     
                     //## Setter ##//
                         /**
@@ -191,12 +214,6 @@
                          * @param delta the delta time from the last frame
                          */
                         void loop(long delta) override;
-                        #ifdef NRE_USE_ROM
-                            /**
-                             * Add manager data into rom
-                             */
-                            void addData() override;
-                        #endif
             };
 
             static TimeManager _timeManager;

@@ -50,7 +50,6 @@
                     ObservedData<Color> colors[6];
                     ObservedData<long> speed;
                     ObservedData<unsigned char> effect;
-                    ObservedData<unsigned char> modifierNum;
 
                 public :    // Methods
                     //## Constructor ##//

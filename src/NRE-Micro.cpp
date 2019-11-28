@@ -24,12 +24,11 @@
             //## Configuring sub modules ##//
                 MicroManager::get<RomManager>().addData(ssid);
                 MicroManager::get<RomManager>().addData(ssidPwd);
-                MicroManager::get<TimeManager>().addData();
                 
-                //MicroManager::get<LedManager>().addData();  // Add nothing beyond LedManager ROM data
+                MicroManager::get<LedManager>().addData();  // Add nothing beyond LedManager ROM data
                 
                 MicroManager::get<RomManager>().setOnLoad([&]() {
-                    //MicroManager::get<LedManager>().loadFromROM();
+                    MicroManager::get<LedManager>().loadFromROM();
                     if (strlen(ssid->c_str()) != 0) {
                         MicroManager::get<WiFiManager>().addKnownNetwork(ssid, ssidPwd);
                     }
@@ -149,7 +148,7 @@
                             }
                             break;
                         }
-                        case (9) : {
+                        case (10) : {
                             String const& arg0 = server.argName(0);
                             String const& value0 = server.arg(0);
                             String const& value1 = server.arg(1);
@@ -160,11 +159,12 @@
                             String const& value6 = server.arg(6);
                             String const& value7 = server.arg(7);
                             String const& value8 = server.arg(8);
+                            String const& value9 = server.arg(9);
                             if (server.argName(0) == "timer") {
                                 Date stop = Date(value1.toInt(), value2.toInt() - 1, value3.toInt() - 1, value4.toInt(), value5.toInt(), value6.toInt(), value7.toInt());
                                 Date start(stop);
                                 start.add(value8.toInt(), MINUTES);
-                                MicroManager::get<LedManager>().getController(value0.toInt()).setModifier(new TimeModifier(stop, start));
+                                MicroManager::get<LedManager>().getController(value0.toInt()).setModifier(new TimeModifier(stop, start, Date(0, 0, 0, value9.toInt(), 0, 0, 0)));
                                 server.send(200, "text/html", "OK");
                                 return;
                             }

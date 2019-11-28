@@ -74,13 +74,6 @@
                          */
                         virtual void loop(long delta) {
                         }
-                        #ifdef NRE_USE_ROM
-                            /**
-                             * Add manager data into rom
-                             */
-                            virtual void addData() {
-                            }
-                        #endif
     
     
                 //## Assignment Operator ##//
