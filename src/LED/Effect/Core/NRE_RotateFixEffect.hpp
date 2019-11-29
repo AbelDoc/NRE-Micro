@@ -53,7 +53,7 @@
                          * @param controller the master controller
                          */
                         void start(LedController& controller) override {
-                            controller.setColor(BLACK);
+                            controller.turnOff();
                         }
                         /**
                          * Called at each loop iteration
@@ -104,7 +104,7 @@
                          * @param controller the master controller
                          */
                         void stop(LedController& controller) override {
-                            controller.setColor(BLACK);
+                            controller.turnOff();
                         }
             };
 

@@ -110,6 +110,7 @@
     
             inline void LedController::turnOff() {
                 controller.clear();
+                controller.show();
             }
 
             inline void LedController::setup(Color const& startUpColor) {

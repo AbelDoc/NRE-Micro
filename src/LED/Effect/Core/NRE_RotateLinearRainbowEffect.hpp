@@ -48,7 +48,7 @@
                          * @param controller the master controller
                          */
                         void start(LedController& controller) override {
-                            controller.setColor(BLACK);
+                            controller.turnOff();
                             currents = new float[controller.getCount()];
                             startColors = new ObservedData<Color>*[controller.getCount()];
                             endColors = new ObservedData<Color>*[controller.getCount()];
@@ -133,7 +133,7 @@
                          * @param controller the master controller
                          */
                         void stop(LedController& controller) override {
-                            controller.setColor(BLACK);
+                            controller.turnOff();
                             delete[] currents;
                             delete[] currentColors;
                             delete[] startColors;

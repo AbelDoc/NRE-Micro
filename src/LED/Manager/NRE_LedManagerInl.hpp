@@ -10,7 +10,7 @@
     namespace NRE {
         namespace Micro {
             
-            inline LedManager::LedManager() : nbControllers(1), nbLeds{10, 10, 10, 10, 10, 10, 10, 10, 10, 10}, pins{15, 14, 13, 12, 11, 10, 9, 8, 7, 6} {
+            inline LedManager::LedManager() : nbControllers(1), nbLeds{10, 10, 10, 10, 10, 10, 10, 10, 10, 10}, pins{15, 14, 13, 12, 11, 10, 9, 8, 7, 6}, active(true) {
             }
 
             inline LedManager::~LedManager() {
@@ -60,6 +60,15 @@
             
             inline void LedManager::setPin(unsigned char index, Pin pin) {
                 pins[index] = pin;
+            }
+            
+            inline void LedManager::setActive(bool state) {
+                active = state;
+                if (!active) {
+                    for (LedController* controller : controllers) {
+                        controller->turnOff();
+                    }
+                }
             }
 
             inline unsigned char LedManager::addController(LedId nb, Pin pin, neoPixelType type, bool addInRom) {
@@ -117,8 +126,10 @@
             }
 
             inline void LedManager::loop(long delta) {
-                for (LedController* controller : controllers) {
-                    controller->loop(delta);
+                if (active) {
+                    for (LedController* controller : controllers) {
+                        controller->loop(delta);
+                    }
                 }
             }
 

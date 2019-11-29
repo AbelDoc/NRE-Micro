@@ -61,6 +61,11 @@
                                 return;
                             }
                             String const& value = server.arg(0);
+                            if (arg == "switch") {
+                                MicroManager::get<LedManager>().setActive(static_cast <bool> (value.toInt()));
+                                server.send(200, "text/html", "OK");
+                                return;
+                            }
                             if (arg == "debug" && value == "reset") {
                                 MicroManager::get<RomManager>().resetROM();
                                 server.send(200, "text/html", "OK");
@@ -163,8 +168,8 @@
                             if (server.argName(0) == "timer") {
                                 Date stop = Date(value1.toInt(), value2.toInt() - 1, value3.toInt() - 1, value4.toInt(), value5.toInt(), value6.toInt(), value7.toInt());
                                 Date start(stop);
-                                start.add(value8.toInt(), MINUTES);
-                                MicroManager::get<LedManager>().getController(value0.toInt()).setModifier(new TimeModifier(stop, start, Date(0, 0, 0,  value9.toInt(), 0, 0, 0)));
+                                start.add(value8.toInt(), HOURS);
+                                MicroManager::get<LedManager>().getController(value0.toInt()).setModifier(new TimeModifier(stop, start, Date(0, 0, value9.toInt(), 0, 0, 0, 0)));
                                 server.send(200, "text/html", "OK");
                                 return;
                             }

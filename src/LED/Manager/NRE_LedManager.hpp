@@ -52,6 +52,7 @@
                     ObservedData<LedId> nbLeds[MAX_CONTROLLER]; /**< The number of leds for each controllers */
                     ObservedData<Pin> pins[MAX_CONTROLLER];     /**< The pin number for each controllers */
                     std::vector<LedController*> controllers;    /**< The leds controllers */
+                    bool active;                                /**< Tell if the manager is active */
 
                 public :    // Methods
                     //## Constructor ##//
@@ -119,6 +120,11 @@
                          * @param pin   the controller pin
                          */
                         void setPin(unsigned char index, Pin pin);
+                        /**
+                         * Set the manager active state
+                         * @param state the new active state
+                         */
+                        void setActive(bool state);
 
                     //## Methods ##//
                         /**
