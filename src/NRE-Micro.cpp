@@ -12,6 +12,8 @@
     using namespace NRE::Micro;
 
     //## Program Variables ##//
+        static float CHIP_VERSION = 1.0000;
+    
         ObservedData<String> ssid("");
         ObservedData<String> ssidPwd("");
 
@@ -51,7 +53,8 @@
                                 return;
                             }
                             if (arg == "info") {
-                                server.send(200, "text/html", ssid.get() + "\n" +
+                                server.send(200, "text/html", String(CHIP_VERSION, 4) + "\n" +
+                                                              ssid.get() + "\n" +
                                                               ssidPwd.get() + "\n" +
                                                               MicroManager::get<LedManager>().getInfo());
                                 return;
