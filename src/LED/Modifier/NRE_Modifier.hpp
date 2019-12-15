@@ -28,11 +28,9 @@
             class Modifier {
                 public :    // Methods
                     //## Methods ##//
-                        /**
-                         * Apply a modification on a target color
-                         * @return the modified color
-                         */
-                        virtual Color modify(Color color) = 0;
+                        virtual void onStart() = 0;
+                        virtual void onStop() = 0;
+                        virtual void onRun() = 0;
                         /**
                          * @return if the modifier has done his work
                          */

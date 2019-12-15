@@ -10,7 +10,7 @@
     namespace NRE {
         namespace Micro {
             
-            inline LedManager::LedManager() : nbControllers(1), nbLeds{10, 10, 10, 10, 10, 10, 10, 10, 10, 10}, pins{15, 14, 13, 12, 11, 10, 9, 8, 7, 6}, active(true) {
+            inline LedManager::LedManager() : nbControllers(1), nbLeds{10, 10, 10, 10, 10, 10, 10, 10, 10, 10}, pins{15, 14, 13, 12, 11, 10, 9, 8, 7, 6}, modifier(nullptr), active(true) {
             }
 
             inline LedManager::~LedManager() {
@@ -18,6 +18,8 @@
                     delete controller;
                     controller = nullptr;
                 }
+                delete modifier;
+                modifier = nullptr;
             }
 
             inline LedController& LedManager::getController(unsigned char id) {
@@ -31,6 +33,7 @@
             inline String LedManager::getInfo() const {
                 String res(nbControllers.get());
                 res += "\n";
+                res += (active) ? ("1\n") : ("0\n");
                 for (std::size_t i = 0; i < controllers.size() - 1; i++) {
                     res += controllers[i]->getInfo() + "\n";
                 }
@@ -68,6 +71,18 @@
                     for (LedController* controller : controllers) {
                         controller->turnOff();
                     }
+                }
+            }
+            
+            inline void LedManager::setModifier(Modifier* m) {
+                if (modifier != nullptr) {
+                    modifier->onStop();
+                    delete modifier;
+                    modifier = nullptr;
+                }
+                modifier = m;
+                if (modifier != nullptr) {
+                    modifier->onStart();
                 }
             }
 
@@ -126,6 +141,14 @@
             }
 
             inline void LedManager::loop(long delta) {
+                if (modifier != nullptr) {
+                    modifier->onRun();
+                    if (modifier->isFinished()) {
+                        modifier->onStop();
+                        delete modifier;
+                        modifier = nullptr;
+                    }
+                }
                 if (active) {
                     for (LedController* controller : controllers) {
                         controller->loop(delta);

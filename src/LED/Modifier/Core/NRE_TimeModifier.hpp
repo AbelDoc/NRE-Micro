@@ -33,6 +33,7 @@
                     Date stop;
                     Date start;
                     Date relaunchTimer;
+                    bool done;
                 
                 public :    // Methods
                     //## Constructor ##//
@@ -42,24 +43,27 @@
                          * @param sta      the modifier start time
                          * @param relaunch the timer relaunch time
                          */
-                        TimeModifier(Date sto, Date sta, Date relaunch) : stop(sto), start(sta), relaunchTimer(relaunch) {
+                        TimeModifier(Date sto, Date sta, Date relaunch) : stop(sto), start(sta), relaunchTimer(relaunch), done(false) {
                         }
                         
                     //## Methods ##//
-                        /**
-                         * Apply a modification on a target color
-                         * @return the modified color
-                         */
-                        Color modify(Color color) override {
+                        void onStart() override {
+                        }
+                        void onStop() override {
+                            MicroManager::get<LedManager>().setActive(true);
+                        }
+                        void onRun() override {
                             Date const& current = MicroManager::get<TimeManager>().getCurrent();
-                            if (current >= stop && current <= start) {
-                                return 0;
+                            if (!done && current >= stop && current <= start) {
+                                MicroManager::get<LedManager>().setActive(false);
+                                done = true;
                             } else {
                                 if (current > start) {
+                                    onStop();
                                     stop += relaunchTimer;
                                     start += relaunchTimer;
+                                    done = false;
                                 }
-                                return color;
                             }
                         }
                         /**

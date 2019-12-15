@@ -10,7 +10,7 @@
      namespace NRE {
          namespace Micro {
 
-            inline LedController::LedController(LedId nb, Pin p, neoPixelType type, bool addInRom) : controller(nb, p, type), nbLeds(nb), pin(p), lightEffect(nullptr), modifier(nullptr), sleepTimer(0), colors{RED, YELLOW, GREEN, CYAN, BLUE, MAGENTA}, speed(100), effect(6) {
+            inline LedController::LedController(LedId nb, Pin p, neoPixelType type, bool addInRom) : controller(nb, p, type), nbLeds(nb), pin(p), lightEffect(nullptr), sleepTimer(0), colors{RED, YELLOW, GREEN, CYAN, BLUE, MAGENTA}, speed(100), effect(6) {
                 #ifdef NRE_USE_ROM
                     if (addInRom) {
                         MicroManager::get<RomManager>().addData(speed);
@@ -27,8 +27,6 @@
 
             inline LedController::~LedController() {
                 delete lightEffect;
-                delete modifier;
-                modifier = nullptr;
                 lightEffect = nullptr;
             }
 
@@ -64,18 +62,9 @@
                        String(colors[4]->getInfo()) + "\n" +
                        String(colors[5]->getInfo());
             }
-            
-            inline void LedController::setModifier(Modifier* m) {
-                delete modifier;
-                modifier = m;
-            }
 
             inline void LedController::setColor(Color const& color) {
-                if (modifier != nullptr) {
-                    controller.fill(modifier->modify(color).getColor(), 0, nbLeds);
-                } else {
-                    controller.fill(color.getColor(), 0, nbLeds);
-                }
+                controller.fill(color.getColor(), 0, nbLeds);
             }
 
             inline void LedController::setColor(ObservedData<Color> const& color) {
@@ -83,11 +72,7 @@
             }
 
             inline void LedController::setColor(LedId id, Color const& color) {
-                if (modifier != nullptr) {
-                    controller.setPixelColor(id, modifier->modify(color).getColor());
-                } else {
-                    controller.setPixelColor(id, color.getColor());
-                }
+                controller.setPixelColor(id, color.getColor());
             }
 
             inline void LedController::setColor(LedId id, ObservedData<Color> const& color) {
@@ -124,12 +109,6 @@
                     if (lightEffect) {
                         lightEffect->run(*this, delta);
                         controller.show();
-                    }
-                    if (modifier != nullptr) {
-                        if (modifier->isFinished()) {
-                            delete modifier;
-                            modifier = nullptr;
-                        }
                     }
                 } else {
                     if (delta <= 0) {

@@ -24,6 +24,8 @@
      #include "../Effect/Core/NRE_RotateLinearGradiantEffect.hpp"
      #include "../Effect/Core/NRE_RotateLinearRainbowEffect.hpp"
 
+     #include "../Modifier/NRE_Modifier.hpp"
+
      #include <vector>
      #include <memory>
 
@@ -52,6 +54,7 @@
                     ObservedData<LedId> nbLeds[MAX_CONTROLLER]; /**< The number of leds for each controllers */
                     ObservedData<Pin> pins[MAX_CONTROLLER];     /**< The pin number for each controllers */
                     std::vector<LedController*> controllers;    /**< The leds controllers */
+                    Modifier* modifier;                         /**< The modifier */
                     bool active;                                /**< Tell if the manager is active */
 
                 public :    // Methods
@@ -125,6 +128,7 @@
                          * @param state the new active state
                          */
                         void setActive(bool state);
+                        void setModifier(Modifier* m);
 
                     //## Methods ##//
                         /**

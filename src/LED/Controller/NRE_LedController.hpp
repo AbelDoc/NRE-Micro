@@ -14,7 +14,6 @@
      #include "../../Core/NRE_Core.hpp"
 
      #include "../Effect/NRE_Effect.hpp"
-     #include "../Modifier/NRE_Modifier.hpp"
 
      #include "../../ROM/Manager/NRE_RomManager.hpp"
 
@@ -44,7 +43,6 @@
                     LedId nbLeds;                        /**< The number of controlled leds */
                     Pin pin;                             /**< The controller pin */
                     Effect* lightEffect;                 /**< The controller light effect */
-                    Modifier* modifier;                  /**< The controller effect modifier */
                     long sleepTimer;                     /**< Allow the controller to sleep without impacting other module */
                     
                     ObservedData<Color> colors[6];
@@ -110,20 +108,11 @@
                          */
                         ObservedData<unsigned char>& getEffect();
                         /**
-                         * @return the observed modifier
-                         */
-                        ObservedData<unsigned char>& getModifier();
-                        /**
                          * @return controller infos
                          */
                         String getInfo() const;
     
                     //## Setter ##//
-                        /**
-                         * Set the controller modifier
-                         * @param m the new modifier
-                         */
-                        void setModifier(Modifier* m);
                         /**
                          * Set all leds color (and turn them on)
                          * @param color the new color

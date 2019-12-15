@@ -69,6 +69,11 @@
                                 server.send(200, "text/html", "OK");
                                 return;
                             }
+                            if (arg == "modifier" && value == "no") {
+                                MicroManager::get<LedManager>().setModifier(nullptr);
+                                server.send(200, "text/html", "OK");
+                                return;
+                            }
                             if (arg == "debug" && value == "reset") {
                                 MicroManager::get<RomManager>().resetROM();
                                 server.send(200, "text/html", "OK");
@@ -156,7 +161,7 @@
                             }
                             break;
                         }
-                        case (10) : {
+                        case (15) : {
                             String const& arg0 = server.argName(0);
                             String const& value0 = server.arg(0);
                             String const& value1 = server.arg(1);
@@ -168,11 +173,15 @@
                             String const& value7 = server.arg(7);
                             String const& value8 = server.arg(8);
                             String const& value9 = server.arg(9);
+                            String const& value10 = server.arg(10);
+                            String const& value11 = server.arg(11);
+                            String const& value12 = server.arg(12);
+                            String const& value13 = server.arg(13);
+                            String const& value14 = server.arg(14);
                             if (server.argName(0) == "timer") {
                                 Date stop = Date(value1.toInt(), value2.toInt() - 1, value3.toInt() - 1, value4.toInt(), value5.toInt(), value6.toInt(), value7.toInt());
-                                Date start(stop);
-                                start.add(value8.toInt(), HOURS);
-                                MicroManager::get<LedManager>().getController(value0.toInt()).setModifier(new TimeModifier(stop, start, Date(0, 0, value9.toInt(), 0, 0, 0, 0)));
+                                Date start = Date(value8.toInt(), value9.toInt() - 1, value10.toInt() - 1, value11.toInt(), value12.toInt(), value13.toInt(), value14.toInt());
+                                MicroManager::get<LedManager>().setModifier(new TimeModifier(stop, start, Date(0, 0, value0.toInt(), 0, 0, 0, 0)));
                                 server.send(200, "text/html", "OK");
                                 return;
                             }
