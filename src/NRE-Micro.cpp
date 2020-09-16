@@ -20,8 +20,8 @@
     //## Setup ##//
         void setup() {
             //## Observed String need to be resized to an upper limit ##//
-                ObservedData<String>::resizeString(ssid,    50);
-                ObservedData<String>::resizeString(ssidPwd, 50);
+                ObservedData<String>::resizeString(ssid,    100);
+                ObservedData<String>::resizeString(ssidPwd, 100);
 
             //## Configuring sub modules ##//
                 MicroManager::get<RomManager>().addData(ssid);

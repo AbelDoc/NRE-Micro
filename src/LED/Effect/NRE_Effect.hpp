@@ -29,6 +29,18 @@
              */
             class Effect {
                 public :    // Methods
+                    //## Constructor ##//
+                        /**
+                         * Default constructor
+                         */
+                        constexpr Effect() = default;
+                        
+                    //## Deconstructor ##//
+                        /**
+                         * Effect Deconstructor
+                         */
+                        virtual ~Effect() = default;
+                        
                     //## Methods ##//
                         /**
                          * Called when the effect is set to a controller

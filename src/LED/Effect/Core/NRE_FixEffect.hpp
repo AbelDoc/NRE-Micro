@@ -33,7 +33,7 @@
                         /**
                          * Default constructor
                          */
-                        FixEffect() = default;
+                        constexpr FixEffect() = default;
 
                     //## Methods ##//
                         /**

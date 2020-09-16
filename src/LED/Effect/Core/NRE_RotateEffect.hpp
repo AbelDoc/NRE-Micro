@@ -38,7 +38,7 @@
                          * Construct the effect
                          * @param clockwiseEffect tell if the effect is rotating clockwise or not
                          */
-                        RotateEffect(bool clockwiseEffect = true) : current(0), clockwise(clockwiseEffect) {
+                        constexpr RotateEffect(bool clockwiseEffect = true) : current(0), clockwise(clockwiseEffect) {
                         }
 
                     //## Methods ##//

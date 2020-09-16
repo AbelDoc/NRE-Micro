@@ -39,7 +39,7 @@
                         /**
                          * Construct the effect
                          */
-                        RotateLinearRainbowEffect() : startColors(nullptr), endColors(nullptr), currents(nullptr), currentColors(nullptr) {
+                        constexpr RotateLinearRainbowEffect() : startColors(nullptr), endColors(nullptr), currents(nullptr), currentColors(nullptr) {
                         }
 
                     //## Methods ##//

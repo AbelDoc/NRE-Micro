@@ -37,7 +37,7 @@
                         /**
                          * Construct the effect from the fix color
                          */
-                        RotateLinearEffect() : currents(nullptr),  downs(nullptr) {
+                        constexpr RotateLinearEffect() : currents(nullptr),  downs(nullptr) {
                         }
 
                     //## Methods ##//

@@ -37,7 +37,7 @@
                         /**
                          * Construct the effect
                          */
-                        RotateLinearGradiantEffect() : currents(nullptr),  downs(nullptr) {
+                        constexpr RotateLinearGradiantEffect() : currents(nullptr),  downs(nullptr) {
                         }
 
                     //## Methods ##//

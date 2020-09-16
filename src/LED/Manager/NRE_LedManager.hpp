@@ -158,6 +158,9 @@
                              */
                             void addData();
                         #endif
+                        
+                private :   // Static
+                    static const Effect* effects;
             };
 
             static LedManager _ledManager;

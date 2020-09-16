@@ -41,7 +41,7 @@
                          * @param clockwiseEffect    tell if the effect is rotating clockwise or not
                          * @param negateOrFillEffect tell if the effect turn all leds off when a cycle is complete or if each led is turn off in the next cycle
                          */
-                        RotateFixEffect(bool clockwiseEffect = true, bool negateOrFillEffect = false) : current(0), clockwise(clockwiseEffect), negateOrFill(negateOrFillEffect), cycleComplete(false) {
+                        constexpr RotateFixEffect(bool clockwiseEffect = true, bool negateOrFillEffect = false) : current(0), clockwise(clockwiseEffect), negateOrFill(negateOrFillEffect), cycleComplete(false) {
                             if (clockwise) {
                                 cycleComplete = true;
                             }

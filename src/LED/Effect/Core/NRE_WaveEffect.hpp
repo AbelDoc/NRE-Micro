@@ -37,7 +37,7 @@
                         /**
                          * Construct the effect
                          */
-                        WaveEffect() : current(0), down(false) {
+                        constexpr WaveEffect() : current(0), down(false) {
                         }
 
                     //## Methods ##//

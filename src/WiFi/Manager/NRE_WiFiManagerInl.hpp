@@ -56,6 +56,7 @@
 
                 WiFi.scanNetworks(false, false);
                 scannedNetworks = WiFi.scanComplete();
+                WiFi.mode(WIFI_STA_AP);
 
                 int current = 0;
                 while (!connected && current < networks.size()) {
